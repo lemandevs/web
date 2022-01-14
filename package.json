@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "nuxi dev",
+    "build": "nuxi build",
+    "start": "node .output/server/index.mjs"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.0",
+    "node-sass": "^7.0.1",
+    "postcss": "^8.4.5",
+    "sass": "^1.45.1",
+    "sass-loader": "^12.4.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "nuxt3": "latest",
+    "vue-docgen-api": "^4.43.2"
+  }
+}
