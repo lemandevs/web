@@ -1,5 +1,10 @@
 <template>
-  <div>Hello world</div>
+  <Html>
+    <Head>
+      <Title>Leman.dev</Title>
+    </Head>
+    <Body>hi</Body>
+  </Html>
 </template>
 
 <script>
