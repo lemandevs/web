@@ -3,7 +3,7 @@
     <Head>
       <Title>Leman.dev</Title>
     </Head>
-    <Body>hi</Body>
+    <Body>Leman.dev</Body>
   </Html>
 </template>
 
