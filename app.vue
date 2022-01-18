@@ -3,7 +3,9 @@
     <Head>
       <Title>Leman.dev</Title>
     </Head>
-    <Body>Leman.dev</Body>
+    <Body>
+      <NuxtPage />
+    </Body>
   </Html>
 </template>
 
