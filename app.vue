@@ -1,5 +1,5 @@
 <template>
-  <Html>
+  <Html class="dark">
     <Head>
       <Title>Leman.dev</Title>
     </Head>

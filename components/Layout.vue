@@ -1,6 +1,5 @@
 <template>
   <div :class="classes">
-    <div class="WaterMark">Leman.dev</div>
     <slot></slot>
   </div>
 </template>
@@ -18,9 +17,9 @@ const classes = defineClasses('Layout')
 
 <style lang="scss">
 .Layout {
-  --layout-bg-color: rgba(26, 26, 99, 0.4);
+  --layout-bg-color: var(--color-primary-rgba);
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   flex-direction: column;
   position: relative;
@@ -54,18 +53,6 @@ const classes = defineClasses('Layout')
 
   #Overlays > * {
     pointer-events: auto;
-  }
-  .WaterMark {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    font-size: 0.5em;
-    padding: 0.5em 1em;
-    color: black;
-    border: 1px solid black;
-    border-radius: 4px;
-    opacity: 0.1;
-    box-shadow: 0px 0px 4px 0px black;
   }
 }
 </style>

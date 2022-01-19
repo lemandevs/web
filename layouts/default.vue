@@ -1,9 +1,7 @@
 <template>
-  <Layout :variant="variant"
-    ><button @click="variant = variant === 'default' ? 'clear' : 'default'">
-      variant</button
-    ><slot></slot
-  ></Layout>
+  <Layout :variant="variant">
+    <slot></slot>
+  </Layout>
 </template>
 
 <script>

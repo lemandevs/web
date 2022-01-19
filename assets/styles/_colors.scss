@@ -1,0 +1,21 @@
+:root {
+  --color-emphatic-rgb: 5, 148, 103;
+  --color-primary-rgb: 15, 23, 42;
+  --color-secondary-rgb: 15, 23, 42;
+  --color-surface-rgb: 209, 213, 219;
+  --color-background-rgb: 255, 255, 255;
+}
+.dark:root {
+  --color-emphatic-rgb: 52, 211, 153;
+  --color-primary-rgb: 249, 250, 251;
+  --color-secondary-rgb: 209, 213, 219;
+  --color-surface-rgb: 75, 85, 99;
+  --color-background-rgb: 37, 65, 74;
+}
+:root {
+  --color-emphatic: rgb(var(--color-emphatic-rgb));
+  --color-primary: rgb(var(--color-primary-rgb));
+  --color-secondary: rgb(var(--color-secondary-rgb));
+  --color-background: rgb(var(--color-background-rgb));
+  --color-surface: rgb(var(--color-surface-rgb));
+}
