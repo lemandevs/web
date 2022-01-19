@@ -17,7 +17,7 @@ const classes = defineClasses('Layout')
 
 <style lang="scss">
 .Layout {
-  --layout-bg-color: var(--color-primary-rgba);
+  --layout-bg-color: var(--color-background);
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -26,7 +26,7 @@ const classes = defineClasses('Layout')
   min-height: 100vh;
   width: 100%;
 
-  background-color: var(--bg-primary);
+  background-color: var(--layout-bg-color);
 
   transition-property: background-color;
   transition-duration: 200ms;

@@ -9,8 +9,14 @@
   --color-emphatic-rgb: 52, 211, 153;
   --color-primary-rgb: 249, 250, 251;
   --color-secondary-rgb: 209, 213, 219;
-  --color-surface-rgb: 75, 85, 99;
-  --color-background-rgb: 37, 65, 74;
+  --color-surface-rgb: 37, 65, 74;
+  --color-background-rgb: 25, 40, 45;
+
+  --color-on-emphatic-rgb: 37, 65, 74;
+  --color-on-primary-rgb: 37, 65, 74;
+  --color-on-secondary-rgb: 37, 65, 74;
+  --color-on-surface-rgb: 249, 250, 251;
+  --color-on-background-rgb: 249, 250, 251;
 }
 :root {
   --color-emphatic: rgb(var(--color-emphatic-rgb));
@@ -18,4 +24,10 @@
   --color-secondary: rgb(var(--color-secondary-rgb));
   --color-background: rgb(var(--color-background-rgb));
   --color-surface: rgb(var(--color-surface-rgb));
+
+  --color-on-emphatic: rgb(var(--color-on-emphatic-rgb));
+  --color-on-primary: rgb(var(--color-on-primary-rgb));
+  --color-on-secondary: rgb(var(--color-on-secondary-rgb));
+  --color-on-background: rgb(var(--color-on-background-rgb));
+  --color-on-surface: rgb(var(--color-on-surface-rgb));
 }
