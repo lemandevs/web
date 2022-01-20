@@ -2,7 +2,9 @@
   <div :class="classes">
     <span class="Title"
       >PROXIMAMENTE
-      <span class="Light" />
+      <span class="Reflect"></span>
+      <span class="Light"></span>
+      <span class="Reflect"></span>
     </span>
     <a class="GithubLink" href="https://github.com/lemandevs">
       <svg
@@ -33,18 +35,20 @@ const classes = defineClasses('ComingSoon')
   0% {
     background-position: -0% center;
   }
-  50% {
-    background-position: 100% center;
-  }
   100% {
-    background-position: -0% center;
+    background-position: 100% center;
   }
 }
 @keyframes light {
   0% {
     left: 100%;
   }
-  50% {
+  100% {
+    left: -20%;
+  }
+}
+@keyframes reflect {
+  0% {
     left: -20%;
   }
   100% {
@@ -63,6 +67,17 @@ const classes = defineClasses('ComingSoon')
   }
 }
 
+.Title,
+.Light {
+  animation-duration: 5s;
+  animation-timing-function: ease;
+  animation-delay: 0s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-fill-mode: both;
+  animation-play-state: running;
+}
+
 .ComingSoon {
   display: flex;
   align-items: center;
@@ -71,47 +86,49 @@ const classes = defineClasses('ComingSoon')
   flex-grow: 1;
   .Title {
     position: relative;
-    font-size: 2rem;
-    background: rgb(2, 0, 36);
+    font-size: 5em;
+    background-color: transparent;
+    color: transparent;
     background: linear-gradient(
       to right,
-      rgba(var(--color-surface-rgb, 0.5)) 25%,
-      var(--color-primary) 33%,
-      var(--color-primary) 66%,
-      rgba(var(--color-surface-rgb, 0.5)) 75%
+      transparent 30%,
+      rgba(var(--color-surface-rgb, 0.1)) 40%,
+      var(--color-primary) calc(50% - 50px),
+      var(--color-primary) calc(50% + 50px),
+      rgba(var(--color-surface-rgb, 0.1)) 60%,
+      transparent 70%
     );
     background-size: 200% auto;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation-duration: 20s;
-    animation-timing-function: ease;
-    animation-delay: 0s;
-    animation-iteration-count: infinite;
-    animation-direction: normal;
-    animation-fill-mode: both;
-    animation-play-state: running;
     animation-name: shine;
+    .Reflect,
     .Light {
       position: absolute;
       top: 50%;
       transform: translate3d(0, -50%, 0);
       width: 100px;
       height: 100px;
-      background: white;
       border-radius: 9999px;
       opacity: 0.2;
+    }
+
+    .Light {
+      background: white;
+      animation-name: light;
       box-shadow: 0px 0px 45px 45px white, 0px 0px 100px 100px white,
         inset 0px 0px 45px 45px white;
+      opacity: 0.2;
+    }
+    .Reflect {
+      display: none;
       animation-name: light;
-      animation-duration: 20s;
-      animation-timing-function: ease;
-      animation-delay: 0s;
-      animation-iteration-count: infinite;
-      animation-direction: normal;
-      animation-fill-mode: both;
-      animation-play-state: running;
-      backdrop-filter: invert(2);
-      -webkit-backdrop-filter: invert(2);
+      animation-direction: alternate-reverse;
+      box-shadow: 0px 0px 2px 2px red, inset 0px 0px 2px 2px red,
+        inset 0px 0px 1px 1px red;
+      width: 100px;
+      height: 100px;
+      background: red;
     }
   }
 }
