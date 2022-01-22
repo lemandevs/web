@@ -31,7 +31,7 @@ export default {
 .AppearOut-leave-active {
   transition-property: all;
   transition-timing-function: ease-in-out;
-  transition-duration: 200ms;
+  transition-duration: 500ms;
 }
 
 .Appear-enter-from,

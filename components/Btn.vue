@@ -1,0 +1,310 @@
+<template>
+  <button :class="classes" :disabled="loading">
+    <EffectClick class="ClickEffect" />
+    <slot></slot>
+    {{ text }}
+    <Icon
+      class="ButtonIcon"
+      v-if="icon"
+      :name="icon"
+      :variant="variant"
+      :level="level"
+      :active="active"
+      :size="size"
+    />
+    <TransitionAppear>
+      <Icon
+        v-show="loading"
+        name="Loader"
+        class="ButtonLoader Absolute_center"
+        :size="size"
+      />
+    </TransitionAppear>
+  </button>
+</template>
+
+<script setup>
+/**
+ * Component description
+ */
+const props = defineProps({
+  /**
+   * Variant description
+   */
+  variant: {
+    type: String,
+    default: 'clear',
+    class: true,
+    validator(value) {
+      return ['clear', 'fill', 'bordered'].includes(value)
+    },
+  },
+  /**
+   * rounded description
+   */
+  rounded: {
+    type: Boolean,
+    class: true,
+    default: false,
+  },
+  /**
+   * Level description
+   */
+  level: {
+    type: String,
+    default: 'primary',
+    class: true,
+    validator(value) {
+      return ['emphatic', 'primary', 'secondary', 'danger'].includes(value)
+    },
+  },
+  /**
+   * Size description
+   */
+  size: {
+    type: String,
+    default: 'medium',
+    class: true,
+    validator(value) {
+      return ['tiny', 'small', 'medium', 'large', 'big', 'huge'].includes(value)
+    },
+  },
+  /**
+   * Alias description
+   */
+  text: {
+    type: String,
+    default: '',
+  },
+  /**
+   * Icon description
+   */
+  icon: {
+    type: String,
+    default: null,
+  },
+  /**
+   * Loading description
+   */
+  loading: {
+    type: Boolean,
+    class: true,
+    default: false,
+  },
+  /**
+   * Active description
+   */
+  active: {
+    type: Boolean,
+    class: true,
+    default: false,
+  },
+})
+const classes = defineClasses('Button')
+</script>
+
+<style lang="scss">
+.Button {
+  outline: none;
+  display: inline-flex;
+  border: none;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+
+  $btn-bg-color: var(--bg-primary);
+  $btn-border-color: var(--text-primary);
+  $btn-bg-opacity: 0;
+  $btn-text-color: var(--text-primary);
+
+  color: $btn-text-color;
+  background-color: rgba($btn-bg-color, $btn-bg-opacity);
+
+  &,
+  &:before,
+  .Shape,
+  .ButtonIcon,
+  .ButtonContent {
+    transition-property: all;
+    transition-duration: 200ms;
+    transition-timing-function: ease-in-out;
+  }
+
+  &[class*='tiny'] {
+    min-height: 2rem;
+    min-width: 2rem;
+  }
+
+  &[class*='small'] {
+    min-height: 2.5rem;
+    min-width: 2.5rem;
+  }
+
+  &[class*='medium'] {
+    min-height: 3rem;
+    min-width: 3rem;
+  }
+
+  &[class*='large'] {
+    min-height: 3.5rem;
+    min-width: 3.5rem;
+  }
+
+  &[class*='big'] {
+    min-height: 4rem;
+    min-width: 4rem;
+  }
+
+  &[class*='huge'] {
+    min-height: 6rem;
+    min-width: 6rem;
+  }
+
+  &_rounded {
+    border-radius: 6rem;
+  }
+
+  &_emphatic {
+    &[class*='fill'] {
+      color: var(--bg-primary);
+      background-color: var(--color-emphatic);
+
+      &:focus,
+      &:active,
+      &:hover {
+        transform: scale(1.15);
+        box-shadow: 0px 0px 2px 2px black;
+      }
+    }
+    &[class*='clear'] {
+      --bg-opacity: 0;
+      color: var(--text-emphatic);
+      background-color: rgba(var(--color-emphatic-rgb), var(--bg-opacity));
+      &:focus,
+      &:active,
+      &:hover {
+        --bg-opacity: 0.25;
+      }
+    }
+  }
+
+  &_primary {
+    &[class*='fill'] {
+      color: var(--bg-primary);
+      background-color: var(--color-primary);
+      &:focus,
+      &:active,
+      &:hover {
+        transform: scale(1.15);
+      }
+    }
+    &[class*='clear'] {
+      --bg-opacity: 0;
+      color: var(--color-primary);
+      background-color: rgba(var(--color-primary-rgb), var(--bg-opacity));
+      &:hover {
+        --bg-opacity: 0.25;
+      }
+      &:focus {
+        --bg-opacity: 0.25;
+        box-shadow: 0px 0px 2px 2px rgba(var(--color-primary-rgb), 0.25),
+          0px 0px 4px 4px rgba(var(--color-primary-rgb), 0.25);
+      }
+      &:active {
+        --bg-opacity: 0.5;
+        box-shadow: 0px 0px 2px 2px var(--color-primary),
+          0px 0px 4px 4px var(--color-primary);
+      }
+    }
+  }
+
+  &_secondary {
+    &[class*='fill'] {
+      color: var(--bg-secondary);
+      background-color: var(--color-secondary);
+      &:focus,
+      &:active,
+      &:hover {
+        --bg-opacity: 1;
+      }
+    }
+    &[class*='clear'] {
+      --bg-opacity: 0;
+      color: var(--text-primary);
+      background-color: rgba(var(--color-primary-rgb), var(--bg-opacity));
+      &:focus,
+      &:active,
+      &:hover {
+        --bg-opacity: 0.25;
+      }
+    }
+  }
+
+  &_loading > *:not(.ButtonLoader) {
+    opacity: 0;
+  }
+
+  &_text {
+    &_tiny {
+      padding: 0 0.75rem;
+      .ButtonIcon {
+        margin-left: 0.75rem;
+      }
+    }
+    &_small {
+      padding: 0 1rem;
+      .ButtonIcon {
+        margin-left: 1rem;
+      }
+    }
+    &_medium {
+      padding: 0 1.5rem;
+      .ButtonIcon {
+        margin-left: 1.5rem;
+      }
+    }
+    &_large {
+      padding: 0 2rem;
+      .ButtonIcon {
+        margin-left: 2rem;
+      }
+    }
+    &_big {
+      padding: 0 2.5rem;
+      .ButtonIcon {
+        margin-left: 2.5rem;
+      }
+    }
+    &_huge {
+      padding: 0 3rem;
+      .ButtonIcon {
+        margin-left: 3rem;
+      }
+    }
+  }
+
+  &_icon {
+    padding: 0;
+    &_tiny {
+      width: 2rem;
+    }
+    &_small {
+      width: 2.5rem;
+    }
+    &_medium {
+      width: 3rem;
+    }
+    &_large {
+      width: 3.5rem;
+    }
+    &_big {
+      width: 4rem;
+    }
+    &_huge {
+      width: 6rem;
+    }
+  }
+}
+</style>

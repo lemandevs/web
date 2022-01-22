@@ -1,36 +1,30 @@
 <template>
   <div :class="classes">
-    <span class="Title"
-      >PROXIMAMENTE
-      <span class="Reflect"></span>
-      <span class="Light"></span>
-      <span class="Reflect"></span>
-    </span>
-    <a class="GithubLink" href="https://github.com/lemandevs">
-      <svg
-        viewBox="0 0 14 14"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        version="1.1"
-        baseProfile="full"
-      >
-        <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M7.02751 0.333496C3.34571 0.333496 0.333332 3.40836 0.333332 7.16653C0.333332 10.1845 2.23002 12.7468 4.90769 13.6579C5.2424 13.7149 5.35397 13.4871 5.35397 13.3163C5.35397 13.1454 5.35397 12.7468 5.35397 12.1774C3.51307 12.576 3.12257 11.2664 3.12257 11.2664C2.84365 10.4692 2.39737 10.2414 2.39737 10.2414C1.72795 9.8428 2.39737 9.8428 2.39737 9.8428C3.06679 9.89974 3.4015 10.5261 3.4015 10.5261C4.01513 11.5511 4.96347 11.2664 5.35397 11.0955C5.40975 10.64 5.57711 10.3553 5.80024 10.1845C4.29405 10.0136 2.73208 9.44421 2.73208 6.82488C2.73208 6.08463 3.011 5.45827 3.4015 5.00274C3.4015 4.77497 3.12257 4.09166 3.51307 3.18059C3.51307 3.18059 4.07091 3.00977 5.35397 3.8639C5.91181 3.69307 6.46966 3.63613 7.02751 3.63613C7.58536 3.63613 8.14321 3.69307 8.70105 3.8639C9.98411 2.95283 10.542 3.18059 10.542 3.18059C10.9324 4.14861 10.6535 4.83191 10.5977 5.00274C11.044 5.45827 11.2672 6.08463 11.2672 6.82488C11.2672 9.44421 9.70518 10.0136 8.19899 10.1845C8.42213 10.4122 8.64527 10.8108 8.64527 11.4372C8.64527 12.3482 8.64527 13.0885 8.64527 13.3163C8.64527 13.4871 8.75684 13.7149 9.09155 13.6579C11.7692 12.7468 13.6659 10.1845 13.6659 7.16653C13.7217 3.40836 10.7093 0.333496 7.02751 0.333496Z"
-          fill="currentColor"
-        ></path>
-      </svg>
-    </a>
+    <span class="Title" data-text="PROXIMAMENTE"> PROXIMAMENTE </span>
+    <CssAbsolute position="bottom" align="end" :offsetX="24" :offsetY="24">
+      <ClientOnly>
+        <WidgetsSocialNetworks />
+      </ClientOnly>
+    </CssAbsolute>
   </div>
 </template>
 
 <script setup>
 const props = defineProps({})
 const classes = defineClasses('ComingSoon')
+const open = ref('asdf')
+const widgetsSocialNetworksVisible = ref(true)
 </script>
 
 <style lang="scss">
+@keyframes shadow {
+  0% {
+    background-position: -0% center;
+  }
+  100% {
+    background-position: 100% center;
+  }
+}
 @keyframes shine {
   0% {
     background-position: -0% center;
@@ -55,12 +49,9 @@ const classes = defineClasses('ComingSoon')
     left: 100%;
   }
 }
-.GithubLink {
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
+.SSNNLink {
   transition: color 0.3s ease-in-out;
-  width: 2rem;
+  padding: 1rem;
   color: var(--color-primary);
   &:hover {
     color: var(--color-emphatic);
@@ -68,6 +59,8 @@ const classes = defineClasses('ComingSoon')
 }
 
 .Title,
+.Title:before,
+.Title:after,
 .Light {
   animation-duration: 5s;
   animation-timing-function: ease;
@@ -83,25 +76,62 @@ const classes = defineClasses('ComingSoon')
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding: 0 24px;
   flex-grow: 1;
   .Title {
     position: relative;
     font-size: 5em;
+    font-size: clamp(1rem, 10vw, 5rem);
     background-color: transparent;
     color: transparent;
     background: linear-gradient(
-      to right,
-      transparent 30%,
-      rgba(var(--color-surface-rgb, 0.1)) 40%,
-      var(--color-primary) calc(50% - 50px),
-      var(--color-primary) calc(50% + 50px),
-      rgba(var(--color-surface-rgb, 0.1)) 60%,
-      transparent 70%
-    );
+        78deg,
+        transparent calc(50% - 8px),
+        var(--color-primary) calc(50% - 8px),
+        var(--color-primary) calc(50% + 8px),
+        transparent calc(50% + 8px)
+      ),
+      linear-gradient(
+        to right,
+        transparent 30%,
+        rgba(var(--color-surface-rgb, 0.1)) 40%,
+        var(--color-primary) calc(50% - 50px),
+        var(--color-primary) calc(50% + 50px),
+        rgba(var(--color-surface-rgb, 0.1)) 60%,
+        transparent 70%
+      );
     background-size: 200% auto;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     animation-name: shine;
+    &:before {
+      content: attr(data-text);
+      z-index: -1;
+
+      position: absolute;
+      left: 0;
+      top: -20px;
+
+      color: black;
+      font-size: 5em;
+      font-size: clamp(1rem, 10vw, 5rem);
+
+      background-color: transparent;
+      background: linear-gradient(
+        to right,
+        transparent 30%,
+        rgba(var(--color-surface-rgb, 0.1)) 40%,
+        black calc(50% - 50px),
+        black calc(50% + 50px),
+        rgba(var(--color-surface-rgb, 0.1)) 60%,
+        transparent 70%
+      );
+      background-size: 200% auto;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      animation-name: shadow;
+    }
     .Reflect,
     .Light {
       position: absolute;
@@ -114,6 +144,7 @@ const classes = defineClasses('ComingSoon')
     }
 
     .Light {
+      filter: blur(100px);
       background: white;
       animation-name: light;
       box-shadow: 0px 0px 45px 45px white, 0px 0px 100px 100px white,

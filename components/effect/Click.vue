@@ -14,8 +14,16 @@ import { nextTick } from 'vue'
 let beatsCount = 111
 export default {
   name: 'EffectClick',
+  props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+      class: true,
+    },
+  },
   setup(props) {
-    return defineClasses('')
+    const classes = defineClasses('EffectClick')
+    return { classes }
   },
   data() {
     return {
@@ -95,7 +103,7 @@ export default {
   .Beat-enter-active,
   .Beat-leave-active {
     transition-property: all;
-    transition-duration: 200ms;
+    transition-duration: 1000ms;
     transition-timing-function: linear;
     transform: translate3d(-50%, -50%, 0) scale(5);
     opacity: 0;

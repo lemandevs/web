@@ -1,14 +1,16 @@
 import { computed } from 'vue'
 
-const classDefinitionToString = ({ name, type, value }) => {
+const getClassString = ({ name, type, value, alias, separator }) => {
   if (value) {
     switch (type) {
+      case Array:
+        return `${alias}${separator}${value.join(separator)}`
       case String:
       case Number:
-        return value
+        return `${alias}${separator}${value}`
       case Boolean:
       default:
-        return name
+        return `${alias}${separator}${name}`
     }
   }
 }
@@ -19,18 +21,22 @@ export default function (alias, options = { separator: '_' }) {
   const props = instance.props
   return computed(() => [
     alias,
-    ...Object.entries(propsDefinition)
-      .map(([name, { class: _class, type }]) => ({
-        name,
-        type,
-        class: _class,
-        value: props[name],
-      }))
-      .filter(({ class: _class, value }) => _class && value)
-      .map(({ name, type, value }) =>
-        [alias, classDefinitionToString({ name, type, value })].join(
-          options.separator
-        )
-      ),
+    ...Object.entries(propsDefinition).reduce(
+      (classes, [name, prop]) => [
+        ...classes,
+        ...(prop.class && props[name]
+          ? [
+              getClassString({
+                name,
+                alias,
+                type: prop.type,
+                value: props[name],
+                separator: options.separator,
+              }),
+            ]
+          : []),
+      ],
+      []
+    ),
   ])
 }

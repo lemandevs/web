@@ -27,9 +27,6 @@ const classes = defineClasses('Chevron')
   position: relative;
   width: 100%;
   height: 100%;
-  &_rotate {
-    transform: rotate(-90deg);
-  }
   .Shape {
     position: absolute;
     width: 66%;

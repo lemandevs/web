@@ -1,6 +1,7 @@
 <template>
   <div :class="classes">
     <slot></slot>
+    <div id="Overlays" />
   </div>
 </template>
 
@@ -18,6 +19,8 @@ const classes = defineClasses('Layout')
 <style lang="scss">
 .Layout {
   --layout-bg-color: var(--color-background);
+  --layout-bg-from-gradient-color: var(--color-background);
+  --layout-bg-to-gradient-color: var(--color-surface);
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -25,8 +28,13 @@ const classes = defineClasses('Layout')
   position: relative;
   min-height: 100vh;
   width: 100%;
-
+  overflow: hidden;
   background-color: var(--layout-bg-color);
+  background-image: radial-gradient(
+    circle,
+    var(--color-background) 50%,
+    var(--color-surface) 100%
+  );
 
   transition-property: background-color;
   transition-duration: 200ms;
@@ -49,6 +57,14 @@ const classes = defineClasses('Layout')
     height: 100%;
 
     pointer-events: none;
+    :not(:empty):before {
+      content: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
   }
 
   #Overlays > * {
