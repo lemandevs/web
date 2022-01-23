@@ -1,6 +1,6 @@
 <template>
   <div :class="classes">
-    <span class="Title" data-text="PROXIMAMENTE"> PROXIMAMENTE </span>
+    <span class="Title"> LEMAN.DEV </span>
     <CssAbsolute position="bottom" align="end" :offsetX="24" :offsetY="24">
       <ClientOnly>
         <WidgetsSocialNetworks />

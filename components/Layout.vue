@@ -29,12 +29,7 @@ const classes = defineClasses('Layout')
   min-height: 100vh;
   width: 100%;
   overflow: hidden;
-  background-color: var(--layout-bg-color);
-  background-image: radial-gradient(
-    circle,
-    var(--color-background) 50%,
-    var(--color-surface) 100%
-  );
+  background-color: var(--color-background);
 
   transition-property: background-color;
   transition-duration: 200ms;
