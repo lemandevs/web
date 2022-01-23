@@ -2,6 +2,7 @@
   <OverlayDropdown
     :visible="visible"
     :css="false"
+    width="small"
     @close="visible = false"
     @open="visible = true"
     @leave-cancelled="leaveCancelled"
@@ -20,8 +21,12 @@
     </template>
     <template #content>
       <div :class="classes">
-        <div class="item">Dark mode</div>
-        <div class="item">Language</div>
+        <FormField
+          label="Language"
+          type="select"
+          v-model:value="currentLanguage"
+          :options="languages"
+        />
       </div>
     </template>
   </OverlayDropdown>
@@ -33,7 +38,22 @@ const classes = defineClasses('WidgetAppSettings')
 
 const visible = ref(false)
 
-const socialNetworks = await fetch(`/api/social-networks`).then((r) => r.json())
+const { language, setLanguage } = i18n()
+
+const currentLanguage = computed({
+  get() {
+    return language.value
+  },
+  set(value) {
+    setLanguage(value)
+  },
+})
+
+const languages = await fetch(`/api/languages`)
+  .then((r) => r.json())
+  .then((languages) =>
+    languages.map(({ code: value, label }) => ({ value, label }))
+  )
 </script>
 
 <style lang="scss">
@@ -45,8 +65,7 @@ const socialNetworks = await fetch(`/api/social-networks`).then((r) => r.json())
   padding: 1rem;
   border-radius: 1rem;
 
-  backdrop-filter: blur(50px);
-  background: rgba(var(--color-primary-rgb), 0.05);
+  background: var(--color-surface);
 
   overflow: auto;
 

@@ -5,16 +5,8 @@ export default async (req, res) => {
       icon: 'Github',
     },
     {
-      href: 'https://twitch.com/lemandevs',
-      icon: 'Twitch',
-    },
-    {
-      href: 'https://youtube.com/lemandevs',
-      icon: 'YouTube',
-    },
-    {
-      href: 'https://instagram.com/leman.dev',
-      icon: 'Instagram',
+      href: 'https://www.linkedin.com/in/josempineiro/',
+      icon: 'LinkedIn',
     },
   ]
 }

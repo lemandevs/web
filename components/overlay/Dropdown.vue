@@ -204,9 +204,11 @@ export default {
   position: absolute;
   width: auto;
   overflow: auto;
-
   --translate-y: 0;
   --translate-x: 0;
+  &_small {
+    min-width: 220px;
+  }
 
   &_top {
     --translate-y: -100%;
