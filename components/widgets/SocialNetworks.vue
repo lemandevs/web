@@ -1,7 +1,5 @@
 <template>
   <OverlayDropdown
-    position="left"
-    align="middle"
     :visible="visible"
     :css="false"
     @close="visible = false"

@@ -63,7 +63,11 @@ const classes = defineClasses('Absolute')
     }
     &.Absolute_end {
       left: 100%;
-      transform: translate3d(var(--offset-x), calc(-100% - var(--offset-y)), 0);
+      transform: translate3d(
+        calc(-100% - var(--offset-x)),
+        calc(var(--offset-y)),
+        0
+      );
     }
   }
   &_center {

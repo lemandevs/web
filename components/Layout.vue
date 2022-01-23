@@ -1,6 +1,16 @@
 <template>
   <div :class="classes">
     <slot></slot>
+    <CssAbsolute position="top" align="end" :offsetX="24" :offsetY="24">
+      <ClientOnly>
+        <WidgetsAppSettings position="bottom" align="end" />
+      </ClientOnly>
+    </CssAbsolute>
+    <CssAbsolute position="bottom" align="end" :offsetX="24" :offsetY="24">
+      <ClientOnly>
+        <WidgetsSocialNetworks position="left" align="middle" />
+      </ClientOnly>
+    </CssAbsolute>
     <div id="Overlays" />
   </div>
 </template>

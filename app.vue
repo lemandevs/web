@@ -19,3 +19,8 @@
 
 <script>
 </script>
+<style lang="scss">
+html.dark {
+  color: var(--color-primary);
+}
+</style>
