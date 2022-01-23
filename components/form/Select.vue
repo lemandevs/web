@@ -56,6 +56,7 @@
           v-for="(option, index) in filteredOptions"
           :key="option.id || index"
           :size="size"
+          @touchstart="() => select(option)"
           @mousedown="() => select(option)"
         >
           <FormCheckbox
@@ -294,8 +295,7 @@ export default {
   overflow: hidden;
 
   .SelectInput {
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-radius: 0.5rem 0 0 0.5rem;
     padding-right: 3rem;
   }
 }
