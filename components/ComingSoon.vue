@@ -1,6 +1,7 @@
 <template>
   <div :class="classes">
     <EffectText>LEMAN.DEV</EffectText>
+    <div>{{}}</div>
   </div>
 </template>
 

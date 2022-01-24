@@ -14,6 +14,8 @@
     "sass-loader": "^12.4.0"
   },
   "dependencies": {
+    "@apollo/client": "^3.5.7",
+    "@intlify/nuxt3": "^0.1.10",
     "lodash": "^4.17.21",
     "nuxt3": "latest",
     "vue-docgen-api": "^4.43.2"

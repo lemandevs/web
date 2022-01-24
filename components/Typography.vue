@@ -95,13 +95,13 @@ const classes = defineClasses('Typo')
 
   // weight
   &_light {
-    font-weight: 100;
+    font-weight: 200;
   }
   &_regular {
     font-weight: 400;
   }
   &_bold {
-    font-weight: 700;
+    font-weight: 600;
   }
 }
 </style>

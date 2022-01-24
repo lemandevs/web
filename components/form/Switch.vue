@@ -12,29 +12,24 @@
 export default {
   inheritAttrs: false,
   props: {
-    alias: {
-      type: String,
-      default: 'Switch',
-    },
     value: {
       type: Boolean,
       required: true,
       default: false,
+      class: true,
     },
     size: {
       type: String,
       default: 'medium',
+      class: true,
       validator(value) {
         return ['small', 'medium', 'large'].includes(value)
       },
     },
   },
   setup(props) {
-    const { thematize } = useThematize(props, [
-      { alias: String },
-      { alias: String, size: String },
-    ])
-    return { thematize }
+    const classes = defineClasses('Switch')
+    return { classes }
   },
   computed: {
     checked: {
@@ -44,13 +39,6 @@ export default {
       set() {
         this.$emit('update:value', !this.value)
       },
-    },
-    classes() {
-      return this.thematize([
-        {
-          [`${this.alias}_checked`]: this.checked,
-        },
-      ])
     },
   },
 }
@@ -62,21 +50,21 @@ export default {
     left: 0;
     transform: translate3d(4px, -50%, 0);
     width: var(--latch-size);
-    background-color: blue;
   }
   25% {
     left: 0;
-    width: calc(var(--latch-size) * 2);
+    width: calc(var(--latch-size) * 1.5);
     transform: translate3d(4px, -50%, 0);
   }
   50% {
     width: var(--latch-size);
+    left: 75%;
+    transform: translate3d(-50%, -50%, 0);
   }
   100% {
     left: 100%;
     width: var(--latch-size);
     transform: translate3d(calc(-100% - 4px), -50%, 0);
-    background-color: red;
   }
 }
 
@@ -85,7 +73,6 @@ export default {
     left: 0;
     transform: translate3d(4px, -50%, 0);
     width: var(--latch-size);
-    background-color: blue;
   }
   50% {
     left: 25%;
@@ -94,14 +81,13 @@ export default {
   }
   25% {
     left: 100%;
-    width: calc(var(--latch-size) * 2);
+    width: calc(var(--latch-size) * 1.5);
     transform: translate3d(calc(-100% - 4px), -50%, 0);
   }
   0% {
     left: 100%;
     width: var(--latch-size);
     transform: translate3d(calc(-100% - 4px), -50%, 0);
-    background-color: red;
   }
 }
 .Switch {
@@ -150,13 +136,12 @@ export default {
 .Switch input ~ .Latch {
   position: relative;
   display: flex;
-  background-color: currentColor;
   border-radius: 9999px;
   width: 100%;
   height: 100%;
   transition-property: all;
   transition-timing-function: ease-in-out;
-  transition-duration: 20s;
+  transition-duration: 1s;
   border-color: transparent;
   overflow: hidden;
 }
@@ -168,19 +153,24 @@ export default {
   border-radius: 999px;
   transition-property: all;
   transition-timing-function: ease-in-out;
-  transition-duration: 20s;
+  transition-duration: 1s;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
 }
 
-.Switch:not(.Switch_checked) .Latch::after {
-  animation-name: off;
-  animation-duration: 20s;
-  animation-timing-function: linear;
-  animation-fill-mode: both;
+.Switch:not(.Switch_value) .Latch {
+  background-color: var(--color-background);
+  &::after {
+    background-color: currentColor;
+    animation-name: off;
+  }
 }
-.Switch_checked input:checked ~ .Latch::after {
-  animation-name: on;
-  animation-duration: 20s;
-  animation-timing-function: linear;
-  animation-fill-mode: both;
+.Switch_value .Latch {
+  background-color: var(--color-emphatic);
+  &::after {
+    background-color: currentColor;
+    animation-name: on;
+  }
 }
 </style>

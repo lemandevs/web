@@ -9,6 +9,7 @@ const props = defineProps({
   size: {
     type: String,
     class: true,
+    default: 'medium',
     validator(value) {
       return ['small', 'medium', 'large'].includes(value)
     },
@@ -25,13 +26,13 @@ const classes = defineClasses('MenuItem')
   justify-content: flex-start;
 
   &_small {
-    padding: 0.25rem 1rem;
-  }
-  &_medium {
     padding: 0.5rem 1rem;
   }
-  &_large {
+  &_medium {
     padding: 1rem;
+  }
+  &_large {
+    padding: 1.5rem 1rem;
   }
 }
 </style>

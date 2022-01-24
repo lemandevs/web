@@ -36,7 +36,6 @@ export default {
       const index = Array.prototype.indexOf.call(el.parentNode.children, el)
       var delay = index * 150
       setTimeout(function () {
-        debugger
         el.style.transform = `translate3d(0, 0, 0)`
         el.style.opacity = 0
       }, delay)

@@ -2,7 +2,6 @@
   <div :class="classes">
     <span class="SettingsBar" />
     <span class="SettingsBar" />
-    <span class="SettingsBar" />
   </div>
 </template>
 
@@ -33,42 +32,39 @@ const classes = defineClasses('Settings')
     margin: 2px 0;
     border-radius: 9999px;
     border: 1px solid currentColor;
+    padding: 1px;
     &:after {
       content: '';
       position: absolute;
-      border: 1px solid currentColor;
-      width: 4px;
-      height: 4px;
+      width: 6px;
+      height: 6px;
       border-radius: 9999px;
       background: currentColor;
       top: 50%;
-      transform: translate3d(-50%, -50%, 0);
-      transition: left 0.3s ease-in-out;
+      transform: translate3d(0%, -50%, 0);
+      transition-property: transform, left;
+      transition-duration: 0.3s;
+      transition-timing-function: ease-in-out;
     }
 
     &:nth-child(1n):after {
-      left: 30%;
+      left: 0%;
     }
 
     &:nth-child(2n):after {
-      left: 70%;
-    }
-
-    &:nth-child(3n):after {
-      left: 50%;
+      left: 100%;
+      transform: translate3d(-100%, -50%, 0);
     }
   }
   &_active {
     .SettingsBar:nth-child(1n):after {
-      left: 50%;
-    }
-
-    .SettingsBar:nth-child(2n):after {
-      left: 30%;
+      left: 100%;
+      transform: translate3d(-100%, -50%, 0);
     }
 
     .SettingsBar:nth-child(3n):after {
-      left: 70%;
+      left: 100%;
+      transform: translate3d(-100%, -50%, 0);
     }
   }
 }

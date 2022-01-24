@@ -22,10 +22,17 @@
     <template #content>
       <div :class="classes">
         <FormField
-          label="Language"
+          :label="$t('components.widgets.settings.language.label')"
           type="select"
+          size="small"
           v-model:value="currentLanguage"
           :options="languages"
+        />
+        <FormField
+          :label="$t('components.widgets.settings.darkMode.label')"
+          type="switch"
+          size="medium"
+          v-model:value="darkMode"
         />
       </div>
     </template>
@@ -37,6 +44,7 @@ const props = defineProps({})
 const classes = defineClasses('WidgetAppSettings')
 
 const visible = ref(false)
+const darkMode = ref(false)
 
 const { language, setLanguage } = i18n()
 

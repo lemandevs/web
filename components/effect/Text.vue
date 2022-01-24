@@ -25,7 +25,7 @@ const classes = defineClasses('EffectText')
   animation-direction: alternate;
   animation-fill-mode: both;
   animation-play-state: running;
-
+  font-family: 'Krona One', sans-serif;
   position: relative;
   font-size: 5em;
   font-size: clamp(1rem, 10vw, 5rem);
@@ -33,17 +33,17 @@ const classes = defineClasses('EffectText')
   color: transparent;
   background: linear-gradient(
       78deg,
-      transparent calc(50% - 8px),
+      transparent calc(50% - 16px),
       var(--color-primary) calc(50% - 8px),
       var(--color-primary) calc(50% + 8px),
-      transparent calc(50% + 8px)
+      transparent calc(50% + 16px)
     ),
     linear-gradient(
       to right,
       transparent 30%,
       rgba(var(--color-surface-rgb, 0.1)) 40%,
-      var(--color-primary) calc(50% - 50px),
-      var(--color-primary) calc(50% + 50px),
+      var(--color-secondary) calc(50% - 50px),
+      var(--color-secondary) calc(50% + 50px),
       rgba(var(--color-surface-rgb, 0.1)) 60%,
       transparent 70%
     );

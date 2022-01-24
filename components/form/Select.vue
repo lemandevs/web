@@ -3,7 +3,7 @@
     class="SelectDropdown"
     position="bottom"
     align="start"
-    width="small"
+    width="target"
     :visible="focused"
     :offsetY="4"
     @close="onBlur"
@@ -125,7 +125,7 @@ export default {
     size: {
       type: String,
       class: true,
-      default: 'small',
+      default: 'medium',
       validator(value) {
         return ['small', 'medium', 'large'].includes(value)
       },
@@ -280,6 +280,7 @@ export default {
   backdrop-filter: blur(50px);
   background: var(--color-surface);
   border-radius: 8px;
+  padding: 2px;
   .SelectOption {
     cursor: pointer;
   }

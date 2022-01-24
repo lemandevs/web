@@ -212,6 +212,7 @@ const classes = defineClasses('Button')
         box-shadow: 0px 0px 2px 2px rgba(var(--color-primary-rgb), 0.25),
           0px 0px 4px 4px rgba(var(--color-primary-rgb), 0.25);
       }
+      &[class*='active'],
       &:active {
         --bg-opacity: 0.5;
         box-shadow: 0px 0px 2px 2px var(--color-primary),

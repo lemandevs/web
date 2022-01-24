@@ -182,7 +182,7 @@ export default {
   }
 
   &:focus {
-    box-shadow: inset 0px 0px 2px 2px var(--color-emphatic);
+    box-shadow: inset 0px 0px 0px 2px var(--color-emphatic);
   }
 
   &::selection {
@@ -192,13 +192,13 @@ export default {
 
   // weight
   &_light {
-    font-weight: 100;
+    font-weight: 200;
   }
   &_regular {
     font-weight: 400;
   }
   &_bold {
-    font-weight: 700;
+    font-weight: 600;
   }
 }
 

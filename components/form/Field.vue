@@ -4,7 +4,6 @@
       v-if="label"
       class="FieldLabel"
       is="span"
-      level="tertiary"
       :size="focused || value || type === 'switch' ? 'small' : size"
     >
       {{ label }}
@@ -196,7 +195,7 @@ export default {
     animation-duration: 200ms;
     animation-timing-function: linear;
     cursor: pointer;
-    color: var(--text-primary);
+    color: var(--color-secondary);
     transition-property: color, top, transform, font-size, line-height;
     transition-duration: 200ms;
     transition-timing-function: linear;
