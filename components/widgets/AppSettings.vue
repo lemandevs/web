@@ -26,6 +26,7 @@
           <FormField
             :label="$t('components.widgets.settings.language.label')"
             type="select"
+            name="language"
             size="small"
             v-model:value="currentLanguage"
             :options="languages"
@@ -33,6 +34,7 @@
           <FormField
             :label="$t('components.widgets.settings.darkMode.label')"
             type="switch"
+            name="darkMode"
             size="medium"
             v-model:value="darkMode"
           />

@@ -125,19 +125,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@keyframes blink {
-  0% {
-    opacity: 0.1;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.1;
-  }
-}
-
+<style lang="scss">
 .Input {
   overflow: hidden;
   box-shadow: inset 0px 0px 0px 2px var(--color-primary);

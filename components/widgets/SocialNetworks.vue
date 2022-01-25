@@ -10,7 +10,7 @@
       <Btn
         size="large"
         variant="clear"
-        level="primary"
+        level="emphatic"
         rounded
         @click="visible = !visible"
         icon="ChevronX"

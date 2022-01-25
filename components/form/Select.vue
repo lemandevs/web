@@ -59,7 +59,6 @@
           @touchstart="() => select(option)"
           @mousedown="() => select(option)"
         >
-          <EffectClick />
           <FormCheckbox
             v-if="multiple"
             size="small"
@@ -70,15 +69,14 @@
             :active="isSelectedOption(option)"
             :name="option.icon"
           />
-          <TransitionAppear>
-            <Typography
-              :size="size"
-              :level="isSelectedOption(option) ? 'emphatic' : 'primary'"
-              class="OverflowText"
-            >
-              {{ option.label || option }}
-            </Typography>
-          </TransitionAppear>
+          <Typography
+            :size="size"
+            :level="isSelectedOption(option) ? 'emphatic' : 'primary'"
+            class="OverflowText"
+          >
+            <EffectClick />
+            {{ option.label || option }}
+          </Typography>
         </MenuItem>
         <MenuItem v-if="noOptions" class="SelectOption" :size="size">
           There are no options
