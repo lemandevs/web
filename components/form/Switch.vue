@@ -58,8 +58,6 @@ export default {
   }
   50% {
     width: var(--latch-size);
-    left: 75%;
-    transform: translate3d(-50%, -50%, 0);
   }
   100% {
     left: 100%;
@@ -69,25 +67,23 @@ export default {
 }
 
 @keyframes off {
-  100% {
-    left: 0;
-    transform: translate3d(4px, -50%, 0);
+  0% {
+    left: 100%;
     width: var(--latch-size);
-  }
-  50% {
-    left: 25%;
-    width: var(--latch-size);
-    transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(calc(-100% - 4px), -50%, 0);
   }
   25% {
     left: 100%;
     width: calc(var(--latch-size) * 1.5);
     transform: translate3d(calc(-100% - 4px), -50%, 0);
   }
-  0% {
-    left: 100%;
+  50% {
     width: var(--latch-size);
-    transform: translate3d(calc(-100% - 4px), -50%, 0);
+  }
+  100% {
+    left: 0;
+    transform: translate3d(4px, -50%, 0);
+    width: var(--latch-size);
   }
 }
 .Switch {
@@ -95,7 +91,7 @@ export default {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: all 20s ease-in-out;
+  transition: all 1s linear;
   --latch-size: 0.5rem;
   width: var(--latch-size);
   height: var(--latch-size);
@@ -140,7 +136,7 @@ export default {
   width: 100%;
   height: 100%;
   transition-property: all;
-  transition-timing-function: ease-in-out;
+  transition-timing-function: linear;
   transition-duration: 1s;
   border-color: transparent;
   overflow: hidden;
@@ -152,10 +148,10 @@ export default {
   top: 50%;
   border-radius: 999px;
   transition-property: all;
-  transition-timing-function: ease-in-out;
+  transition-timing-function: linear;
   transition-duration: 1s;
   animation-duration: 1s;
-  animation-timing-function: ease-in-out;
+  animation-timing-function: linear;
   animation-fill-mode: both;
 }
 

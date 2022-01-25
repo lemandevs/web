@@ -91,6 +91,7 @@ export default {
 
   .Beat {
     position: absolute;
+    z-index: -1;
     width: 64px;
     height: 64px;
     background-color: currentColor;

@@ -1,5 +1,5 @@
 <template>
-  <Html class="dark">
+  <Html :class="theme">
     <Head>
       <Title>Leman.dev</Title>
       <Meta name="description" content="Leman developments" />
@@ -17,7 +17,8 @@
   </Html>
 </template>
 
-<script>
+<script setup>
+const { theme } = useTheme()
 </script>
 <style lang="scss">
 html.dark {

@@ -1,6 +1,6 @@
 <template>
   <button :class="classes" :disabled="loading">
-    <EffectClick class="ClickEffect" />
+    <EffectClick />
     <slot></slot>
     {{ text }}
     <Icon
@@ -113,15 +113,6 @@ const classes = defineClasses('Button')
   align-items: center;
   position: relative;
   overflow: hidden;
-
-  $btn-bg-color: var(--bg-primary);
-  $btn-border-color: var(--text-primary);
-  $btn-bg-opacity: 0;
-  $btn-text-color: var(--text-primary);
-
-  color: $btn-text-color;
-  background-color: rgba($btn-bg-color, $btn-bg-opacity);
-
   &,
   &:before,
   .Shape,
@@ -162,43 +153,68 @@ const classes = defineClasses('Button')
     min-width: 6rem;
   }
 
-  &_rounded {
+  &[class*='rounded'] {
     border-radius: 6rem;
   }
 
-  &_emphatic {
-    &[class*='fill'] {
-      color: var(--bg-primary);
-      background-color: var(--color-emphatic);
+  &[class*='clear'] {
+    --bg-opacity: 0;
+    --btn-color: var(--bg-primary);
+    --btn-bg: var(--color-primary);
+    color: var(--btn-color);
+    background-color: rgba(var(--btn-bg), var(--bg-opacity));
+    &:hover {
+      --bg-opacity: 0.25;
+    }
+    &:focus {
+      --bg-opacity: 0.25;
+    }
+  }
 
+  &[class*='emphatic'] {
+    &:focus,
+    &:hover {
+      transform: scale(1.15);
+    }
+    &[class*='fill'] {
+      --bg-opacity: 1;
+      --btn-color: var(--bg-primary);
+      --btn-bg: var(--color-emphatic);
       &:focus,
       &:active,
       &:hover {
-        transform: scale(1.15);
-        box-shadow: 0px 0px 2px 2px black;
+        box-shadow: 0px 0px 2px 2px var(--color-emphatic),
+          0px 0px 4px 4px var(--color-emphatic);
       }
     }
     &[class*='clear'] {
       --bg-opacity: 0;
-      color: var(--text-emphatic);
-      background-color: rgba(var(--color-emphatic-rgb), var(--bg-opacity));
+      --btn-color: var(--bg-emphatic);
+      --btn-bg: var(--color-emphatic);
       &:focus,
       &:active,
       &:hover {
         --bg-opacity: 0.25;
       }
     }
+    &[class*='active'],
+    &:active {
+      --bg-opacity: 0.5;
+      transform: scale(1.05);
+      box-shadow: 0px 0px 2px 2px var(--color-emphatic),
+        0px 0px 4px 4px var(--color-emphatic);
+    }
   }
 
-  &_primary {
+  &[class*='primary'] {
+    &:focus,
+    &:active,
+    &:hover {
+      transform: scale(1.15);
+    }
     &[class*='fill'] {
       color: var(--bg-primary);
       background-color: var(--color-primary);
-      &:focus,
-      &:active,
-      &:hover {
-        transform: scale(1.15);
-      }
     }
     &[class*='clear'] {
       --bg-opacity: 0;
@@ -209,19 +225,15 @@ const classes = defineClasses('Button')
       }
       &:focus {
         --bg-opacity: 0.25;
-        box-shadow: 0px 0px 2px 2px rgba(var(--color-primary-rgb), 0.25),
-          0px 0px 4px 4px rgba(var(--color-primary-rgb), 0.25);
       }
       &[class*='active'],
       &:active {
         --bg-opacity: 0.5;
-        box-shadow: 0px 0px 2px 2px var(--color-primary),
-          0px 0px 4px 4px var(--color-primary);
+        transform: scale(1.05);
       }
     }
   }
-
-  &_secondary {
+  &[class*='secondary'] {
     &[class*='fill'] {
       color: var(--bg-secondary);
       background-color: var(--color-secondary);

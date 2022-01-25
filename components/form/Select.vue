@@ -41,8 +41,8 @@
           tabIndex="-1"
           class="SelectBtn"
           icon="Chevron"
-          variant="fill"
-          level="secondary"
+          variant="clear"
+          level="primary"
           :active="focused"
           :size="size"
           @click="(event) => (focused ? blur(event) : focus(event))"
@@ -59,6 +59,7 @@
           @touchstart="() => select(option)"
           @mousedown="() => select(option)"
         >
+          <EffectClick />
           <FormCheckbox
             v-if="multiple"
             size="small"
@@ -283,6 +284,7 @@ export default {
   padding: 2px;
   .SelectOption {
     cursor: pointer;
+    overflow: hidden;
   }
 }
 

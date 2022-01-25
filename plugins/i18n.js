@@ -6,12 +6,10 @@ export default function ({ app }) {
     isInitialSetup,
     context
   ) => {
-    debugger
     console.log(oldLocale, newLocale, isInitialSetup)
   }
   // onLanguageSwitched called right after a new locale has been set
   app.i18n.onLanguageSwitched = (oldLocale, newLocale) => {
-    debugger
     console.log(oldLocale, newLocale)
   }
 }
