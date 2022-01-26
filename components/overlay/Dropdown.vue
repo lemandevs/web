@@ -181,7 +181,8 @@ export default {
       if (
         this.visible &&
         !this.$el.contains(event.target) &&
-        !this.$refs.content.contains(event.target)
+        !this.$refs.content.contains(event.target) &&
+        !document.getElementById('Overlays').contains(event.target)
       ) {
         this.$emit('close', event)
       }

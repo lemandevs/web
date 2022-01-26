@@ -89,6 +89,11 @@ const languages = await fetch(`/api/languages`)
 
   background: var(--color-surface);
 
+  background: linear-gradient(
+    45deg,
+    rgba(var(--color-surface-rgb), 0.7),
+    var(--color-surface)
+  );
   overflow: auto;
   transition-property: background-color;
   transition-duration: 200ms;
@@ -107,8 +112,8 @@ const languages = await fetch(`/api/languages`)
     border-radius: inherit;
     background: linear-gradient(
       to right,
-      var(--color-primary),
-      var(--color-emphatic)
+      var(--color-emphatic),
+      rgba(var(--color-emphatic-rgb), 0.5)
     );
   }
   .item {

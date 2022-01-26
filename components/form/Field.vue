@@ -191,6 +191,8 @@ export default {
 
   .FieldLabel {
     top: 50%;
+    cursor: pointer;
+    z-index: 1;
     transform: translateY(-50%);
     animation-duration: 200ms;
     animation-timing-function: linear;

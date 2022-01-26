@@ -52,13 +52,17 @@
     <template v-slot:content>
       <Menu key="SelectOptions" variant="underline" class="SelectOptions">
         <MenuItem
-          class="SelectOption"
           v-for="(option, index) in filteredOptions"
           :key="option.id || index"
           :size="size"
+          :class="[
+            'SelectOption',
+            isSelectedOption(option) && 'SelectOption_selected',
+          ]"
           @touchstart="() => select(option)"
           @mousedown="() => select(option)"
         >
+          <EffectClick />
           <FormCheckbox
             v-if="multiple"
             size="small"
@@ -74,7 +78,6 @@
             :level="isSelectedOption(option) ? 'emphatic' : 'primary'"
             class="OverflowText"
           >
-            <EffectClick />
             {{ option.label || option }}
           </Typography>
         </MenuItem>
@@ -231,7 +234,6 @@ export default {
       } else {
         this.$emit('update:value', getOptionValue(option))
       }
-      this.focused = false
     },
     clear() {
       this.$emit('update:value', undefined)
@@ -283,6 +285,14 @@ export default {
   .SelectOption {
     cursor: pointer;
     overflow: hidden;
+    transition: background 0.3s ease;
+    &:hover,
+    &_selected {
+      background: rgba(var(--color-emphatic-rgb), 0.2);
+    }
+  }
+  &:hover .SelectOption_selected {
+    background: transparent;
   }
 }
 

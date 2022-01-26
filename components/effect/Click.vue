@@ -33,12 +33,12 @@ export default {
   mounted() {
     this.$el.parentNode.addEventListener('click', this.onClick)
     this.$el.parentNode.addEventListener('touchstart', this.onClick)
-    this.$el.parentNode.addEventListener('mouseenter', this.onMouseEnter)
+    // this.$el.parentNode.addEventListener('mouseenter', this.onMouseEnter)
   },
   unmounted() {
     this.$el.parentNode.removeEventListener('click', this.onClick)
     this.$el.parentNode.removeEventListener('touchstart', this.onClick)
-    this.$el.parentNode.removeEventListener('mouseenter', this.onMouseEnter)
+    // this.$el.parentNode.removeEventListener('mouseenter', this.onMouseEnter)
   },
   methods: {
     getRelativeEventPosition(event) {

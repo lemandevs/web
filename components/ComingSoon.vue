@@ -1,6 +1,6 @@
 <template>
   <div :class="classes">
-    <EffectText>LEMAN.DEV</EffectText>
+    <EffectText :effect="['gradient', 'shadow']">LEMAN.DEV</EffectText>
     <div>{{}}</div>
   </div>
 </template>
