@@ -1,17 +1,17 @@
 <template>
   <div :class="classes">
     <slot></slot>
-    <CssAbsolute position="top" align="start" :offsetX="24" :offsetY="24">
+    <CssAbsolute position="top" align="start" :offsetX="16" :offsetY="16">
       <ClientOnly>
         <WidgetsAppMenu position="bottom" align="start" />
       </ClientOnly>
     </CssAbsolute>
-    <CssAbsolute position="top" align="end" :offsetX="24" :offsetY="24">
+    <CssAbsolute position="top" align="end" :offsetX="16" :offsetY="16">
       <ClientOnly>
         <WidgetsAppSettings position="bottom" align="end" />
       </ClientOnly>
     </CssAbsolute>
-    <CssAbsolute position="bottom" align="end" :offsetX="24" :offsetY="24">
+    <CssAbsolute position="bottom" align="end" :offsetX="16" :offsetY="16">
       <ClientOnly>
         <WidgetsSocialNetworks position="left" align="middle" />
       </ClientOnly>

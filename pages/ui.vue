@@ -1,7 +1,7 @@
 <template>
   <div :class="classes">
     <div class="header">
-      <Typography size="medium">User interface design</Typography>
+      <Typography size="large">UI</Typography>
     </div>
     <div class="menu">
       <NuxtLink
@@ -58,9 +58,9 @@ const uiRoute = router.options.routes.find(({ path }) => path === '/ui')
   .header {
     display: flex;
     width: 100%;
-    padding: 32px 120px;
+    padding: 32px 104px;
     align-items: center;
-    height: 104px;
+    height: 88px;
     background: var(--color-surface);
   }
   .content {
