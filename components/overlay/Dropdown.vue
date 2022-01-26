@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <component :is="is">
     <slot name="target" :toggle="toggle" :visible="visible">
       <Btn
         variant="clear"
@@ -16,12 +16,18 @@
         @enter="enter"
         @after-enter="afterEnter"
       >
-        <div v-if="visible" ref="content" :class="classes" :style="styles">
+        <div
+          v-if="visible"
+          ref="content"
+          :class="classes"
+          :style="styles"
+          v-bind="$attrs"
+        >
           <slot name="content"></slot>
         </div>
       </TransitionAppear>
     </teleport>
-  </div>
+  </component>
 </template>
 
 <script>
@@ -32,14 +38,38 @@ const Width = {
 }
 export default {
   name: 'Dropdown',
+  inheritAttrs: false,
   props: {
-    position: { type: String, default: 'bottom' },
-    align: { type: String, default: 'end' },
-    visible: { type: Boolean, default: false },
+    is: {
+      type: String,
+      default: 'div',
+    },
+    position: {
+      type: String,
+      class: true,
+      default: 'bottom',
+      validator(value) {
+        return ['top', 'bottom', 'left', 'right', 'center'].includes(value)
+      },
+    },
+    align: {
+      type: String,
+      class: true,
+      default: 'end',
+      validator(value) {
+        return ['start', 'middle', 'end'].includes(value)
+      },
+    },
+    visible: {
+      type: Boolean,
+      default: false,
+    },
     offsetX: { type: Number, default: 0 },
     offsetY: { type: Number, default: 0 },
     width: {
+      type: String,
       default: 'content',
+      class: true,
       validator(value) {
         return (
           ['small', 'medium', 'large', 'target', 'content'].includes(value) ||
@@ -56,6 +86,10 @@ export default {
         )
       },
     },
+  },
+  setup() {
+    const classes = defineClasses('Dropdown')
+    return { classes }
   },
   data() {
     return {
@@ -81,14 +115,6 @@ export default {
     },
   },
   computed: {
-    classes() {
-      return {
-        Dropdown: true,
-        [`Dropdown_${this.align}`]: true,
-        [`Dropdown_${this.position}`]: true,
-        [`Dropdown_${this.width}`]: typeof this.width === 'string',
-      }
-    },
     styles() {
       const left = (() => {
         switch (this.position) {

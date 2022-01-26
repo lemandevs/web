@@ -3,11 +3,12 @@
     :visible="visible"
     :css="false"
     width="small"
+    variant="fill"
     class="WidgetAppSettingsDropdown"
     @close="visible = false"
     @open="visible = true"
     @leave-cancelled="leaveCancelled"
-    :offsetY="16"
+    :offsetY="24"
   >
     <template #target>
       <Btn
@@ -21,7 +22,7 @@
       />
     </template>
     <template #content>
-      <div :class="classes">
+      <EffectPanel :class="classes">
         <div>
           <FormField
             :label="$t('components.widgets.settings.language.label')"
@@ -39,7 +40,7 @@
             v-model:value="darkMode"
           />
         </div>
-      </div>
+      </EffectPanel>
     </template>
   </OverlayDropdown>
 </template>
@@ -82,40 +83,10 @@ const languages = await fetch(`/api/languages`)
 .WidgetAppSettings {
   display: flex;
   flex-direction: column;
-
   height: 100%;
   padding: 1rem;
   border-radius: 1rem;
-
-  background: var(--color-surface);
-
-  background: linear-gradient(
-    45deg,
-    rgba(var(--color-surface-rgb), 0.7),
-    var(--color-surface)
-  );
   overflow: auto;
-  transition-property: background-color;
-  transition-duration: 200ms;
-  transition-timing-function: ease-in-out;
-  background-clip: padding-box;
-  border: solid 2px transparent;
-  &:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-    margin: 0px;
-    border-radius: inherit;
-    background: linear-gradient(
-      to right,
-      var(--color-emphatic),
-      rgba(var(--color-emphatic-rgb), 0.5)
-    );
-  }
   .item {
     white-space: pre;
   }
