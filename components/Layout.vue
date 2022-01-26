@@ -1,6 +1,11 @@
 <template>
   <div :class="classes">
     <slot></slot>
+    <CssAbsolute position="top" align="start" :offsetX="24" :offsetY="24">
+      <ClientOnly>
+        <WidgetsAppMenu position="bottom" align="start" />
+      </ClientOnly>
+    </CssAbsolute>
     <CssAbsolute position="top" align="end" :offsetX="24" :offsetY="24">
       <ClientOnly>
         <WidgetsAppSettings position="bottom" align="end" />

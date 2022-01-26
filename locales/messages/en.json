@@ -1,4 +1,8 @@
 {
   "components.widgets.settings.language.label": "Language",
-  "components.widgets.settings.darkMode.label": "Dark mode"
+  "components.widgets.settings.darkMode.label": "Dark mode",
+
+  "components.widgets.AppMenu.routes.index.label": "Home",
+  "components.widgets.AppMenu.routes.ui.label": "UI Design",
+  "components.widgets.AppMenu.routes.ui-palette.label": "Palette"
 }
