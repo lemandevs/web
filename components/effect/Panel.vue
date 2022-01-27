@@ -20,8 +20,6 @@ const classes = defineClasses('Panel')
 
 <style lang="scss">
 .Panel {
-  border-radius: 1rem;
-
   background: var(--color-surface);
 
   background: linear-gradient(
@@ -34,6 +32,8 @@ const classes = defineClasses('Panel')
   transition-timing-function: ease-in-out;
   background-clip: padding-box;
   border: solid 2px transparent;
+  border-radius: 1rem;
+  overflow: hidden;
   &:after {
     content: '';
     position: absolute;
