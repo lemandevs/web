@@ -4,5 +4,8 @@
 
   "components.widgets.AppMenu.routes.index.label": "Home",
   "components.widgets.AppMenu.routes.ui.label": "UI Design",
-  "components.widgets.AppMenu.routes.ui-palette.label": "Palette"
+  "components.widgets.AppMenu.routes.ui-palette.label": "Palette",
+
+  "pages.ui.breadcrumbs": "UI",
+  "pages.ui-palette.breadcrumbs": "Palete"
 }

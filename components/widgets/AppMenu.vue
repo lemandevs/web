@@ -69,7 +69,6 @@ const visible = ref(false)
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 1rem;
   overflow: auto;
   .item {
     white-space: pre;

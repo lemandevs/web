@@ -1,8 +1,6 @@
 <template>
   <div :class="classes">
-    <div class="header">
-      <Typography size="large">UI</Typography>
-    </div>
+    <AppHeader></AppHeader>
     <div class="menu">
       <NuxtLink
         v-for="subRoute in uiRoute.children"
@@ -45,6 +43,8 @@ const props = defineProps({
 })
 const classes = defineClasses('UIPage')
 const router = useRouter()
+const route = useRoute()
+debugger
 const uiRoute = router.options.routes.find(({ path }) => path === '/ui')
 </script>
 
