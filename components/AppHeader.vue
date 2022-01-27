@@ -1,20 +1,16 @@
 <template>
   <div :class="classes">
-    <NuxtLink
-      v-for="mathRoute in breadcrumbs"
-      :to="mathRoute.path"
-      v-slot="{ isExactActive }"
-    >
-      <Typography size="large" :level="isExactActive ? 'emphatic' : 'primary'">
-        {{
-          $t(
-            `pages.${
-              mathRoute.name || mathRoute.path.replace('/', '')
-            }.breadcrumbs`
-          )
-        }}
-      </Typography>
-    </NuxtLink>
+    <template v-for="matchRoute in breadcrumbs" :key="matchRoute.path">
+      <NuxtLink :to="matchRoute.path" v-slot="{ isExactActive }">
+        <Typography
+          size="large"
+          :level="isExactActive ? 'emphatic' : 'primary'"
+        >
+          {{ $t(`pages.${routeName(matchRoute)}.breadcrumbs`) }}
+        </Typography>
+      </NuxtLink>
+      <span class="separator" v-if="matchRoute.path !== route.path"> > </span>
+    </template>
     <slot></slot>
   </div>
 </template>
@@ -33,10 +29,11 @@ const props = defineProps({
 const classes = defineClasses('AppHeader')
 const route = useRoute()
 const breadcrumbs = route.matched.filter(
-  (mathRoute) =>
-    route.matched.find(({ path }) => mathRoute.path === path) === mathRoute
+  (matchRoute) =>
+    route.matched.find(({ path }) => matchRoute.path === path) === matchRoute
 )
-debugger
+const routeName = (matchRoute) =>
+  matchRoute.name || matchRoute.path.replace('/', '')
 </script>
 
 <style lang="scss">
@@ -55,5 +52,8 @@ debugger
     var(--color-surface) calc(var(--header-height) + 8px),
     var(--color-surface) 100%
   );
+  .separator {
+    white-space: pre;
+  }
 }
 </style>

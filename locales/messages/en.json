@@ -3,9 +3,11 @@
   "components.widgets.settings.darkMode.label": "Dark mode",
 
   "components.widgets.AppMenu.routes.index.label": "Home",
-  "components.widgets.AppMenu.routes.ui.label": "UI Design",
+  "components.widgets.AppMenu.routes.ui.label": "UI",
+  "components.widgets.AppMenu.routes.ui-design.label": "Design",
   "components.widgets.AppMenu.routes.ui-palette.label": "Palette",
 
   "pages.ui.breadcrumbs": "UI",
-  "pages.ui-palette.breadcrumbs": "Palete"
+  "pages.ui-design.breadcrumbs": "Design",
+  "pages.ui-palette.breadcrumbs": "Palette"
 }
