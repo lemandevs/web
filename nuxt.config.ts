@@ -8,10 +8,33 @@ export default defineNuxtConfig({
   intlify: {
     localeDir: 'locales/messages',
     vueI18n: {
-      legacy: false,
-      locale: 'en',
       fallbackLocale: 'es',
-      availableLocales: ['es', 'en'],
+      availableLocales: [
+        {
+          code: 'en',
+          iso: 'en-US',
+          name: 'English',
+        },
+        {
+          code: 'es',
+          iso: 'es-ES',
+          name: 'Español',
+        },
+        {
+          code: 'it',
+          iso: 'it-IT',
+          name: 'Italiano',
+        },
+        {
+          code: 'pt',
+          iso: 'pt-PT',
+          name: 'Português',
+        },
+      ],
+      detectBrowserLanguage: {
+        useCookie: true,
+        cookieKey: 'my_custom_cookie_name',
+      },
     },
   },
   i18n: {
@@ -27,6 +50,16 @@ export default defineNuxtConfig({
         code: 'es',
         iso: 'es-ES',
         name: 'Español',
+      },
+      {
+        code: 'it',
+        iso: 'it-IT',
+        name: 'Italiano',
+      },
+      {
+        code: 'pt',
+        iso: 'pt-PT',
+        name: 'Português',
       },
     ],
     detectBrowserLanguage: {

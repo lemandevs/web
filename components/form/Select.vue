@@ -266,7 +266,7 @@ export default {
       this.$refs.value.focus()
     },
     blur() {
-      this.$refs.value.blur()
+      this.$refs.value.blur && this.$refs.value.blur()
     },
     focusFilter() {
       this.$refs.filter.focus()

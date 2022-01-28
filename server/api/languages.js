@@ -8,5 +8,13 @@ export default async (req, res) => {
       code: 'es',
       label: 'Español',
     },
+    {
+      code: 'it',
+      label: 'Italiano',
+    },
+    {
+      code: 'pt',
+      label: 'Português',
+    },
   ]
 }

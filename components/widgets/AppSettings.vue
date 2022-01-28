@@ -29,7 +29,7 @@
             type="select"
             name="language"
             size="small"
-            v-model:value="currentLanguage"
+            v-model:value="$i18n.locale"
             :options="languages"
           />
           <FormField
@@ -61,7 +61,7 @@ const darkMode = computed({
   },
 })
 
-const { language, setLanguage } = i18n()
+const { language, setLanguage, availableLocales } = useI18n()
 
 const currentLanguage = computed({
   get() {
