@@ -12,6 +12,13 @@
 
 <script setup>
 const props = defineProps({})
+
+const classes = defineClasses('PalettePage')
+
+definePageMeta({
+  icon: 'Palette',
+})
+
 const colors = ref([
   {
     name: 'emphatic',
@@ -39,7 +46,6 @@ const colors = ref([
     uses: '',
   },
 ])
-const classes = defineClasses('PalettePage')
 </script>
 
 <style lang="scss">

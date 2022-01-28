@@ -1,16 +1,29 @@
 import { computed } from 'vue'
 
-const getClassString = ({ name, type, value, alias, separator }) => {
+const getClassString = ({
+  name,
+  type,
+  value,
+  alias,
+  separator,
+  class: clazz,
+}) => {
+  const buildClass = (value) => {
+    return `${alias}${separator}${
+      clazz.useName ? `${name}${separator}` : ''
+    }${value}`
+  }
+
   if (value) {
     switch (type) {
       case Array:
-        return `${alias}${separator}${value.join(separator)}`
+        return buildClass(value.join(separator))
       case String:
       case Number:
-        return `${alias}${separator}${value}`
+        return buildClass(value)
       case Boolean:
       default:
-        return `${alias}${separator}${name}`
+        return buildClass(name)
     }
   }
 }
@@ -30,6 +43,7 @@ export default function (alias, options = { separator: '_' }) {
                 name,
                 alias,
                 type: prop.type,
+                class: prop.class,
                 value: props[name],
                 separator: options.separator,
               }),

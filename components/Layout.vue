@@ -1,17 +1,35 @@
 <template>
   <div :class="classes">
     <slot></slot>
-    <CssAbsolute position="top" align="start" :offsetX="16" :offsetY="16">
+    <CssAbsolute
+      position="top"
+      align="start"
+      :offsetX="16"
+      :offsetY="16"
+      v-if="variant !== 'clear'"
+    >
       <ClientOnly>
         <WidgetsAppMenu position="bottom" align="start" />
       </ClientOnly>
     </CssAbsolute>
-    <CssAbsolute position="top" align="end" :offsetX="16" :offsetY="16">
+    <CssAbsolute
+      position="top"
+      align="end"
+      :offsetX="16"
+      :offsetY="16"
+      v-if="variant !== 'clear'"
+    >
       <ClientOnly>
         <WidgetsAppSettings position="bottom" align="end" />
       </ClientOnly>
     </CssAbsolute>
-    <CssAbsolute position="bottom" align="end" :offsetX="16" :offsetY="16">
+    <CssAbsolute
+      position="bottom"
+      align="end"
+      :offsetX="16"
+      :offsetY="16"
+      v-if="variant === 'default'"
+    >
       <ClientOnly>
         <WidgetsSocialNetworks position="left" align="middle" />
       </ClientOnly>
@@ -24,8 +42,11 @@
 const props = defineProps({
   variant: {
     type: String,
-    default: 'clear',
+    default: 'default',
     class: true,
+    validator(value) {
+      return ['default', 'clear', 'subrouting'].includes(value)
+    },
   },
 })
 const classes = defineClasses('Layout')

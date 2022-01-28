@@ -13,7 +13,16 @@ const props = defineProps({
     validator(value) {
       return ['row', 'column'].includes(value)
     },
-    class: true,
+  },
+  align: {
+    type: String,
+    default: 'start',
+    class: {
+      useName: true,
+    },
+    validator(value) {
+      return ['start', 'center', 'start'].includes(value)
+    },
   },
 })
 const classes = defineClasses('FlexBox')
@@ -27,6 +36,15 @@ const classes = defineClasses('FlexBox')
   }
   &_column {
     flex-direction: column;
+  }
+  &_align_start {
+    align-items: flex-start;
+  }
+  &_align_center {
+    align-items: center;
+  }
+  &_align_end {
+    align-items: flex-end;
   }
 }
 </style>

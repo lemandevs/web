@@ -1,32 +1,49 @@
 <template>
   <div :class="classes">
     <AppHeader></AppHeader>
-    <div class="menu">
+    <div class="content"><NuxtNestedPage /></div>
+    <div class="NavBar">
       <NuxtLink
-        v-for="subRoute in uiRoute.children"
+        :to="`${uiRoute.path}`"
+        v-slot="{ isExactActive, navigate }"
+        @click="navigate"
+        class="NavBarItem"
+      >
+        <Typography
+          is="span"
+          size="medium"
+          :level="isExactActive ? 'emphatic' : 'primary'"
+          weight="bold"
+          class="OverflowText"
+        >
+          {{
+            $t(
+              `components.widgets.AppMenu.routes.${
+                uiRoute.name || uiRoute.path.replace('/', '')
+              }.label`
+            )
+          }}
+        </Typography>
+      </NuxtLink>
+      <Btn
+        class="NavBarItem"
+        v-for="subRoute in uiRoute.children.filter(({ path }) => path)"
         :key="subRoute.name"
         :to="`${uiRoute.path}/${subRoute.path}`"
-        v-slot="{ isExactActive, navigate }"
+        direction="column"
+        @click="navigate"
+        iconAfter
+        :icon="subRoute.meta?.icon"
       >
-        <MenuItem @click="navigate">
-          <Typography
-            size="medium"
-            :level="isExactActive ? 'emphatic' : 'primary'"
-            weight="bold"
-            class="OverflowText"
-          >
-            {{
-              $t(
-                `components.widgets.AppMenu.routes.${
-                  subRoute.name || subRoute.path.replace('/', '')
-                }.label`
-              )
-            }}
-          </Typography>
-        </MenuItem>
-      </NuxtLink>
+        {{
+          $t(
+            `components.widgets.AppMenu.routes.${
+              subRoute.name || subRoute.path.replace('/', '')
+            }.label`
+          )
+        }}
+      </Btn>
     </div>
-    <div class="content"><NuxtNestedPage /></div>
   </div>
 </template>
 
@@ -42,9 +59,11 @@ const props = defineProps({
   },
 })
 const classes = defineClasses('UIPage')
+definePageMeta({
+  layout: 'subrouting',
+})
 const router = useRouter()
 const route = useRoute()
-debugger
 const uiRoute = router.options.routes.find(({ path }) => path === '/ui')
 </script>
 
@@ -74,5 +93,18 @@ const uiRoute = router.options.routes.find(({ path }) => path === '/ui')
   .menu {
     display: flex;
   }
+}
+
+.NavBar {
+  position: fixed;
+  bottom: 0;
+  background: var(--color-surface);
+  width: 100%;
+  border-radius: 16px 16px 0 0;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 16px;
 }
 </style>

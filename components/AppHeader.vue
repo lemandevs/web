@@ -9,7 +9,14 @@
           {{ $t(`pages.${routeName(matchRoute)}.breadcrumbs`) }}
         </Typography>
       </NuxtLink>
-      <span class="separator" v-if="matchRoute.path !== route.path"> > </span>
+      <Typography
+        v-if="matchRoute.path !== route.path"
+        size="large"
+        level="primary"
+        class="BreadcrumbSeparator"
+      >
+        ›
+      </Typography>
     </template>
     <slot></slot>
   </div>
@@ -52,7 +59,7 @@ const routeName = (matchRoute) =>
     var(--color-surface) calc(var(--header-height) + 8px),
     var(--color-surface) 100%
   );
-  .separator {
+  .BreadcrumbSeparator {
     white-space: pre;
   }
 }

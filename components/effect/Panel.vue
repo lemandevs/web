@@ -20,6 +20,10 @@ const classes = defineClasses('Panel')
 
 <style lang="scss">
 .Panel {
+  transition-property: background-color;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+
   background: var(--color-surface);
 
   background: linear-gradient(
@@ -27,10 +31,8 @@ const classes = defineClasses('Panel')
     rgba(var(--color-surface-rgb), 0.7),
     var(--color-surface)
   );
-  transition-property: background-color;
-  transition-duration: 200ms;
-  transition-timing-function: ease-in-out;
   background-clip: padding-box;
+
   border: solid 2px transparent;
   border-radius: 1rem;
   overflow: hidden;
@@ -49,6 +51,7 @@ const classes = defineClasses('Panel')
       rgba(var(--color-emphatic-rgb), 0.5),
       var(--color-emphatic)
     );
+    backdrop-filter: blur(64px);
   }
 }
 </style>

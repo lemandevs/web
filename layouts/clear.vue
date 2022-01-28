@@ -1,11 +1,11 @@
 <template>
-  <Layout variant="default">
+  <Layout variant="clear">
     <slot></slot>
   </Layout>
 </template>
 
 <script>
 export default {
-  name: 'LayoutDefault',
+  name: 'LayoutClear',
 }
 </script>

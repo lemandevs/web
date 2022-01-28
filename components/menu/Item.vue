@@ -14,6 +14,11 @@ const props = defineProps({
       return ['small', 'medium', 'large'].includes(value)
     },
   },
+  active: {
+    type: Boolean,
+    class: true,
+    default: false,
+  },
 })
 const classes = defineClasses('MenuItem')
 </script>
@@ -33,6 +38,9 @@ const classes = defineClasses('MenuItem')
   }
   &_large {
     padding: 1.5rem 1rem;
+  }
+  &_active {
+    background: rgba(var(--color-emphatic-rgb), 0.3);
   }
 }
 </style>

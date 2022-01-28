@@ -1,5 +1,44 @@
 <template>
-  <button :class="classes" :disabled="loading">
+  <NuxtLink
+    v-if="to"
+    :to="to"
+    v-slot="{ isExactActive, navigate }"
+    :class="classes"
+    active-class="Button_visited"
+    exact-active-class="Button_active"
+    @click="navigate"
+  >
+    <EffectClick />
+    <Icon
+      class="ButtonIcon"
+      v-if="iconAfter"
+      :name="icon"
+      :variant="variant"
+      :level="level"
+      :active="active || isExactActive"
+      :size="size"
+    />
+    <slot></slot>
+    {{ text }}
+    <Icon
+      class="ButtonIcon"
+      v-if="icon && !iconAfter"
+      :name="icon"
+      :variant="variant"
+      :level="level"
+      :active="active"
+      :size="size"
+    />
+    <TransitionAppear>
+      <Icon
+        v-show="loading"
+        name="Loader"
+        class="ButtonLoader Absolute_center"
+        :size="size"
+      />
+    </TransitionAppear>
+  </NuxtLink>
+  <button v-else :class="classes" :disabled="loading">
     <EffectClick />
     <slot></slot>
     {{ text }}
@@ -69,6 +108,14 @@ const props = defineProps({
       return ['tiny', 'small', 'medium', 'large', 'big', 'huge'].includes(value)
     },
   },
+  direction: {
+    type: String,
+    default: 'row',
+    class: true,
+    validator(value) {
+      return ['row', 'column'].includes(value)
+    },
+  },
   /**
    * Alias description
    */
@@ -82,6 +129,10 @@ const props = defineProps({
   icon: {
     type: String,
     default: null,
+  },
+  iconAfter: {
+    type: Boolean,
+    default: false,
   },
   /**
    * Loading description
@@ -98,6 +149,11 @@ const props = defineProps({
     type: Boolean,
     class: true,
     default: false,
+  },
+  to: {
+    type: String,
+    required: true,
+    default: '/',
   },
 })
 const classes = defineClasses('Button')
@@ -318,6 +374,15 @@ const classes = defineClasses('Button')
     &_huge {
       width: 6rem;
     }
+  }
+
+  &_row {
+    flex-direction: row;
+  }
+
+  &_column {
+    flex-direction: column;
+    padding: 8px 16px;
   }
 }
 </style>

@@ -1,11 +1,11 @@
 <template>
-  <Layout variant="default">
+  <Layout variant="subrouting">
     <slot></slot>
   </Layout>
 </template>
 
 <script>
 export default {
-  name: 'LayoutDefault',
+  name: 'LayoutSubrouting',
 }
 </script>
