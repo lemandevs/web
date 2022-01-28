@@ -45,6 +45,9 @@ const routeName = (matchRoute) =>
 
 <style lang="scss">
 .AppHeader {
+  position: sticky;
+  top: 0;
+  left: 0;
   --header-height: 88px;
   display: flex;
   width: 100%;

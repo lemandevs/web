@@ -1,8 +1,6 @@
 <template>
   <div :class="classes">
-    <AppHeader></AppHeader>
-    <div class="content"><NuxtNestedPage /></div>
-    <NavigationBar :routes="parent.children" :parent="parent" />
+    <NuxtNestedPage />
   </div>
 </template>
 
@@ -32,40 +30,9 @@ const parent = router.options.routes.find(({ path }) => {
 .UIPage {
   display: flex;
   flex: 1;
+  width: 100%;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  .header {
-    display: flex;
-    width: 100%;
-    padding: 32px 104px;
-    align-items: center;
-    height: 88px;
-    background: var(--color-surface);
-  }
-  .content {
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    flex-direction: column;
-  }
-  .menu {
-    display: flex;
-  }
-}
-
-.NavBar {
-  position: fixed;
-  bottom: 0;
-  background: var(--color-surface);
-  width: 100%;
-  border-radius: 16px 16px 0 0;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  gap: 16px;
 }
 </style>

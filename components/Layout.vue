@@ -1,5 +1,6 @@
 <template>
   <div :class="classes">
+    <AppHeader v-if="variant === 'subrouting'"></AppHeader>
     <slot></slot>
     <CssAbsolute
       position="top"
@@ -34,6 +35,14 @@
         <WidgetsSocialNetworks position="left" align="middle" />
       </ClientOnly>
     </CssAbsolute>
+
+    <TransitionAppearFrom appear from="bottom">
+      <NavigationBar
+        v-if="variant === 'subrouting'"
+        :routes="parent.children"
+        :parent="parent"
+      />
+    </TransitionAppearFrom>
     <div id="Overlays" />
   </div>
 </template>
@@ -50,6 +59,12 @@ const props = defineProps({
   },
 })
 const classes = defineClasses('Layout')
+
+const router = useRouter()
+const route = useRoute()
+const parent = router.options.routes.find(({ path }) => {
+  return path === route.matched[0].path
+})
 </script>
 
 <style lang="scss">
