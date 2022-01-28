@@ -1,5 +1,5 @@
 <template>
-  <div :class="classes">UIHomePage</div>
+  <div :class="classes">UI Home Page</div>
 </template>
 
 <script setup>

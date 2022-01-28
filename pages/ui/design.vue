@@ -1,7 +1,5 @@
 <template>
-  <div :class="classes">
-    {{ DesignPage }}
-  </div>
+  <div :class="classes">Design Page</div>
 </template>
 
 <script setup>

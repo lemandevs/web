@@ -2,48 +2,7 @@
   <div :class="classes">
     <AppHeader></AppHeader>
     <div class="content"><NuxtNestedPage /></div>
-    <div class="NavBar">
-      <NuxtLink
-        :to="`${uiRoute.path}`"
-        v-slot="{ isExactActive, navigate }"
-        @click="navigate"
-        class="NavBarItem"
-      >
-        <Typography
-          is="span"
-          size="medium"
-          :level="isExactActive ? 'emphatic' : 'primary'"
-          weight="bold"
-          class="OverflowText"
-        >
-          {{
-            $t(
-              `components.widgets.AppMenu.routes.${
-                uiRoute.name || uiRoute.path.replace('/', '')
-              }.label`
-            )
-          }}
-        </Typography>
-      </NuxtLink>
-      <Btn
-        class="NavBarItem"
-        v-for="subRoute in uiRoute.children.filter(({ path }) => path)"
-        :key="subRoute.name"
-        :to="`${uiRoute.path}/${subRoute.path}`"
-        direction="column"
-        @click="navigate"
-        iconAfter
-        :icon="subRoute.meta?.icon"
-      >
-        {{
-          $t(
-            `components.widgets.AppMenu.routes.${
-              subRoute.name || subRoute.path.replace('/', '')
-            }.label`
-          )
-        }}
-      </Btn>
-    </div>
+    <NavigationBar :routes="parent.children" :parent="parent" />
   </div>
 </template>
 
@@ -64,7 +23,9 @@ definePageMeta({
 })
 const router = useRouter()
 const route = useRoute()
-const uiRoute = router.options.routes.find(({ path }) => path === '/ui')
+const parent = router.options.routes.find(({ path }) => {
+  return path === route.matched[0].path
+})
 </script>
 
 <style lang="scss">

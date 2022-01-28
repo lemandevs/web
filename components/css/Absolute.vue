@@ -20,7 +20,7 @@ const props = defineProps({
   },
   align: {
     type: String,
-    default: 'center',
+    default: 'middle',
     validator(value) {
       return ['start', 'middle', 'end'].includes(value)
     },
@@ -57,9 +57,9 @@ const classes = defineClasses('Absolute')
       left: 0;
       transform: translate3d(var(--offset-x), var(--offset-y), 0);
     }
-    &.Absolute_center {
+    &.Absolute_middle {
       left: 50%;
-      transform: translate3d(var(--offset-x), calc(-50% + var(--offset-y)), 0);
+      transform: translate3d(calc(-50% + var(--offset-x)), var(--offset-y), 0);
     }
     &.Absolute_end {
       left: 100%;
@@ -76,7 +76,7 @@ const classes = defineClasses('Absolute')
       left: 0;
       transform: translate3d(var(--offset-x), var(--offset-y), 0);
     }
-    &.Absolute_center {
+    &.Absolute_middle {
       left: 50%;
       transform: translate3d(
         calc(-50% + var(--offset-x)) calc(-50% + var(--offset-y)),

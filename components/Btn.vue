@@ -263,6 +263,7 @@ const classes = defineClasses('Button')
   &[class*='primary'] {
     &:focus,
     &:active,
+    &[class*='active'],
     &:hover {
       transform: scale(1.15);
     }
