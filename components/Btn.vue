@@ -152,8 +152,6 @@ const props = defineProps({
   },
   to: {
     type: String,
-    required: true,
-    default: '/',
   },
 })
 const classes = defineClasses('Button')
