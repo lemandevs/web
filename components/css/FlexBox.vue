@@ -21,7 +21,23 @@ const props = defineProps({
       useName: true,
     },
     validator(value) {
-      return ['start', 'center', 'start'].includes(value)
+      return ['start', 'center', 'end'].includes(value)
+    },
+  },
+  justify: {
+    type: String,
+    default: 'start',
+    class: {
+      useName: true,
+    },
+    validator(value) {
+      return [
+        'start',
+        'center',
+        'end',
+        'space-around',
+        'space-between',
+      ].includes(value)
     },
   },
 })
@@ -45,6 +61,22 @@ const classes = defineClasses('FlexBox')
   }
   &_align_end {
     align-items: flex-end;
+  }
+
+  &_justify_start {
+    justify-content: flex-start;
+  }
+  &_justify_center {
+    justify-content: center;
+  }
+  &_justify_end {
+    justify-content: flex-end;
+  }
+  &_justify_space-around {
+    justify-content: space-around;
+  }
+  &_justify_space-between {
+    justify-content: space-between;
   }
 }
 </style>

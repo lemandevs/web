@@ -1,23 +1,19 @@
 <template>
   <div :class="classes">
-    <Btn
-      class="NavBarItem"
+    <CssFlexBox
+      justify="center"
+      class="NavigationBarItem"
       v-for="route in routes.filter(({ path }) => path)"
       :key="route.name"
-      :to="`${parent.path}/${route.path}`"
-      direction="column"
-      @click="navigate"
-      iconAfter
-      :icon="route.meta?.icon"
     >
-      {{
-        $t(
-          `components.widgets.AppMenu.routes.${
-            route.name || route.path.replace('/', '')
-          }.label`
-        )
-      }}
-    </Btn>
+      <Btn
+        :to="`${parent.path}/${route.path}`"
+        @click="navigate"
+        rounded
+        iconAfter
+        :icon="route.meta?.icon"
+      />
+    </CssFlexBox>
     <CssAbsolute v-if="parent" position="top" align="middle" offsetY="-24px">
       <Btn
         :to="parent.path"
@@ -42,11 +38,11 @@ const props = defineProps({
     type: Object,
   },
 })
-const classes = defineClasses('NavBar')
+const classes = defineClasses('NavigationBar')
 </script>
 
 <style lang="scss">
-.NavBar {
+.NavigationBar {
   position: fixed;
   bottom: 0;
   background: var(--color-surface);
@@ -57,7 +53,9 @@ const classes = defineClasses('NavBar')
   align-items: center;
   justify-content: space-around;
   gap: 16px;
-  .NavBarItem {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  .NavigationBarItem {
     flex: 1;
   }
 }

@@ -254,7 +254,7 @@ const classes = defineClasses('Button')
     &[class*='active'],
     &:active {
       --bg-opacity: 0.5;
-      transform: scale(1.05);
+      transform: scale(1.15);
       box-shadow: 0px 0px 2px 2px var(--color-emphatic),
         0px 0px 4px 4px var(--color-emphatic);
     }
@@ -284,7 +284,7 @@ const classes = defineClasses('Button')
       &[class*='active'],
       &:active {
         --bg-opacity: 0.5;
-        transform: scale(1.05);
+        transform: scale(1.15);
       }
     }
   }
