@@ -300,8 +300,8 @@ const classes = defineClasses('Button')
     }
     &[class*='clear'] {
       --bg-opacity: 0;
-      color: var(--text-primary);
-      background-color: rgba(var(--color-primary-rgb), var(--bg-opacity));
+      color: var(--text-secondary);
+      background-color: rgba(var(--color-secondary-rgb), var(--bg-opacity));
       &:focus,
       &:active,
       &:hover {
