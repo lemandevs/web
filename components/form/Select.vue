@@ -62,7 +62,6 @@
           @touchstart="() => select(option)"
           @mousedown="() => select(option)"
         >
-          <EffectClick />
           <FormCheckbox
             v-if="multiple"
             size="small"

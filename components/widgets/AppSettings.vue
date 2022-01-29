@@ -23,23 +23,19 @@
     </template>
     <template #content>
       <EffectPanel :class="classes">
-        <div>
-          <FormField
-            :label="$t('components.widgets.settings.language.label')"
-            type="select"
-            name="language"
-            size="small"
-            v-model:value="$i18n.locale"
-            :options="languages"
-          />
-          <FormField
-            :label="$t('components.widgets.settings.darkMode.label')"
-            type="switch"
-            name="darkMode"
-            size="medium"
-            v-model:value="darkMode"
-          />
-        </div>
+        <FormField
+          :label="$t('components.widgets.settings.language.label')"
+          type="select"
+          name="language"
+          v-model:value="$i18n.locale"
+          :options="languages"
+        />
+        <FormField
+          :label="$t('components.widgets.settings.darkMode.label')"
+          type="switch"
+          name="darkMode"
+          v-model:value="darkMode"
+        />
       </EffectPanel>
     </template>
   </OverlayDropdown>
@@ -84,11 +80,8 @@ const languages = await fetch(`/api/languages`)
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 1rem;
+  padding: 3rem 1rem;
   border-radius: 1rem;
   overflow: auto;
-  .item {
-    white-space: pre;
-  }
 }
 </style>
