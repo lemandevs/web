@@ -10,8 +10,9 @@
       />
     </slot>
     <teleport v-if="teleportVisible" to="#Overlays">
-      <TransitionAppear
+      <TransitionAppearFrom
         appear
+        from="bottom"
         @leave="leave"
         @enter="enter"
         @after-enter="afterEnter"
@@ -23,9 +24,25 @@
           :style="styles"
           v-bind="$attrs"
         >
+          <CssAbsolute
+            class="DropdownCloseBtn"
+            position="top"
+            align="end"
+            :offsetX="8"
+            :offsetY="8"
+          >
+            <Btn
+              icon="Cross"
+              variant="clear"
+              level="secondary"
+              size="small"
+              @click="toggle"
+              rounded
+            />
+          </CssAbsolute>
           <slot name="content"></slot>
         </div>
-      </TransitionAppear>
+      </TransitionAppearFrom>
     </teleport>
   </component>
 </template>
@@ -231,51 +248,67 @@ export default {
   position: absolute;
   width: auto;
   overflow: auto;
-  --translate-y: 0;
-  --translate-x: 0;
-  &_small {
-    min-width: 220px;
+  --dropdown-translate-y: 0;
+  --dropdown-translate-x: 0;
+  @media screen and (max-width: 768px) {
+    pointer-events: auto;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
   }
+  @media screen and (min-width: 769px) {
+    .DropdownCloseBtn {
+      display: none;
+    }
+    &_small {
+      min-width: 220px;
+    }
 
-  &_top {
-    --translate-y: -100%;
-  }
-  &_center {
-    --translate-y: -50%;
-  }
-  &_bottom {
-    --translate-y: 0%;
-  }
+    &_top {
+      --dropdown-translate-y: -100%;
+    }
+    &_center {
+      --dropdown-translate-y: -50%;
+    }
+    &_bottom {
+      --dropdown-translate-y: 0%;
+    }
 
-  &_top,
-  &_bottom,
-  &_center {
-    &.Dropdown_start {
-      --translate-x: 0;
+    &_top,
+    &_bottom,
+    &_center {
+      &.Dropdown_start {
+        --dropdown-translate-x: 0;
+      }
+      &.Dropdown_middle {
+        --dropdown-translate-x: -50%;
+      }
+      &.Dropdown_end {
+        --dropdown-translate-x: -100%;
+      }
     }
-    &.Dropdown_middle {
-      --translate-x: -50%;
-    }
-    &.Dropdown_end {
-      --translate-x: -100%;
-    }
-  }
 
-  &_left,
-  &_right {
-    &.Dropdown_start {
-      --translate-y: 0;
+    &_left,
+    &_right {
+      &.Dropdown_start {
+        --dropdown-translate-y: 0;
+      }
+      &.Dropdown_middle {
+        --dropdown-translate-y: -50%;
+      }
+      &.Dropdown_end {
+        --dropdown-translate-y: -100%;
+      }
     }
-    &.Dropdown_middle {
-      --translate-y: -50%;
+    &_left {
+      --dropdown-translate-x: -100%;
     }
-    &.Dropdown_end {
-      --translate-y: -100%;
-    }
+    transform: translate3d(
+      var(--dropdown-translate-x),
+      var(--dropdown-translate-y),
+      0
+    );
   }
-  &_left {
-    --translate-x: -100%;
-  }
-  transform: translate3d(var(--translate-x), var(--translate-y), 0);
 }
 </style>
