@@ -22,33 +22,35 @@
       />
     </template>
     <template #content>
-      <EffectPanel :class="classes">
-        <Menu :class="classes">
-          <NuxtLink
-            v-for="route in router.options.routes"
-            :key="route.name"
-            :to="route.path"
-            v-slot="{ isActive, navigate }"
-          >
-            <MenuItem @click="navigate">
-              <Typography
-                size="medium"
-                :level="isActive ? 'emphatic' : 'primary'"
-                weight="bold"
-                class="OverflowText"
-              >
-                {{
-                  $t(
-                    `components.widgets.AppMenu.routes.${
-                      route.name || route.path.replace('/', '')
-                    }.label`
-                  )
-                }}
-              </Typography>
-            </MenuItem>
-          </NuxtLink>
-        </Menu>
-      </EffectPanel>
+      <div :class="classes">
+        <EffectPanel>
+          <Menu :class="classes">
+            <NuxtLink
+              v-for="route in router.options.routes"
+              :key="route.name"
+              :to="route.path"
+              v-slot="{ isActive, navigate }"
+            >
+              <MenuItem @click="navigate">
+                <Typography
+                  size="medium"
+                  :level="isActive ? 'emphatic' : 'primary'"
+                  weight="bold"
+                  class="OverflowText"
+                >
+                  {{
+                    $t(
+                      `components.widgets.AppMenu.routes.${
+                        route.name || route.path.replace('/', '')
+                      }.label`
+                    )
+                  }}
+                </Typography>
+              </MenuItem>
+            </NuxtLink>
+          </Menu>
+        </EffectPanel>
+      </div>
     </template>
   </OverlayDropdown>
 </template>
@@ -62,9 +64,6 @@ const visible = ref(false)
 </script>
 
 <style lang="scss">
-.WidgetAppMenuDropdown {
-  backdrop-filter: blur(24px);
-}
 .WidgetAppMenu {
   display: flex;
   flex-direction: column;

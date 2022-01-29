@@ -3,10 +3,10 @@
     class="SelectDropdown"
     position="bottom"
     align="start"
+    scrollable
     width="target"
     :visible="focused"
     :offsetY="4"
-    @close="onBlur"
   >
     <template v-slot:target>
       <div :class="classes">
@@ -50,40 +50,43 @@
       </div>
     </template>
     <template v-slot:content>
-      <Menu key="SelectOptions" variant="underline" class="SelectOptions">
-        <MenuItem
-          v-for="(option, index) in filteredOptions"
-          :key="option.id || index"
-          :size="size"
-          :class="[
-            'SelectOption',
-            isSelectedOption(option) && 'SelectOption_selected',
-          ]"
-          @touchstart="() => select(option)"
-          @mousedown="() => select(option)"
-        >
-          <FormCheckbox
-            v-if="multiple"
-            size="small"
-            :value="isSelectedOption(option)"
-          />
-          <Icon
-            v-if="option.icon"
+      <EffectPanel class="SelectOptions">
+        <Menu key="SelectOptions" variant="underline">
+          <MenuItem
+            v-for="(option, index) in filteredOptions"
+            :key="option.id || index"
             :active="isSelectedOption(option)"
-            :name="option.icon"
-          />
-          <Typography
             :size="size"
-            :level="isSelectedOption(option) ? 'emphatic' : 'primary'"
-            class="OverflowText"
+            :class="[
+              'SelectOption',
+              isSelectedOption(option) && 'SelectOption_selected',
+            ]"
+            @touchstart="() => select(option)"
+            @mousedown="() => select(option)"
           >
-            {{ option.label || option }}
-          </Typography>
-        </MenuItem>
-        <MenuItem v-if="noOptions" class="SelectOption" :size="size">
-          There are no options
-        </MenuItem>
-      </Menu>
+            <FormCheckbox
+              v-if="multiple"
+              size="small"
+              :value="isSelectedOption(option)"
+            />
+            <Icon
+              v-if="option.icon"
+              :active="isSelectedOption(option)"
+              :name="option.icon"
+            />
+            <Typography
+              :size="size"
+              :level="isSelectedOption(option) ? 'primary' : 'secondary'"
+              class="OverflowText"
+            >
+              {{ option.label || option }}
+            </Typography>
+          </MenuItem>
+          <MenuItem v-if="noOptions" class="SelectOption" :size="size">
+            There are no options
+          </MenuItem>
+        </Menu>
+      </EffectPanel>
     </template>
   </OverlayDropdown>
 </template>
@@ -170,7 +173,7 @@ export default {
   },
   computed: {
     noOptions() {
-      return !this.options || !this.options.length
+      return !this.options || !this.filteredOptions.length
     },
     selectedOption() {
       return this.options.find((option) =>
@@ -212,13 +215,23 @@ export default {
     },
     filteredOptions() {
       return this.options.filter((option) =>
-        option.label
-          ? option.label.includes(this.filter)
+        option.value
+          ? option.value.includes(this.filter)
           : option.includes(this.filter)
       )
     },
     rootClass() {
       return { 'w-full': true }
+    },
+    offsetY() {
+      return (
+        2 +
+        (this.options.findIndex((option) =>
+          compareOptionByValue(option, this.value)
+        ) +
+          1) *
+          -56
+      )
     },
   },
   methods: {
@@ -276,22 +289,20 @@ export default {
 
 <style lang="scss">
 .SelectOptions {
-  box-shadow: inset 0px 0px 0px 2px var(--color-emphatic);
-  backdrop-filter: blur(50px);
-  background: var(--color-surface);
-  border-radius: 8px;
-  padding: 2px;
   .SelectOption {
     cursor: pointer;
     overflow: hidden;
     transition: background 0.3s ease;
     &:hover,
-    &_selected {
+    &.SelectOption_selected {
       background: rgba(var(--color-emphatic-rgb), 0.2);
     }
   }
   &:hover .SelectOption_selected {
     background: transparent;
+  }
+  &:hover .SelectOption_selected:hover {
+    background: rgba(var(--color-emphatic-rgb), 0.2);
   }
 }
 

@@ -33,8 +33,8 @@ const classes = defineClasses('Panel')
   );
   background-clip: padding-box;
 
-  border: solid 2px transparent;
-  border-radius: 1rem;
+  border-radius: 0.25rem;
+  position: relative;
   overflow: hidden;
   &:after {
     content: '';
@@ -44,14 +44,11 @@ const classes = defineClasses('Panel')
     bottom: 0;
     left: 0;
     z-index: -1;
-    margin: 0px;
-    border-radius: inherit;
     background: linear-gradient(
       -45deg,
       rgba(var(--color-emphatic-rgb), 0.5),
       var(--color-emphatic)
     );
-    backdrop-filter: blur(64px);
   }
 }
 </style>

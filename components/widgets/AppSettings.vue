@@ -28,6 +28,7 @@
           type="select"
           name="language"
           v-model:value="$i18n.locale"
+          filterable
           :options="languages"
         />
         <FormField
@@ -71,7 +72,7 @@ const currentLanguage = computed({
 const languages = await fetch(`/api/languages`)
   .then((r) => r.json())
   .then((languages) =>
-    languages.map(({ code: value, label }) => ({ value, label }))
+    languages.map(({ code: value, nativeName: label }) => ({ value, label }))
   )
 </script>
 
@@ -81,7 +82,6 @@ const languages = await fetch(`/api/languages`)
   flex-direction: column;
   height: 100%;
   padding: 3rem 1rem;
-  border-radius: 1rem;
   overflow: auto;
 }
 </style>

@@ -10,6 +10,9 @@
       />
     </slot>
     <teleport v-if="teleportVisible" to="#Overlays">
+      <Overlay @click="toggle" />
+    </teleport>
+    <teleport v-if="teleportVisible" to="#Overlays">
       <TransitionAppearFrom
         appear
         from="bottom"
@@ -103,6 +106,10 @@ export default {
         )
       },
     },
+    scrollable: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup() {
     const classes = defineClasses('Dropdown')
@@ -174,6 +181,26 @@ export default {
             }
         }
       })()
+      const bottom = (() => {
+        switch (this.position) {
+          case 'top':
+            return this.coords.top - this.offsetX
+          case 'bottom':
+            return this.coords.top + this.coords.height + this.offsetY
+          case 'center':
+            return this.coords.top + this.coords.height / 2 + this.offsetY
+          default:
+            switch (this.align) {
+              case 'start':
+                return this.coords.top + this.offsetY
+              case 'end':
+                return this.coords.top + this.coords.height + this.offsetY
+              case 'middle':
+              default:
+                return this.coords.top + this.coords.height / 2 + this.offsetY
+            }
+        }
+      })()
 
       const width = Width[this.width]
         ? Width[this.width]
@@ -186,6 +213,16 @@ export default {
                 return 'auto'
             }
           })()
+      if (this.scrollable) {
+        return {
+          padding: `${top}px 0 ${bottom}px 0`,
+          top: `${0}px`,
+          left: `${left}px`,
+          width: `${width}`,
+          height: `100vh`,
+          maxHeight: 'none',
+        }
+      }
       return {
         top: `${top}px`,
         left: `${left}px`,
@@ -256,7 +293,13 @@ export default {
     left: 0 !important;
     width: 100% !important;
     height: 100% !important;
+    padding: 0 !important;
+    .DropdownCloseBtn {
+      position: fixed;
+      z-index: 1;
+    }
   }
+  max-height: 100vh;
   @media screen and (min-width: 769px) {
     .DropdownCloseBtn {
       display: none;

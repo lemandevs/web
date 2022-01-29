@@ -1,5 +1,5 @@
 <template>
-  <li :class="classes">
+  <li :class="classes" ref="itemEl">
     <slot />
   </li>
 </template>
@@ -21,6 +21,18 @@ const props = defineProps({
   },
 })
 const classes = defineClasses('MenuItem')
+const itemEl = ref()
+watchEffect(() => {
+  if (props.active) {
+    nextTick(() => {
+      itemEl.value.scrollIntoViewIfNeeded()
+    })
+  }
+})
+watch(props.active, (active) => {
+  debugger
+  console.log(itemEl.value)
+})
 </script>
 
 <style lang="scss">
