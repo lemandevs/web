@@ -14,6 +14,10 @@ const props = defineProps({
   },
 })
 const classes = defineClasses('UIHomePage')
+
+definePageMeta({
+  icon: 'Home',
+})
 </script>
 
 <style lang="scss">

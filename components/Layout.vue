@@ -39,7 +39,7 @@
     <TransitionAppearFrom appear from="bottom">
       <NavigationBar
         v-if="variant === 'subrouting'"
-        :routes="parent.children"
+        :routes="children"
         :parent="parent"
       />
     </TransitionAppearFrom>
@@ -48,6 +48,7 @@
 </template>
 
 <script setup>
+import _ from 'lodash'
 const props = defineProps({
   variant: {
     type: String,
@@ -65,6 +66,7 @@ const route = useRoute()
 const parent = router.options.routes.find(({ path }) => {
   return path === route.matched[0].path
 })
+const children = _.sortBy(parent.children, ['meta.navBar.position'])
 </script>
 
 <style lang="scss">

@@ -18,6 +18,9 @@ const props = defineProps({
 const classes = defineClasses('UIPage')
 definePageMeta({
   layout: 'subrouting',
+  menu: {
+    position: 2,
+  },
 })
 const router = useRouter()
 const route = useRoute()

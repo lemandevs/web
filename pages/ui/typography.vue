@@ -13,6 +13,9 @@ const props = defineProps({
 const classes = defineClasses('TypographyPage')
 definePageMeta({
   icon: 'Typography',
+  navBar: {
+    position: 2,
+  },
 })
 </script>
 

@@ -16,6 +16,9 @@ const props = defineProps({
 const classes = defineClasses('DesignPage')
 definePageMeta({
   icon: 'Design',
+  navBar: {
+    position: 0,
+  },
 })
 </script>
 

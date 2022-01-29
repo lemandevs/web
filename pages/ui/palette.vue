@@ -17,6 +17,9 @@ const classes = defineClasses('PalettePage')
 
 definePageMeta({
   icon: 'Palette',
+  navBar: {
+    position: 1,
+  },
 })
 
 const colors = ref([
