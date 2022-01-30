@@ -7,6 +7,7 @@
     mobileFullScreen
     :visible="focused"
     @opened="$refs.search.focus()"
+    :title="dropdownTitle"
     :offset-y="4"
   >
     <template v-slot:target>
@@ -172,6 +173,10 @@ export default {
     multiple: {
       type: Boolean,
       default: false,
+    },
+    dropdownTitle: {
+      type: String,
+      default: '',
     },
   },
   setup(props) {

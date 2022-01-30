@@ -13,6 +13,7 @@
       class="FieldInput"
       v-bind="$attrs"
       :id="name"
+      :dropdown-title="label"
       :name="name"
       :size="size"
       v-model:value="value"
