@@ -17,7 +17,6 @@
     <CssAbsolute v-if="parent" position="top" align="middle" offsetY="-24px">
       <Btn
         :to="parent.path"
-        direction="column"
         iconAfter
         icon="Home"
         level="primary"
