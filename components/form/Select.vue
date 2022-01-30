@@ -3,8 +3,8 @@
     class="SelectDropdown"
     position="bottom"
     align="start"
-    scrollable
     width="target"
+    mobileFullScreen
     :visible="focused"
     :offset-y="4"
   >
@@ -50,43 +50,54 @@
       </div>
     </template>
     <template v-slot:content>
-      <EffectPanel class="SelectOptions">
-        <Menu key="SelectOptions" variant="underline">
-          <MenuItem
-            v-for="(option, index) in filteredOptions"
-            :key="option.id || index"
+      <FormInput
+        :readOnly="!filterable"
+        class="SelectInput"
+        :size="size"
+        v-bind="$attrs"
+        autocomplete="off"
+        ref="value"
+        :placeholder="inputPlaceholder"
+        v-model:value="inputValue"
+        @mousedown="onFocus"
+        @focus="onFocus"
+        @blur="onBlur"
+      />
+      <Menu key="SelectOptions" variant="underline">
+        <MenuItem
+          v-for="(option, index) in filteredOptions"
+          :key="option.id || index"
+          :active="isSelectedOption(option)"
+          :size="size"
+          :class="[
+            'SelectOption',
+            isSelectedOption(option) && 'SelectOption_selected',
+          ]"
+          @touchstart="() => select(option)"
+          @mousedown="() => select(option)"
+        >
+          <FormCheckbox
+            v-if="multiple"
+            size="small"
+            :value="isSelectedOption(option)"
+          />
+          <Icon
+            v-if="option.icon"
             :active="isSelectedOption(option)"
+            :name="option.icon"
+          />
+          <Typography
             :size="size"
-            :class="[
-              'SelectOption',
-              isSelectedOption(option) && 'SelectOption_selected',
-            ]"
-            @touchstart="() => select(option)"
-            @mousedown="() => select(option)"
+            :level="isSelectedOption(option) ? 'primary' : 'secondary'"
+            class="OverflowText"
           >
-            <FormCheckbox
-              v-if="multiple"
-              size="small"
-              :value="isSelectedOption(option)"
-            />
-            <Icon
-              v-if="option.icon"
-              :active="isSelectedOption(option)"
-              :name="option.icon"
-            />
-            <Typography
-              :size="size"
-              :level="isSelectedOption(option) ? 'primary' : 'secondary'"
-              class="OverflowText"
-            >
-              {{ option.label || option }}
-            </Typography>
-          </MenuItem>
-          <MenuItem v-if="noOptions" class="SelectOption" :size="size">
-            There are no options
-          </MenuItem>
-        </Menu>
-      </EffectPanel>
+            {{ option.label || option }}
+          </Typography>
+        </MenuItem>
+        <MenuItem v-if="noOptions" class="SelectOption" :size="size">
+          There are no options
+        </MenuItem>
+      </Menu>
     </template>
   </OverlayDropdown>
 </template>

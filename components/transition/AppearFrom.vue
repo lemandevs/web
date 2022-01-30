@@ -42,6 +42,7 @@ export default {
   transition-property: all;
   transition-timing-function: ease-in-out;
   transition-duration: 300ms;
+  opacity: 1;
 }
 
 .AppearFromLeft-enter-from,

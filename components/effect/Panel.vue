@@ -20,6 +20,7 @@ const classes = defineClasses('Panel')
 
 <style lang="scss">
 .Panel {
+  width: 100%;
   transition-property: background-color;
   transition-duration: 200ms;
   transition-timing-function: ease-in-out;
@@ -35,7 +36,6 @@ const classes = defineClasses('Panel')
 
   border-radius: 0.25rem;
   position: relative;
-  overflow: hidden;
   &:after {
     content: '';
     position: absolute;

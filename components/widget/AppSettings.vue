@@ -10,9 +10,10 @@
     align="end"
     dropdown-position="bottom"
     dropdown-align="end"
+    mobileFullScreen
     :dropdown-offset-y="24"
   >
-    <EffectPanel :class="classes">
+    <div class="SettingsMenu">
       <FormField
         :label="$t('components.widgets.settings.language.label')"
         type="select"
@@ -27,7 +28,7 @@
         name="darkMode"
         v-model:value="darkMode"
       />
-    </EffectPanel>
+    </div>
   </Widget>
 </template>
 
@@ -81,12 +82,10 @@ const languages = await fetch(`/api/languages`)
 </script>
 
 <style lang="scss">
-.WidgetAppSettings {
+.SettingsMenu {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  padding: 3rem 1rem;
-  overflow: auto;
+  padding: 1rem;
 }
 @media screen and (min-width: 769px) {
   .Widget_localVisible {

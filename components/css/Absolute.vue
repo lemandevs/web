@@ -34,7 +34,7 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
-  zindex: {
+  zIndex: {
     type: Number,
     default: null,
   },
@@ -46,8 +46,8 @@ const style = computed(() => ({
   '--absolute-offset-y': Number.isInteger(props.offsetY)
     ? `${props.offsetY}px`
     : props.offsetY,
-  '--absolute-z-index': Number.isInteger(props.zindex)
-    ? props.zindex
+  '--absolute-z-index': Number.isInteger(props.zIndex)
+    ? props.zIndex
     : 'initial',
 }))
 const classes = defineClasses('Absolute')

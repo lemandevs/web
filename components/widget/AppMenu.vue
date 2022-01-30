@@ -8,37 +8,36 @@
     icon="Menu"
     position="top"
     align="start"
+    mobileFullScreen
     dropdown-position="bottom"
     dropdown-align="start"
     :dropdown-offset-y="24"
   >
-    <EffectPanel>
-      <Menu :class="classes">
-        <NuxtLink
-          v-for="route in router.options.routes"
-          :key="route.name"
-          :to="route.path"
-          v-slot="{ isActive, navigate }"
-        >
-          <MenuItem @click="navigate">
-            <Typography
-              size="medium"
-              :level="isActive ? 'emphatic' : 'primary'"
-              weight="bold"
-              class="OverflowText"
-            >
-              {{
-                $t(
-                  `components.widgets.AppMenu.routes.${
-                    route.name || route.path.replace('/', '')
-                  }.label`
-                )
-              }}
-            </Typography>
-          </MenuItem>
-        </NuxtLink>
-      </Menu>
-    </EffectPanel>
+    <Menu :class="classes">
+      <NuxtLink
+        v-for="route in router.options.routes"
+        :key="route.name"
+        :to="route.path"
+        v-slot="{ isActive, navigate }"
+      >
+        <MenuItem @click="navigate">
+          <Typography
+            size="medium"
+            :level="isActive ? 'emphatic' : 'primary'"
+            weight="bold"
+            class="OverflowText"
+          >
+            {{
+              $t(
+                `components.widgets.AppMenu.routes.${
+                  route.name || route.path.replace('/', '')
+                }.label`
+              )
+            }}
+          </Typography>
+        </MenuItem>
+      </NuxtLink>
+    </Menu>
   </Widget>
 </template>
 

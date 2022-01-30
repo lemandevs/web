@@ -26,28 +26,36 @@
       >
         <div
           v-if="localVisible"
-          ref="content"
           :class="classes"
           :style="styles"
+          ref="content"
           v-bind="$attrs"
         >
-          <CssAbsolute
-            class="DropdownCloseBtn"
-            position="top"
-            align="end"
-            :offset-x="8"
-            :offset-y="8"
-          >
-            <Btn
-              icon="Cross"
-              variant="clear"
-              level="secondary"
-              size="small"
-              @click="toggle"
-              rounded
-            />
-          </CssAbsolute>
-          <slot name="content"></slot>
+          <EffectPanel class="DropdownContent">
+            <header class="DropdownHeader">
+              <Typography size="medium" weight="bold">Title</Typography>
+              <CssAbsolute
+                class="DropdownCloseBtn"
+                position="top"
+                align="end"
+                :offset-x="8"
+                :offset-y="8"
+                :z-index="1"
+              >
+                <Btn
+                  icon="Cross"
+                  variant="clear"
+                  level="secondary"
+                  size="small"
+                  @click="toggle"
+                  rounded
+                />
+              </CssAbsolute>
+            </header>
+            <div class="DropdownContentWrapper">
+              <slot name="content"></slot>
+            </div>
+          </EffectPanel>
         </div>
       </TransitionAppearFrom>
     </teleport>
@@ -88,11 +96,16 @@ export default {
       type: Boolean,
       default: false,
     },
+    mobileFullScreen: {
+      type: Boolean,
+      default: false,
+      class: true,
+    },
     offsetX: { type: Number, default: 0 },
     offsetY: { type: Number, default: 0 },
     width: {
       type: String,
-      default: 'content',
+      default: 'small',
       class: true,
       validator(value) {
         return (
@@ -297,43 +310,70 @@ export default {
 .Dropdown {
   position: absolute;
   width: auto;
-  overflow: auto;
   --dropdown-translate-y: 0;
   --dropdown-translate-x: 0;
+  max-height: 50vh;
+  display: flex;
+  overflow: hidden;
+  .DropdownHeader {
+    display: none;
+    position: sticky;
+    top: 0;
+    padding: 1rem;
+  }
+  .DropdownCloseBtn {
+    display: none;
+    position: fixed;
+    z-index: 1;
+  }
+  .DropdownContent {
+    display: flex;
+    flex-direction: column;
+  }
+  .DropdownContentWrapper {
+    flex: 1;
+    overflow: auto;
+  }
   @media screen and (max-width: 768px) {
-    pointer-events: auto;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    padding: 0 !important;
-    .DropdownCloseBtn {
-      position: fixed;
-      z-index: 1;
+    &_mobileFullScreen {
+      pointer-events: auto;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      padding: 0 !important;
+      opacity: 1 !important;
+      min-height: 100vh;
+      .DropdownHeader {
+        display: flex;
+      }
+      .DropdownCloseBtn {
+        display: block;
+      }
+      .DropdownContent {
+        min-height: 100vh;
+      }
     }
   }
-  max-height: 100vh;
-  @media screen and (min-width: 769px) {
-    .DropdownCloseBtn {
-      display: none;
-    }
-    &_small {
+  @media screen and (min-width: 768px) {
+    border-radius: 0.5rem;
+    &.Dropdown_small {
       min-width: 220px;
     }
 
-    &_top {
+    &.Dropdown_top {
       --dropdown-translate-y: -100%;
     }
-    &_center {
+    &.Dropdown_center {
       --dropdown-translate-y: -50%;
     }
-    &_bottom {
+    &.Dropdown_bottom {
       --dropdown-translate-y: 0%;
     }
 
-    &_top,
-    &_bottom,
-    &_center {
+    &.Dropdown_top,
+    &.Dropdown_bottom,
+    &.Dropdown_center {
       &.Dropdown_start {
         --dropdown-translate-x: 0;
       }
@@ -345,8 +385,8 @@ export default {
       }
     }
 
-    &_left,
-    &_right {
+    &.Dropdown_left,
+    &.Dropdown_right {
       &.Dropdown_start {
         --dropdown-translate-y: 0;
       }
@@ -357,7 +397,7 @@ export default {
         --dropdown-translate-y: -100%;
       }
     }
-    &_left {
+    &.Dropdown_left {
       --dropdown-translate-x: -100%;
     }
     transform: translate3d(

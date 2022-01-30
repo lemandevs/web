@@ -12,6 +12,7 @@
       :width="width"
       :position="dropdownPosition"
       :align="dropdownAlign"
+      :mobileFullScreen="mobileFullScreen"
       :offset-y="dropdownOffsetY"
       :offset-x="dropdownOffsetX"
     >
@@ -36,6 +37,11 @@
 <script setup>
 const props = defineProps({
   visible: {
+    type: Boolean,
+    default: false,
+    class: true,
+  },
+  mobileFullScreen: {
     type: Boolean,
     default: false,
     class: true,
