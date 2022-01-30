@@ -180,6 +180,7 @@ export default {
 .Field {
   position: relative;
   display: flex;
+  width: 100%;
   flex-direction: column;
 
   .FieldLabel,

@@ -46,10 +46,6 @@ export default {
       required: true,
       default: '',
     },
-    alias: {
-      type: String,
-      default: 'Input',
-    },
     type: {
       type: String,
       default: 'text',
@@ -63,11 +59,20 @@ export default {
     },
     size: {
       type: String,
+      class: true,
       default: 'medium',
       validator(value) {
         return ['tiny', 'small', 'medium', 'large', 'big', 'huge'].includes(
           value
         )
+      },
+    },
+    weight: {
+      type: String,
+      class: true,
+      default: 'regular',
+      validator(value) {
+        return ['light', 'regular', 'bold'].includes(value)
       },
     },
     autofocus: {
@@ -132,7 +137,7 @@ export default {
   border-radius: 8px;
   width: 100%;
   min-width: 0px;
-  color: current;
+  color: currentColor;
   background: transparent;
   border: none;
   min-width: 0;

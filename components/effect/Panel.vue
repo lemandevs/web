@@ -33,8 +33,6 @@ const classes = defineClasses('Panel')
     var(--color-surface)
   );
   background-clip: padding-box;
-
-  border-radius: 0.25rem;
   position: relative;
   &:after {
     content: '';

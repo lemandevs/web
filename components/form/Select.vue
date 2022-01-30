@@ -6,6 +6,7 @@
     width="target"
     mobileFullScreen
     :visible="focused"
+    @opened="$refs.search.focus()"
     :offset-y="4"
   >
     <template v-slot:target>
@@ -50,19 +51,21 @@
       </div>
     </template>
     <template v-slot:content>
-      <FormInput
-        :readOnly="!filterable"
-        class="SelectInput"
-        :size="size"
-        v-bind="$attrs"
-        autocomplete="off"
-        ref="value"
-        :placeholder="inputPlaceholder"
-        v-model:value="inputValue"
-        @mousedown="onFocus"
-        @focus="onFocus"
-        @blur="onBlur"
-      />
+      <CssSticky class="SelectSearch" :size="size">
+        <FormInput
+          :readOnly="!filterable"
+          type="text"
+          :size="size"
+          name="dropdown-search"
+          autocomplete="off"
+          ref="search"
+          :placeholder="inputPlaceholder"
+          v-model:value="inputValue"
+          @mousedown="onFocus"
+          @focus="onFocus"
+          @blur="onBlur"
+        />
+      </CssSticky>
       <Menu key="SelectOptions" variant="underline">
         <MenuItem
           v-for="(option, index) in filteredOptions"
@@ -330,5 +333,9 @@ export default {
     border-radius: 0.5rem 0 0 0.5rem;
     padding-right: 3rem;
   }
+}
+.SelectSearch {
+  padding: 1rem;
+  background: var(--color-surface);
 }
 </style>
