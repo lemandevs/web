@@ -33,7 +33,9 @@
         >
           <EffectPanel class="DropdownContent">
             <header class="DropdownHeader">
-              <Typography size="medium" weight="bold">Title</Typography>
+              <Typography v-if="title" size="medium" weight="bold">{{
+                title
+              }}</Typography>
               <CssAbsolute
                 class="DropdownCloseBtn"
                 position="top"
@@ -104,7 +106,7 @@ export default {
     offsetX: { type: Number, default: 0 },
     offsetY: { type: Number, default: 0 },
     width: {
-      type: String,
+      type: [String, Number],
       default: 'small',
       class: true,
       validator(value) {
@@ -115,6 +117,7 @@ export default {
       },
     },
     height: {
+      type: [String, Number],
       default: 'medium',
       validator(value) {
         return (
@@ -126,6 +129,10 @@ export default {
     scrollable: {
       type: Boolean,
       default: false,
+    },
+    title: {
+      type: String,
+      default: '',
     },
   },
   setup() {

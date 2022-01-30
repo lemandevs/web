@@ -11,6 +11,7 @@
       :css="false"
       :width="width"
       :position="dropdownPosition"
+      :title="dropdownTitle"
       :align="dropdownAlign"
       :mobileFullScreen="mobileFullScreen"
       :offset-y="dropdownOffsetY"
@@ -85,6 +86,10 @@ const props = defineProps({
   dropdownOffsetY: {
     type: Number,
     default: 0,
+  },
+  dropdownTitle: {
+    type: String,
+    default: '',
   },
 })
 const classes = defineClasses('Widget')

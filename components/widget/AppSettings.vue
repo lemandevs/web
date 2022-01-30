@@ -8,6 +8,7 @@
     icon="Settings"
     position="top"
     align="end"
+    dropdown-title="Settings"
     dropdown-position="bottom"
     dropdown-align="end"
     mobileFullScreen
