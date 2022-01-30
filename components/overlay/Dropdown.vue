@@ -106,7 +106,7 @@ export default {
     offsetX: { type: Number, default: 0 },
     offsetY: { type: Number, default: 0 },
     width: {
-      type: [String, Number],
+      type: String,
       default: 'small',
       class: true,
       validator(value) {
@@ -117,7 +117,6 @@ export default {
       },
     },
     height: {
-      type: [String, Number],
       default: 'medium',
       validator(value) {
         return (
