@@ -6,7 +6,7 @@
     scrollable
     width="target"
     :visible="focused"
-    :offsetY="4"
+    :offset-y="4"
   >
     <template v-slot:target>
       <div :class="classes">

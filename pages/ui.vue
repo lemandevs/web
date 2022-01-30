@@ -18,6 +18,7 @@ const props = defineProps({
 const classes = defineClasses('UIPage')
 definePageMeta({
   layout: 'subrouting',
+  pageTransition: 'TransitionAppear',
   menu: {
     position: 2,
   },

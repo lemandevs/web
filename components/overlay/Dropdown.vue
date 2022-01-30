@@ -1,27 +1,31 @@
 <template>
   <component :is="is">
-    <slot name="target" :toggle="toggle" :visible="visible">
+    <slot name="target" :toggle="toggle" :visible="localVisible">
       <Btn
         variant="clear"
         level="primary"
         @click="toggle"
         icon="Chevron"
-        :active="visible"
+        :active="localVisible"
       />
     </slot>
     <teleport v-if="teleportVisible" to="#Overlays">
-      <Overlay @click="toggle" />
-    </teleport>
-    <teleport v-if="teleportVisible" to="#Overlays">
+      <TransitionAppear appear>
+        <Overlay
+          v-if="localVisible"
+          ref="overlay"
+          @click="$emit('update:visible', false)"
+        />
+      </TransitionAppear>
       <TransitionAppearFrom
         appear
-        from="bottom"
+        from="Bottom"
         @leave="leave"
         @enter="enter"
         @after-enter="afterEnter"
       >
         <div
-          v-if="visible"
+          v-if="localVisible"
           ref="content"
           :class="classes"
           :style="styles"
@@ -31,8 +35,8 @@
             class="DropdownCloseBtn"
             position="top"
             align="end"
-            :offsetX="8"
-            :offsetY="8"
+            :offset-x="8"
+            :offset-y="8"
           >
             <Btn
               icon="Cross"
@@ -113,6 +117,7 @@ export default {
   },
   setup() {
     const classes = defineClasses('Dropdown')
+    console.log(classes.value)
     return { classes }
   },
   data() {
@@ -139,11 +144,19 @@ export default {
     },
   },
   computed: {
+    localVisible: {
+      get() {
+        return this.visible
+      },
+      set(value) {
+        this.$emit('update:visible', value)
+      },
+    },
     styles() {
       const left = (() => {
         switch (this.position) {
           case 'left':
-            return this.coords.left
+            return this.coords.left - this.offsetX
           case 'right':
             return this.coords.left + this.coords.width + this.offsetX
           case 'top':
@@ -255,16 +268,16 @@ export default {
       }
     },
     toggle(event) {
-      this.$emit(this.visible ? 'close' : 'open', event)
+      this.$emit('update:visible', !this.localVisible)
     },
     clickOutside(event) {
       if (
-        this.visible &&
+        this.localVisible &&
         !this.$el.contains(event.target) &&
         !this.$refs.content.contains(event.target) &&
         !document.getElementById('Overlays').contains(event.target)
       ) {
-        this.$emit('close', event)
+        this.$emit('update:visible', false)
       }
     },
     leave() {

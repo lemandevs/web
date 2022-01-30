@@ -17,6 +17,7 @@ const classes = defineClasses('UIHomePage')
 
 definePageMeta({
   icon: 'Home',
+  pageTransition: 'TransitionAppear',
 })
 </script>
 

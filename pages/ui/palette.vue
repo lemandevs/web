@@ -17,6 +17,7 @@ const classes = defineClasses('PalettePage')
 
 definePageMeta({
   icon: 'Palette',
+  pageTransition: 'TransitionAppear',
   navBar: {
     position: 1,
   },

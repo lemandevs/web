@@ -226,8 +226,7 @@ const classes = defineClasses('Button')
   }
 
   &[class*='emphatic'] {
-    &:focus,
-    &:hover {
+    &:focus {
       transform: scale(1.15);
     }
     &[class*='fill'] {
@@ -263,8 +262,7 @@ const classes = defineClasses('Button')
   &[class*='primary'] {
     &:focus,
     &:active,
-    &[class*='active'],
-    &:hover {
+    &[class*='active'] {
       transform: scale(1.15);
     }
     &[class*='fill'] {

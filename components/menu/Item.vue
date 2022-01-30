@@ -30,7 +30,6 @@ watchEffect(() => {
   }
 })
 watch(props.active, (active) => {
-  debugger
   console.log(itemEl.value)
 })
 </script>

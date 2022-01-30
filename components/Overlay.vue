@@ -25,7 +25,7 @@ const classes = defineClasses('Overlay')
   left: 0;
   width: 100%;
   height: 100%;
-  transition: backdrop-filter 2s;
+  transition: all 500ms ease;
   background: rgba(var(--color-surface-rgb), 0.1);
   backdrop-filter: blur(4px);
 }

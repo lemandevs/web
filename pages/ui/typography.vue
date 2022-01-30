@@ -13,6 +13,7 @@ const props = defineProps({
 const classes = defineClasses('TypographyPage')
 definePageMeta({
   icon: 'Typography',
+  pageTransition: 'TransitionAppear',
   navBar: {
     position: 2,
   },
