@@ -9,9 +9,9 @@ const props = defineProps({
   size: {
     type: String,
     class: true,
-    default: 'medium',
+    default: 'default',
     validator(value) {
-      return ['small', 'medium', 'large'].includes(value)
+      return ['default', 'small', 'medium', 'large'].includes(value)
     },
   },
   active: {
@@ -47,6 +47,7 @@ defineExpose({
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  cursor: pointer;
 
   &_small {
     padding: 0.5rem 1rem;
@@ -58,6 +59,9 @@ defineExpose({
     padding: 1.5rem 1rem;
   }
   &_active {
+    background: rgba(var(--color-emphatic-rgb), 0.1);
+  }
+  &:hover {
     background: rgba(var(--color-emphatic-rgb), 0.3);
   }
 }

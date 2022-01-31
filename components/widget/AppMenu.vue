@@ -13,35 +13,15 @@
     dropdown-align="start"
     :dropdown-offset-y="24"
   >
-    <Menu :class="classes">
-      <template v-for="route in router.options.routes" :key="route.name">
-        <li v-if="!route.children || !route.children.length">
-          <NuxtLink :to="route.path" v-slot="{ isActive, navigate }">
-            <MenuItem
-              is="div"
-              @click="navigate"
-              v-if="!route.children || !route.children.length"
-            >
-              <Typography
-                size="medium"
-                :level="isActive ? 'emphatic' : 'primary'"
-                weight="bold"
-                class="OverflowText"
-              >
-                {{
-                  $t(
-                    `components.widgets.AppMenu.routes.${
-                      route.name || route.path.replace('/', '')
-                    }.label`
-                  )
-                }}
-              </Typography>
-            </MenuItem>
-          </NuxtLink>
-        </li>
+    <Menu :class="classes" direction="column">
+      <template v-for="route in routes" :key="route.name">
+        <MenuItemLink
+          v-if="!route.children || !route.children.length"
+          :route="route"
+        />
         <OverlayDropdown
           v-else
-          is="li"
+          is="MenuItem"
           position="right"
           align="start"
           v-model:visible="submenuVisible"
@@ -50,66 +30,26 @@
           :overlay="false"
         >
           <template v-slot:target="{ visible, open, close, toggle }">
-            <NuxtLink
-              :to="route.path"
-              custom
-              v-slot="{ isActive }"
-              @click="() => null"
-            >
-              <MenuItem
-                is="a"
-                @click.stop="debounce(toggle)"
-                @mouseenter="debounce(open)"
-                @mouseleave="debounce(close)"
-              >
-                <Typography
-                  size="medium"
-                  :level="isActive ? 'emphatic' : 'primary'"
-                  weight="bold"
-                  class="OverflowText"
-                >
-                  {{
-                    $t(
-                      `components.widgets.AppMenu.routes.${
-                        route.name || route.path.replace('/', '')
-                      }.label`
-                    )
-                  }}
-                </Typography>
-              </MenuItem>
-            </NuxtLink>
+            <MenuItemLink
+              :route="route"
+              @mouseenter="debounce(open)"
+              @mouseleave="debounce(close)"
+              @click.stop="debounce(toggle)"
+              :active="visible"
+            />
           </template>
-          <template v-slot:content="{ open, close, toggle }">
+          <template v-slot:content="{ open, close }">
             <Menu
               :class="classes"
+              direction="column"
               @mouseenter="debounce(open)"
               @mouseleave="debounce(close)"
             >
-              <li>
-                <NuxtLink
-                  v-for="subroute in route.children"
-                  :key="subroute.name"
-                  :to="`${route.path}/${subroute.path}`"
-                  v-slot="{ isExactActive, navigate }"
-                >
-                  <MenuItem is="div" @click="navigate">
-                    <Typography
-                      size="medium"
-                      :level="isExactActive ? 'emphatic' : 'primary'"
-                      weight="bold"
-                      class="OverflowText"
-                    >
-                      {{
-                        $t(
-                          `components.widgets.AppMenu.routes.${
-                            subroute.name || subroute.path.replace('/', '')
-                          }.label`
-                        )
-                      }}
-                    </Typography>
-                  </MenuItem>
-                </NuxtLink>
-              </li>
+              <MenuItemLink
+                v-for="subroute in sortRoutes(route.children)"
+                :key="subroute.name"
+                :route="{ ...subroute, path: `${route.path}/${subroute.path}` }"
+              />
             </Menu>
           </template>
         </OverlayDropdown>
@@ -130,6 +70,12 @@ const classes = defineClasses('WidgetAppMenu')
 const { theme } = useTheme()
 const router = useRouter()
 
+const sortRoutes = (routes) => {
+  return _.sortBy(routes, ['meta.menu.position'])
+}
+
+const routes = computed(() => sortRoutes(router.options.routes))
+
 const emit = defineEmits(['update:visible'])
 
 const localVisible = computed({
@@ -143,20 +89,33 @@ const localVisible = computed({
 const submenuVisible = ref(false)
 const debounce = _.debounce((method) => {
   method()
-}, 300)
+}, 100)
 </script>
 
 <style lang="scss">
 .WidgetAppMenu {
-  display: flex;
-  flex-direction: column;
   height: 100%;
   overflow: auto;
-}
-
-@media screen and (min-width: 769px) {
-  .Widget_visible {
-    z-index: 1;
+  .AppMenuLink {
+    display: flex;
+    cursor: pointer;
+    padding: 1rem;
+    background: transparent;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    &_active {
+      background: rgba(var(--color-emphatic-rgb), 0.2);
+    }
+    &:hover {
+      background: rgba(var(--color-emphatic-rgb), 0.1);
+    }
+  }
+  &:hover .AppMenuLink {
+    background: transparent;
+    &:hover {
+      background: rgba(var(--color-emphatic-rgb), 0.2);
+    }
   }
 }
 </style>

@@ -113,7 +113,7 @@ const localVisible = computed({
 }
 
 @media screen and (min-width: 769px) {
-  .Widget_localVisible {
+  .Widget_visible {
     z-index: 1;
   }
 }

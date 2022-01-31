@@ -20,6 +20,9 @@ definePageMeta({
   navBar: {
     position: 0,
   },
+  menu: {
+    position: 1,
+  },
 })
 </script>
 

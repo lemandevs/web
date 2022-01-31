@@ -93,7 +93,7 @@
           />
           <Typography
             :size="size"
-            :level="isSelectedOption(option) ? 'primary' : 'secondary'"
+            :level="isSelectedOption(option) ? 'emphatic' : 'primary'"
             class="OverflowText"
           >
             {{ option.label || option }}

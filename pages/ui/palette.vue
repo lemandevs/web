@@ -21,6 +21,9 @@ definePageMeta({
   navBar: {
     position: 1,
   },
+  menu: {
+    position: 1,
+  },
 })
 
 const colors = ref([

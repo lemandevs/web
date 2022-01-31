@@ -11,10 +11,13 @@ definePageMeta({
   navBar: {
     position: 3,
   },
+  menu: {
+    position: 3,
+  },
 })
 </script>
 
 <style lang="scss">
-.DesignPage {
+.ComponentsPage {
 }
 </style>

@@ -1,5 +1,7 @@
 <template>
-  <div :class="classes">UI Home Page</div>
+  <span :class="classes">
+    <slot></slot>
+  </span>
 </template>
 
 <script setup>
@@ -13,18 +15,13 @@ const props = defineProps({
     class: true,
   },
 })
-const classes = defineClasses('UIHomePage')
-
-definePageMeta({
-  icon: 'Home',
-  pageTransition: 'TransitionAppear',
-  menu: {
-    position: 0,
-  },
-})
+const classes = defineClasses('TextOverflow')
 </script>
 
 <style lang="scss">
-.UIHomePage {
+.TextOverflow {
+  white-space: pre;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

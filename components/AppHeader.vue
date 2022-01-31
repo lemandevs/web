@@ -34,11 +34,16 @@ const props = defineProps({
   },
 })
 const classes = defineClasses('AppHeader')
+
 const route = useRoute()
-const breadcrumbs = route.matched.filter(
-  (matchRoute) =>
-    route.matched.find(({ path }) => matchRoute.path === path) === matchRoute
+
+const breadcrumbs = computed(() =>
+  route.matched.filter(
+    (matchRoute) =>
+      route.matched.find(({ path }) => matchRoute.path === path) === matchRoute
+  )
 )
+
 const routeName = (matchRoute) =>
   matchRoute.name || matchRoute.path.replace('/', '')
 </script>

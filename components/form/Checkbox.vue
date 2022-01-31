@@ -43,7 +43,6 @@ export default {
   },
   methods: {
     onInput(event) {
-      console.log(event)
       this.checked = event.target.checked
     },
   },

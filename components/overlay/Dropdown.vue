@@ -152,7 +152,6 @@ export default {
   },
   setup() {
     const classes = defineClasses('Dropdown')
-    console.log(classes.value)
     return { classes }
   },
   data() {
@@ -391,7 +390,6 @@ export default {
     }
   }
   @media screen and (min-width: 768px) {
-    border-radius: 0.5rem;
     &.Dropdown_small {
       min-width: 220px;
     }

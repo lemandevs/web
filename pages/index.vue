@@ -1,11 +1,17 @@
 <template>
-  <ComingSoon />
+  <div :class="classes">
+    <ComingSoon />
+  </div>
 </template>
 
-<script>
-export default {
-  layout: 'main',
-}
+<script setup>
+definePageMeta({
+  layout: 'default',
+  menu: {
+    position: 1,
+  },
+})
+const classes = defineClasses('HomePage')
 </script>
 
 <style>
