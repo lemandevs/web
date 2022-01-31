@@ -1,12 +1,13 @@
 <template>
   <OverlayDropdown
     class="SelectDropdown"
-    position="bottom"
+    position="top"
     align="start"
+    inset
     width="target"
     mobileFullScreen
     :visible="focused"
-    @opened="$refs.search.focus()"
+    @opened="filterable && $refs.search.focus()"
     :title="dropdownTitle"
     :offset-y="4"
   >
@@ -52,7 +53,7 @@
       </div>
     </template>
     <template v-slot:content>
-      <CssSticky class="SelectSearch" :size="size">
+      <CssSticky v-if="filterable" class="SelectSearch" :size="size">
         <FormInput
           :readOnly="!filterable"
           type="text"

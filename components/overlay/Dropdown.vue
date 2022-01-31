@@ -1,21 +1,23 @@
 <template>
   <component :is="is">
-    <slot name="target" :toggle="toggle" :visible="localVisible">
+    <slot
+      name="target"
+      :toggle="toggle"
+      :visible="isVisible"
+      :open="open"
+      :close="close"
+    >
       <Btn
         variant="clear"
         level="primary"
         @click="toggle"
         icon="Chevron"
-        :active="localVisible"
+        :active="isVisible"
       />
     </slot>
     <teleport v-if="teleportVisible" to="#Overlays">
-      <TransitionAppear appear>
-        <Overlay
-          v-if="localVisible"
-          ref="overlay"
-          @click="$emit('update:visible', false)"
-        />
+      <TransitionAppear appear v-if="overlay">
+        <Overlay v-if="isVisible" ref="overlay" @click="isVisible = false" />
       </TransitionAppear>
       <TransitionAppearFrom
         appear
@@ -25,7 +27,7 @@
         @after-enter="afterEnter"
       >
         <div
-          v-if="localVisible"
+          v-if="isVisible"
           :class="classes"
           :style="styles"
           ref="content"
@@ -33,9 +35,9 @@
         >
           <EffectPanel class="DropdownContent">
             <header class="DropdownHeader">
-              <Typography v-if="title" size="medium" weight="bold">{{
-                title
-              }}</Typography>
+              <Typography v-if="title" size="medium" weight="bold">
+                {{ title }}
+              </Typography>
               <CssAbsolute
                 class="DropdownCloseBtn"
                 position="top"
@@ -55,7 +57,13 @@
               </CssAbsolute>
             </header>
             <div class="DropdownContentWrapper">
-              <slot name="content"></slot>
+              <slot
+                name="content"
+                :toggle="toggle"
+                :visible="isVisible"
+                :open="open"
+                :close="close"
+              ></slot>
             </div>
           </EffectPanel>
         </div>
@@ -78,6 +86,15 @@ export default {
       type: String,
       default: 'div',
     },
+    overlay: {
+      type: Boolean,
+      default: true,
+    },
+    inset: {
+      type: Boolean,
+      class: true,
+      default: false,
+    },
     position: {
       type: String,
       class: true,
@@ -96,7 +113,6 @@ export default {
     },
     visible: {
       type: Boolean,
-      default: false,
     },
     mobileFullScreen: {
       type: Boolean,
@@ -141,6 +157,7 @@ export default {
   },
   data() {
     return {
+      localVisible: false,
       teleportVisible: false,
       window: {
         width: 0,
@@ -155,7 +172,7 @@ export default {
     }
   },
   watch: {
-    visible(newValue, oldValue) {
+    isVisible(newValue, oldValue) {
       if (newValue) {
         this.setBoundingClientRect()
         this.teleportVisible = true
@@ -163,11 +180,15 @@ export default {
     },
   },
   computed: {
-    localVisible: {
+    isVisible: {
       get() {
-        return this.visible
+        if (typeof this.visible === 'boolean') {
+          return this.visible
+        }
+        return this.localVisible
       },
       set(value) {
+        this.localVisible = value
         this.$emit('update:visible', value)
       },
     },
@@ -263,7 +284,9 @@ export default {
     },
   },
   mounted() {
-    this.setBoundingClientRect()
+    if (this.visible) {
+      this.setBoundingClientRect()
+    }
     window.addEventListener('resize', this.setBoundingClientRect)
     window.addEventListener('scroll', this.setBoundingClientRect)
     document.addEventListener('click', this.clickOutside, true)
@@ -287,16 +310,22 @@ export default {
       }
     },
     toggle(event) {
-      this.$emit('update:visible', !this.localVisible)
+      this.isVisible = !this.isVisible
+    },
+    open(event) {
+      this.isVisible = true
+    },
+    close(event) {
+      this.isVisible = false
     },
     clickOutside(event) {
       if (
-        this.localVisible &&
+        this.isVisible &&
         !this.$el.contains(event.target) &&
         !this.$refs.content.contains(event.target) &&
         !document.getElementById('Overlays').contains(event.target)
       ) {
-        this.$emit('update:visible', false)
+        this.isVisible = false
       }
     },
     leave() {
@@ -369,6 +398,9 @@ export default {
 
     &.Dropdown_top {
       --dropdown-translate-y: -100%;
+      &.Dropdown_inset {
+        --dropdown-translate-y: 0;
+      }
     }
     &.Dropdown_center {
       --dropdown-translate-y: -50%;

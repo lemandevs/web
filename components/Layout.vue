@@ -1,7 +1,10 @@
 <template>
   <div :class="classes">
     <div
-      :class="['Content', menu || settings || social ? 'Content_overlay' : '']"
+      :class="[
+        'LayoutContent',
+        menu || settings || social ? 'LayoutContent_overlay' : '',
+      ]"
     >
       <slot></slot>
     </div>
@@ -100,7 +103,7 @@ const socialVisible = computed({
   .AppHeader {
     order: 0;
   }
-  .Content {
+  .LayoutContent {
     order: 1;
     width: 100%;
     display: flex;
@@ -136,7 +139,7 @@ const socialVisible = computed({
   }
 
   #Overlays > * {
-    pointer-events: auto;
+    pointer-events: initial;
   }
 }
 </style>

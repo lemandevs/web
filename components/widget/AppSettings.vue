@@ -20,7 +20,6 @@
         type="select"
         name="language"
         v-model:value="$i18n.locale"
-        filterable
         :options="languages"
       />
       <FormField

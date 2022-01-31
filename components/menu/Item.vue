@@ -1,7 +1,7 @@
 <template>
-  <li :class="classes" ref="itemEl">
+  <component :is="is" :class="classes" ref="itemEl">
     <slot />
-  </li>
+  </component>
 </template>
 
 <script setup>
@@ -18,6 +18,10 @@ const props = defineProps({
     type: Boolean,
     class: true,
     default: false,
+  },
+  is: {
+    type: String,
+    default: 'li',
   },
 })
 const classes = defineClasses('MenuItem')
