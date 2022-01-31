@@ -43,10 +43,11 @@ const classes = defineClasses('Panel')
     left: 0;
     z-index: -1;
     background: linear-gradient(
-      -45deg,
-      rgba(var(--color-emphatic-rgb), 0.5),
-      var(--color-emphatic)
-    );
+        -45deg,
+        rgba(var(--color-emphatic-rgb), 0.5),
+        var(--color-emphatic)
+      ),
+      linear-gradient(-45deg, var(--color-surface), var(--color-surface));
   }
 }
 </style>
