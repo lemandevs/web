@@ -19,9 +19,8 @@
       <TransitionAppear appear v-if="overlay">
         <Overlay v-if="isVisible" ref="overlay" @click="isVisible = false" />
       </TransitionAppear>
-      <TransitionAppearFrom
+      <TransitionAppear
         appear
-        from="Bottom"
         @leave="leave"
         @enter="enter"
         @after-enter="afterEnter"
@@ -67,7 +66,7 @@
             </div>
           </EffectPanel>
         </div>
-      </TransitionAppearFrom>
+      </TransitionAppear>
     </teleport>
   </component>
 </template>
