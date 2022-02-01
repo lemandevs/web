@@ -1,5 +1,5 @@
 <template>
-  <Layout variant="subrouting">
+  <Layout>
     <slot></slot>
   </Layout>
 </template>

@@ -1,28 +1,26 @@
 <template>
   <NuxtLink :to="route.path" v-slot="{ isExactActive, navigate, href }" custom>
-    <MenuItem v-bind="$attrs" @click="navigate">
+    <MenuItem v-bind="$attrs">
       <Typography
-        is="a"
+        :is="navigable ? 'a' : 'div'"
         size="medium"
         :class="[...classes, isExactActive ? 'MenuItemLink_active' : '']"
         :level="isExactActive ? 'emphatic' : 'primary'"
         weight="bold"
-        :href="href"
+        :href="navigable && href"
+        @click="(e) => (navigable ? navigate(e) : null)"
       >
         <CssTextOverflow>
           {{
-            $t(
-              `components.widgets.AppMenu.routes.${
-                route.name || route.path.replace('/', '')
-              }.label`
-            )
+            route.meta.menu.title ||
+            $t(`pages.${route.name || route.path.replace('/', '')}.menu.label`)
           }}
         </CssTextOverflow>
         <Icon
           v-if="route.children.length"
-          name="ChevronX"
+          :name="childrenIcon"
           size="small"
-          :active="!active"
+          :active="active"
         />
       </Typography>
     </MenuItem>
@@ -50,8 +48,17 @@ const props = defineProps({
     class: true,
     default: false,
   },
+  navigable: {
+    type: Boolean,
+    default: true,
+  },
+  childrenIcon: {
+    type: String,
+    default: 'ChevronX',
+  },
 })
 const classes = defineClasses('MenuItemLink')
+console.log(props.route)
 </script>
 
 <style lang="scss">

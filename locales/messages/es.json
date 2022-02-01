@@ -2,16 +2,17 @@
   "components.widgets.settings.language.label": "Idioma",
   "components.widgets.settings.darkMode.label": "Modo oscuro",
 
-  "components.widgets.AppMenu.routes.index.label": "Inicio",
-  "components.widgets.AppMenu.routes.ui.label": "UI",
-  "components.widgets.AppMenu.routes.ui-design.label": "Diseño",
-  "components.widgets.AppMenu.routes.ui-palette.label": "Palette",
-  "components.widgets.AppMenu.routes.ui-typography.label": "Typography",
-  "components.widgets.AppMenu.routes.ui-components.label": "Components",
+  "pages.index.menu.label": "Inicio",
+  "pages.ui.menu.label": "UI",
+  "pages.ui-design.menu.label": "Diseño",
+  "pages.ui-palette.menu.label": "Palette",
+  "pages.ui-typography.menu.label": "Typography",
+  "pages.ui-components.menu.label": "Components",
 
   "pages.ui.breadcrumbs": "UI",
   "pages.ui-design.breadcrumbs": "Design",
   "pages.ui-palette.breadcrumbs": "Palette",
   "pages.ui-typography.breadcrumbs": "Typography",
-  "pages.ui-components.breadcrumbs": "Components"
+  "pages.ui-components.breadcrumbs": "Components",
+  "pages.projects.menu.label": "Proyectos"
 }

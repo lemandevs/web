@@ -1,5 +1,5 @@
 <template>
-  <Layout variant="clear">
+  <Layout>
     <slot></slot>
   </Layout>
 </template>

@@ -19,40 +19,67 @@
           v-if="!route.children || !route.children.length"
           :route="route"
         />
-        <OverlayDropdown
-          v-else
-          is="MenuItem"
-          position="right"
-          align="start"
-          v-model:visible="submenuVisible"
-          mobileFullScreen
-          :css="false"
-          :overlay="false"
-        >
-          <template v-slot:target="{ visible, open, close, toggle }">
+        <template v-else>
+          <OverlayDropdown
+            v-if="true"
+            is="MenuItem"
+            position="right"
+            align="start"
+            v-model:visible="submenuVisible"
+            mobileFullScreen
+            :css="false"
+            :overlay="false"
+          >
+            <template v-slot:target="{ visible, open, close, toggle }">
+              <MenuItemLink
+                :route="route"
+                @mouseenter="debounce(open)"
+                @mouseleave="debounce(close)"
+                @click.stop="debounce(toggle)"
+                :active="visible"
+              />
+            </template>
+            <template v-slot:content="{ open, close }">
+              <Menu
+                :class="classes"
+                direction="column"
+                @mouseenter="debounce(open)"
+                @mouseleave="debounce(close)"
+              >
+                <MenuItemLink
+                  v-for="subroute in sortRoutes(route.children)"
+                  :key="subroute.name"
+                  :route="{
+                    ...subroute,
+                    path: `${route.path}/${subroute.path}`,
+                  }"
+                />
+              </Menu>
+            </template>
+          </OverlayDropdown>
+          <template v-else>
             <MenuItemLink
               :route="route"
-              @mouseenter="debounce(open)"
-              @mouseleave="debounce(close)"
-              @click.stop="debounce(toggle)"
-              :active="visible"
+              :navigable="false"
+              childrenIcon="Chevron"
+              :active="submenuVisible"
+              @click="submenuVisible = !submenuVisible"
             />
+
+            <TransitionCollapse>
+              <Menu v-if="submenuVisible" :class="classes" direction="column">
+                <MenuItemLink
+                  v-for="subroute in sortRoutes(route.children)"
+                  :key="subroute.name"
+                  :route="{
+                    ...subroute,
+                    path: `${route.path}/${subroute.path}`,
+                  }"
+                />
+              </Menu>
+            </TransitionCollapse>
           </template>
-          <template v-slot:content="{ open, close }">
-            <Menu
-              :class="classes"
-              direction="column"
-              @mouseenter="debounce(open)"
-              @mouseleave="debounce(close)"
-            >
-              <MenuItemLink
-                v-for="subroute in sortRoutes(route.children)"
-                :key="subroute.name"
-                :route="{ ...subroute, path: `${route.path}/${subroute.path}` }"
-              />
-            </Menu>
-          </template>
-        </OverlayDropdown>
+        </template>
       </template>
     </Menu>
   </Widget>
@@ -96,6 +123,10 @@ const debounce = _.debounce((method) => {
 .WidgetAppMenu {
   height: 100%;
   overflow: auto;
+
+  .WidgetAppMenu {
+    background: rgba(var(--color-primary-rgb), 0.1);
+  }
   .AppMenuLink {
     display: flex;
     cursor: pointer;

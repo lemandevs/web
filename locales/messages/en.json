@@ -2,12 +2,15 @@
   "components.widgets.settings.language.label": "Language",
   "components.widgets.settings.darkMode.label": "Dark mode",
 
-  "components.widgets.AppMenu.routes.index.label": "Home",
-  "components.widgets.AppMenu.routes.ui.label": "UI",
-  "components.widgets.AppMenu.routes.ui-design.label": "Design",
-  "components.widgets.AppMenu.routes.ui-palette.label": "Palette",
-  "components.widgets.AppMenu.routes.ui-typography.label": "Typography",
-  "components.widgets.AppMenu.routes.ui-components.label": "Components",
+  "pages.index.menu.label": "Home",
+  "pages.ui.menu.label": "UI",
+  "pages.ui-design.menu.label": "Design",
+  "pages.ui-palette.menu.label": "Palette",
+  "pages.ui-typography.menu.label": "Typography",
+  "pages.ui-components.menu.label": "Components",
+
+  "pages.projects.menu.label": "Projects",
+  "pages.projects.breadcrumbs.label": "My projects",
 
   "pages.ui.breadcrumbs": "UI",
   "pages.ui-design.breadcrumbs": "Design",

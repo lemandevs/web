@@ -9,23 +9,23 @@
       <slot></slot>
     </div>
     <div id="Overlays" />
-    <AppHeader v-if="variant === 'subrouting'"></AppHeader>
+    <AppHeader v-if="name === 'subrouting'"></AppHeader>
 
     <ClientOnly>
-      <WidgetAppMenu v-if="variant !== 'clear'" v-model:visible="menuVisible" />
+      <WidgetAppMenu v-if="name !== 'clear'" v-model:visible="menuVisible" />
       <WidgetAppSettings
-        v-if="variant !== 'clear'"
+        v-if="name !== 'clear'"
         v-model:visible="settingsVisible"
       />
       <WidgetSocialNetworks
-        v-if="variant !== 'clear'"
+        v-if="name !== 'clear'"
         v-model:visible="socialVisible"
       />
     </ClientOnly>
 
     <TransitionAppearFrom appear from="bottom">
       <NavigationBar
-        v-if="variant === 'subrouting'"
+        v-if="name === 'subrouting'"
         :routes="children"
         :parent="parent"
       />
@@ -36,7 +36,7 @@
 <script setup>
 import _ from 'lodash'
 const props = defineProps({
-  variant: {
+  name: {
     type: String,
     default: 'default',
     class: true,

@@ -2,16 +2,17 @@
   "components.widgets.settings.language.label": "Tavolozza",
   "components.widgets.settings.darkMode.label": "Modalità scura",
 
-  "components.widgets.AppMenu.routes.index.label": "Inizio",
-  "components.widgets.AppMenu.routes.ui.label": "UI",
-  "components.widgets.AppMenu.routes.ui-design.label": "Design",
-  "components.widgets.AppMenu.routes.ui-palette.label": "Tavolozza",
-  "components.widgets.AppMenu.routes.ui-typography.label": "Tipografia",
-  "components.widgets.AppMenu.routes.ui-components.label": "Componenti",
+  "pages.index.menu.label": "Inizio",
+  "pages.ui.menu.label": "UI",
+  "pages.ui-design.menu.label": "Design",
+  "pages.ui-palette.menu.label": "Tavolozza",
+  "pages.ui-typography.menu.label": "Tipografia",
+  "pages.ui-components.menu.label": "Componenti",
 
   "pages.ui.breadcrumbs": "UI",
   "pages.ui-design.breadcrumbs": "Design",
   "pages.ui-palette.breadcrumbs": "Tavolozza",
   "pages.ui-typography.breadcrumbs": "Tipografia",
-  "pages.ui-components.breadcrumbs": "Componenti"
+  "pages.ui-components.breadcrumbs": "Componenti",
+  "pages.projects.menu.labe": "Progetti"
 }

@@ -20,11 +20,9 @@ li {
   list-style: none;
 }
 
+html,
 body {
-  html,
-  body {
-    margin: 0;
-    height: 100%;
-    overflow: hidden;
-  }
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
 }
