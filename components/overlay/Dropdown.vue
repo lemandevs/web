@@ -19,8 +19,9 @@
       <TransitionAppear appear v-if="overlay">
         <Overlay v-if="isVisible" ref="overlay" @click="isVisible = false" />
       </TransitionAppear>
-      <TransitionAppear
+      <TransitionAppearFrom
         appear
+        :from="mobile ? 'Bottom' : 'In'"
         @leave="leave"
         @enter="enter"
         @after-enter="afterEnter"
@@ -66,7 +67,7 @@
             </div>
           </EffectPanel>
         </div>
-      </TransitionAppear>
+      </TransitionAppearFrom>
     </teleport>
   </component>
 </template>
@@ -151,7 +152,8 @@ export default {
   },
   setup() {
     const classes = defineClasses('Dropdown')
-    return { classes }
+    const { mobile, desktop } = provideMediaQueries()
+    return { classes, mobile, desktop }
   },
   data() {
     return {

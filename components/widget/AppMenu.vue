@@ -9,6 +9,7 @@
     position="top"
     align="start"
     mobileFullScreen
+    dropdown-title="Application menu"
     dropdown-position="bottom"
     dropdown-align="start"
     :dropdown-offset-y="24"
@@ -21,7 +22,7 @@
         />
         <template v-else>
           <OverlayDropdown
-            v-if="true"
+            v-if="desktop"
             is="MenuItem"
             position="right"
             align="start"
@@ -57,7 +58,7 @@
               </Menu>
             </template>
           </OverlayDropdown>
-          <template v-else>
+          <template v-else-if="mobile">
             <MenuItemLink
               :route="route"
               :navigable="false"
@@ -95,6 +96,7 @@ const props = defineProps({
 })
 const classes = defineClasses('WidgetAppMenu')
 const { theme } = useTheme()
+const { mobile, desktop } = provideMediaQueries()
 const router = useRouter()
 
 const sortRoutes = (routes) => {
