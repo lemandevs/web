@@ -16,7 +16,7 @@ const props = defineProps({
 const classes = defineClasses('DesignPage')
 definePageMeta({
   icon: 'Design',
-  pageTransition: 'TransitionAppear',
+  transition: { appear: true, name: 'Appear', duration: 200, mode: 'out-in' },
   navBar: {
     position: 0,
   },

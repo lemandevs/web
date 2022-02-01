@@ -29,14 +29,14 @@
       :active="active"
       :size="size"
     />
-    <TransitionAppear>
+    <TransitionAppearFrom>
       <Icon
         v-show="loading"
         name="Loader"
         class="ButtonLoader Absolute_center"
         :size="size"
       />
-    </TransitionAppear>
+    </TransitionAppearFrom>
   </NuxtLink>
   <button v-else :class="classes" :disabled="loading">
     <EffectClick />
@@ -51,14 +51,14 @@
       :active="active"
       :size="size"
     />
-    <TransitionAppear>
+    <TransitionAppearFrom>
       <Icon
         v-show="loading"
         name="Loader"
         class="ButtonLoader Absolute_center"
         :size="size"
       />
-    </TransitionAppear>
+    </TransitionAppearFrom>
   </button>
 </template>
 

@@ -58,7 +58,6 @@ const props = defineProps({
   },
 })
 const classes = defineClasses('MenuItemLink')
-console.log(props.route)
 </script>
 
 <style lang="scss">

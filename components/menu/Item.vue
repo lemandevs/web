@@ -33,9 +33,6 @@ watchEffect(() => {
     })
   }
 })
-watch(props.active, (active) => {
-  console.log(itemEl.value)
-})
 defineExpose({
   ref: itemEl,
 })

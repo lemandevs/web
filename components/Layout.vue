@@ -45,6 +45,7 @@ const props = defineProps({
     },
   },
 })
+
 const classes = defineClasses('Layout')
 
 const router = useRouter()

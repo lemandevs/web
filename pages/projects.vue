@@ -7,6 +7,8 @@ const props = defineProps({})
 const classes = defineClasses('ProjectsPage')
 definePageMeta({
   layout: 'default',
+  key: (route) => route.fullPath,
+  transition: { appear: true, name: 'Appear', duration: 200, mode: 'out-in' },
   menu: {
     position: 3,
   },

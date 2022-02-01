@@ -18,7 +18,8 @@ const props = defineProps({
 const classes = defineClasses('UIPage')
 definePageMeta({
   layout: 'subrouting',
-  pageTransition: 'TransitionAppear',
+  key: (route) => route.fullPath,
+  transition: { appear: true, name: 'Appear', duration: 200, mode: 'out-in' },
   menu: {
     position: 2,
   },

@@ -19,6 +19,7 @@
         :to="parent.path"
         iconAfter
         icon="Home"
+        @click="navigate"
         level="primary"
         variant="fill"
         rounded

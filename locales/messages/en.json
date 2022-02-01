@@ -2,6 +2,7 @@
   "components.widgets.settings.language.label": "Language",
   "components.widgets.settings.darkMode.label": "Dark mode",
 
+  "pages.hello.menu.label": "Hello",
   "pages.index.menu.label": "Home",
   "pages.ui.menu.label": "UI",
   "pages.ui-design.menu.label": "Design",

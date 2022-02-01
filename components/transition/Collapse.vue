@@ -9,10 +9,7 @@
     leave-to-class="Collapse-leave-to"
     @before-enter="beforeEnter"
     @enter="enter"
-    @after-enter="afterEnter"
-    @before-leave="beforeLeave"
     @leave="leave"
-    @after-leave="afterLeave"
   >
     <slot />
   </transition>

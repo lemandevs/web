@@ -16,9 +16,9 @@
       />
     </slot>
     <teleport v-if="teleportVisible" to="#Overlays">
-      <TransitionAppear appear v-if="overlay">
+      <TransitionAppearFrom appear v-if="overlay">
         <Overlay v-if="isVisible" ref="overlay" @click="isVisible = false" />
-      </TransitionAppear>
+      </TransitionAppearFrom>
       <TransitionAppearFrom
         appear
         :from="mobile ? 'Bottom' : 'In'"

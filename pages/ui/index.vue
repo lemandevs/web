@@ -17,7 +17,7 @@ const classes = defineClasses('UIHomePage')
 
 definePageMeta({
   icon: 'Home',
-  pageTransition: 'TransitionAppear',
+  transition: { appear: true, name: 'Appear', duration: 200, mode: 'out-in' },
   menu: {
     position: 0,
   },

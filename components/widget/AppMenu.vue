@@ -15,7 +15,7 @@
     :dropdown-offset-y="24"
   >
     <Menu :class="classes" direction="column">
-      <template v-for="route in routes" :key="route.name">
+      <template v-for="route in menuRoutes" :key="route.name">
         <MenuItemLink
           v-if="!route.children || !route.children.length"
           :route="route"
@@ -48,7 +48,7 @@
                 @mouseleave="debounce(close)"
               >
                 <MenuItemLink
-                  v-for="subroute in sortRoutes(route.children)"
+                  v-for="subroute in getMenuRoutes(route.children)"
                   :key="subroute.name"
                   :route="{
                     ...subroute,
@@ -70,7 +70,7 @@
             <TransitionCollapse>
               <Menu v-if="submenuVisible" :class="classes" direction="column">
                 <MenuItemLink
-                  v-for="subroute in sortRoutes(route.children)"
+                  v-for="subroute in getMenuRoutes(route.children)"
                   :key="subroute.name"
                   :route="{
                     ...subroute,
@@ -98,12 +98,21 @@ const classes = defineClasses('WidgetAppMenu')
 const { theme } = useTheme()
 const { mobile, desktop } = provideMediaQueries()
 const router = useRouter()
+const route = useRoute()
 
-const sortRoutes = (routes) => {
-  return _.sortBy(routes, ['meta.menu.position'])
+watch(route, () => {
+  localVisible.value = false
+})
+
+const getMenuRoutes = (routes) => {
+  return _.sortBy(_.filter(routes, 'meta.menu'), ['meta.menu.position'])
 }
 
-const routes = computed(() => sortRoutes(router.options.routes))
+const menuRoutes = computed(() => getMenuRoutes(router.options.routes))
+
+watch(route, () => {
+  localVisible.value = false
+})
 
 const emit = defineEmits(['update:visible'])
 
@@ -115,7 +124,9 @@ const localVisible = computed({
     emit('update:visible', value)
   },
 })
+
 const submenuVisible = ref(false)
+
 const debounce = _.debounce((method) => {
   method()
 }, 100)

@@ -11,7 +11,6 @@ export default {
   props: {
     from: {
       type: String,
-      default: 'right',
     },
     appear: {
       type: Boolean,
@@ -20,13 +19,15 @@ export default {
   },
   computed: {
     name() {
-      return `AppearFrom${_.capitalize(this.from)}`
+      return `Appear${this.from ? `From${_.capitalize(this.from)}` : ``}`
     },
   },
 }
 </script>
 
 <style lang="scss">
+.Appear-enter-active,
+.Appear-leave-active,
 .AppearFromRight-enter-active,
 .AppearFromRight-leave-active,
 .AppearFromLeft-enter-active,
@@ -41,10 +42,12 @@ export default {
 .AppearFromOut-leave-active {
   transition-property: all;
   transition-timing-function: ease-in-out;
-  transition-duration: 300ms;
+  transition-duration: 500ms;
   opacity: 1;
 }
 
+.Appear-enter-from,
+.Appear-leave-to,
 .AppearFromLeft-enter-from,
 .AppearFromLeft-leave-to,
 .AppearFromRight-enter-from,
