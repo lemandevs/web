@@ -1,5 +1,7 @@
 <template>
-  <div :class="classes">Hello!</div>
+  <div :class="classes">
+    <EffectText :effect="['gradient']">Hello!</EffectText>
+  </div>
 </template>
 
 <script setup>
@@ -28,110 +30,6 @@ const stack = ref([
 
 <style lang="scss">
 .HelloPage {
-  padding: 0 128px;
-}
-@keyframes moving2 {
-  0% {
-    transform: scale(1);
-  }
-  3% {
-    transform: scale(1.1);
-  }
-  6% {
-    transform: scale(1);
-  }
-  30% {
-    transform: scale(0.9);
-  }
-  40% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.9);
-  }
-  60% {
-    transform: scale(0.95);
-  }
-  70% {
-    transform: scale(1);
-  }
-  80% {
-    transform: scale(1.1);
-  }
-  90% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-@keyframes moving {
-  0% {
-    transform: translate3d(0%, 0%, 0) scale(1);
-  }
-  3% {
-    transform: translate3d(-3%, -3%, 0) scale(1.05);
-  }
-  6% {
-    transform: translate3d(0%, 0%, 0) scale(1);
-  }
-  30% {
-    transform: translate3d(3%, -3%, 0) scale(0.95);
-  }
-  40% {
-    transform: translate3d(6%, -6%, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(3%, -3%, 0) scale(0.95);
-  }
-  60% {
-    transform: translate3d(0%, -5%, 0) scale(0.98);
-  }
-  70% {
-    transform: translate3d(3%, -3%, 0) scale(1);
-  }
-  80% {
-    transform: translate3d(6%, -1%, 0) scale(1.1);
-  }
-  90% {
-    transform: translate3d(4%, 0%, 0) scale(1.05);
-  }
-  100% {
-    transform: translate3d(6%, 2%, 0) scale(1);
-  }
-}
-.Avatar {
-  border: 2px solid var(--color-primary);
-  border-radius: 99999px;
-  overflow: hidden;
-  width: 300px;
-  height: 300px;
-}
-.Me {
-  position: relative;
-  color: var(--color-primary);
-  padding: 32px;
-  .Icon {
-    width: 64px;
-    height: 64px;
-    animation-name: moving;
-    animation-duration: 10s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    animation-direction: alternate;
-    animation-delay: var(--item-delay);
-  }
-  .Tech {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    .Point {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-  }
+  text-align: center;
 }
 </style>

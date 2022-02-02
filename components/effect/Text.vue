@@ -13,6 +13,11 @@ const props = defineProps({
     type: String,
     default: 'Leman.dev',
   },
+  align: {
+    type: String,
+    class: true,
+    default: '',
+  },
   effect: {
     type: Array,
     default: ['gradient', 'bounce'],
@@ -70,6 +75,9 @@ const classes = defineClasses('EffectText')
     animation-play-state: running;
     animation-name: pulse;
     animation-duration: 5s;
+  }
+  &_center {
+    text-align: center;
   }
   &[class*='reflect'] {
     .Text {

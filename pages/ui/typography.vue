@@ -1,5 +1,7 @@
 <template>
-  <div :class="classes">Typography page</div>
+  <div :class="classes">
+    <EffectText :effect="['gradient']" align="center">Typography</EffectText>
+  </div>
 </template>
 
 <script setup>

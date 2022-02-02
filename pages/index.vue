@@ -1,6 +1,6 @@
 <template>
   <div :class="classes">
-    <ComingSoon />
+    <EffectText :effect="['gradient']" align="center">LEMAN.DEV</EffectText>
   </div>
 </template>
 

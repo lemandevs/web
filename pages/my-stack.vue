@@ -2,7 +2,7 @@
   <div :class="classes">
     <div class="Stack">
       <div class="Avatar">
-        <img class="AvatarPhoto" src="/public/img/avatar.jpeg" />
+        <img class="AvatarPhoto" src="/public/img/profile-photo.png" />
       </div>
       <div
         v-for="(tech, index) in stack"
