@@ -25,7 +25,7 @@
 
     <TransitionAppearFrom appear from="bottom">
       <NavigationBar
-        v-if="name === 'subrouting'"
+        v-if="name === 'subrouting' && children.length"
         :routes="children"
         :parent="parent"
       />

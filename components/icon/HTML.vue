@@ -1,0 +1,46 @@
+
+<template>
+  <svg
+    :class="classes"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 10000 14115"
+  >
+    <path fill="#e44d26" d="m9089 12980l-4095 1135-4084-1134-910-10207h1e4" />
+    <path fill="#f16529" d="m9088 3608h-4088v9639l3309-917" />
+    <path
+      d="m8132 4860h-3136v1252h3024m-113 1282h-2911v4555l2567-712m-2567-2591h1543l-145 1624-1398 377"
+      fill="currentColor"
+    />
+    <path
+      d="m2198 8646h2801v-1252h-1657l-114-1282h1771v-1252h-3139m569 6378l2567 711 4-1v-1302l-4 1-1396-376-89-999h-1257"
+      fill="#ebebeb"
+    />
+    <path
+      fill="currentColor"
+      d="m2149 0v629h-582v-629m-636 0v1903h636v-637h582v637h636v-1903m276 0v631h1 560v1272h636v-1272h560v-631m1757 0l-407 669-408-669m-663 0v1903h622v-943l438 677h11l438-677v943h633v-1903m317 0v1903h1531v-629h-895v-1274"
+    />
+  </svg>
+</template>
+
+<script setup>
+const props = defineProps({
+  prop: {
+    type: String,
+    default: 'value',
+    validator(value) {
+      return true
+    },
+    class: true,
+  },
+})
+const classes = defineClasses('HTML')
+</script>
+
+<style lang="scss">
+.HTML {
+  width: 100%;
+  height: 100%;
+}
+</style>

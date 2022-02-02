@@ -17,5 +17,8 @@
   "pages.ui-design.breadcrumbs": "Design",
   "pages.ui-palette.breadcrumbs": "Palette",
   "pages.ui-typography.breadcrumbs": "Typography",
-  "pages.ui-components.breadcrumbs": "Components"
+  "pages.ui-components.breadcrumbs": "Components",
+
+  "pages.my-stack.menu.label": "My stack",
+  "pages.my-stack.breadcrumbs": "My stack"
 }

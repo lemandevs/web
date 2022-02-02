@@ -1,17 +1,42 @@
 <template>
-  <div :class="classes">Hello!</div>
+  <div :class="classes">
+    <div class="Stack">
+      <div class="Avatar">
+        <img class="AvatarPhoto" src="/public/img/avatar.jpeg" />
+      </div>
+      <div
+        v-for="(tech, index) in stack"
+        class="Tech"
+        :key="tech"
+        :style="`transform: rotate(${(360 / stack.length) * index}deg)`"
+      >
+        <div
+          class="Point"
+          :style="`transform: rotate(-${(360 / stack.length) * index}deg)`"
+        >
+          <Icon
+            :name="tech"
+            :style="`--item-delay: ${
+              (10000 / stack.length) *
+              ((index + stack.length / 2) % stack.length)
+            }ms`"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
 definePageMeta({
-  layout: 'default',
+  layout: 'subrouting',
   key: (route) => route.fullPath,
   menu: {
-    position: 1,
+    position: 2,
   },
   transition: { appear: true, name: 'Appear', duration: 200, mode: 'out-in' },
 })
-const classes = defineClasses('HelloPage')
+const classes = defineClasses('MyStackPage')
 const stack = ref([
   'JavaScript',
   'CSS',
@@ -27,44 +52,6 @@ const stack = ref([
 </script>
 
 <style lang="scss">
-.HelloPage {
-  padding: 0 128px;
-}
-@keyframes moving2 {
-  0% {
-    transform: scale(1);
-  }
-  3% {
-    transform: scale(1.1);
-  }
-  6% {
-    transform: scale(1);
-  }
-  30% {
-    transform: scale(0.9);
-  }
-  40% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.9);
-  }
-  60% {
-    transform: scale(0.95);
-  }
-  70% {
-    transform: scale(1);
-  }
-  80% {
-    transform: scale(1.1);
-  }
-  90% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
 @keyframes moving {
   0% {
     transform: translate3d(0%, 0%, 0) scale(1);
@@ -100,6 +87,13 @@ const stack = ref([
     transform: translate3d(6%, 2%, 0) scale(1);
   }
 }
+.MyStackPage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .Avatar {
   border: 2px solid var(--color-primary);
   border-radius: 99999px;
@@ -107,10 +101,11 @@ const stack = ref([
   width: 300px;
   height: 300px;
 }
-.Me {
+.Stack {
   position: relative;
   color: var(--color-primary);
   padding: 32px;
+  margin-top: 64px;
   .Icon {
     width: 64px;
     height: 64px;
@@ -131,6 +126,23 @@ const stack = ref([
       position: absolute;
       top: 0;
       left: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .MyStackPage {
+    .Avatar {
+      width: 50vw;
+      height: 50vw;
+    }
+    .AvatarPhoto {
+      width: 100%;
+    }
+
+    .Icon {
+      width: 32px;
+      height: 32px;
     }
   }
 }
