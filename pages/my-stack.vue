@@ -2,7 +2,7 @@
   <div :class="classes">
     <div class="Stack">
       <div class="Avatar">
-        <img class="AvatarPhoto" src="/public/img/profile-photo.png" />
+        <img class="AvatarPhoto" src="/img/profile-photo.png" />
       </div>
       <div class="Techs">
         <div
