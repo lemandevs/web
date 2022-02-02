@@ -40,16 +40,16 @@ definePageMeta({
 })
 const classes = defineClasses('MyStackPage')
 const stack = ref([
-  'JavaScript',
-  'CSS',
   'HTML',
+  'CSS',
+  'JavaScript',
+  'NodeJS',
   'Vue',
   'Nuxt',
-  'JavaScript',
-  'CSS',
-  'HTML',
-  'Vue',
-  'Nuxt',
+  'React',
+  'Redux',
+  'NextJS',
+  'GraphQL',
 ])
 </script>
 
@@ -187,8 +187,8 @@ const stack = ref([
     }
 
     .Icon {
-      width: 2rem;
-      height: 2rem;
+      width: 3rem;
+      height: 3rem;
     }
   }
 }
