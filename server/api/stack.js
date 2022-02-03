@@ -48,6 +48,12 @@ export default async (req, res) => {
       url: 'https://reactjs.org/',
     },
     {
+      id: 'nextjs',
+      name: 'NextJS',
+      description: 'Best framework to build React application easy and fast!',
+      url: 'https://redux.js.org/',
+    },
+    {
       id: 'redux',
       name: 'Redux',
       description:
