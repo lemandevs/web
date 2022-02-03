@@ -2,8 +2,8 @@
   <OverlayDropdown class="Tooltip">
     <template v-slot:target="{ visible, open, close, toggle }">
       <span
-        @mouseenter="desktop && open"
-        @mouseleave="desktop && close"
+        @mouseenter="desktop && open()"
+        @mouseleave="desktop && close()"
         @click="toggle"
       >
         <slot name="target" v-bind="{ visible, open, close, toggle }" />
