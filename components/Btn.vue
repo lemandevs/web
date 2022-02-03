@@ -260,13 +260,8 @@ const classes = defineClasses('Button')
   }
 
   &[class*='primary'] {
-    &:focus,
-    &:active,
-    &[class*='active'] {
-      transform: scale(1.15);
-    }
     &[class*='fill'] {
-      color: var(--bg-primary);
+      color: var(--color-on-primary);
       background-color: var(--color-primary);
     }
     &[class*='clear'] {
@@ -282,7 +277,6 @@ const classes = defineClasses('Button')
       &[class*='active'],
       &:active {
         --bg-opacity: 0.5;
-        transform: scale(1.15);
       }
     }
   }

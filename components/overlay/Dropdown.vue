@@ -28,7 +28,7 @@
       >
         <div
           v-if="isVisible"
-          :class="classes"
+          :class="dropdownClasses"
           :style="styles"
           ref="content"
           v-bind="$attrs"
@@ -113,6 +113,7 @@ export default {
     },
     visible: {
       type: Boolean,
+      default: null,
     },
     mobileFullScreen: {
       type: Boolean,
@@ -173,6 +174,7 @@ export default {
   },
   watch: {
     isVisible(newValue, oldValue) {
+      console.log('watch:isVisible', newValue)
       if (newValue) {
         this.setBoundingClientRect()
         this.teleportVisible = true
@@ -180,6 +182,12 @@ export default {
     },
   },
   computed: {
+    dropdownClasses() {
+      return [
+        ...this.classes,
+        this.mobileFullScreen && this.mobile ? 'Dropdown_fullScreen' : '',
+      ]
+    },
     isVisible: {
       get() {
         if (typeof this.visible === 'boolean') {
@@ -369,79 +377,89 @@ export default {
     flex: 1;
     overflow: auto;
   }
-  @media screen and (max-width: 768px) {
-    &_mobileFullScreen {
-      pointer-events: auto;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-      padding: 0 !important;
-      opacity: 1 !important;
+  &_fullScreen {
+    pointer-events: auto;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    min-height: 100vh;
+    .DropdownHeader {
+      display: flex;
+    }
+    .DropdownCloseBtn {
+      display: block;
+    }
+    .DropdownContent {
       min-height: 100vh;
-      .DropdownHeader {
-        display: flex;
-      }
-      .DropdownCloseBtn {
-        display: block;
-      }
-      .DropdownContent {
-        min-height: 100vh;
-      }
     }
   }
-  @media screen and (min-width: 768px) {
-    &.Dropdown_small {
-      min-width: 220px;
+  @media screen and (max-width: 768px) {
+    &:not(.Dropdown_fullScreen) {
+      pointer-events: auto;
+      top: 100% !important;
+      left: 0 !important;
+      width: 100% !important;
+      padding: 0 !important;
+      transform: translate3d(0, -100%, 0);
+      max-height: 100vh;
     }
+  }
+  @media screen and (min-width: 769px) {
+    &:not(.Dropdown_fullScreen) {
+      &.Dropdown_small {
+        min-width: 220px;
+      }
 
-    &.Dropdown_top {
-      --dropdown-translate-y: -100%;
-      &.Dropdown_inset {
-        --dropdown-translate-y: 0;
+      &.Dropdown_top {
+        --dropdown-translate-y: -100%;
+        &.Dropdown_inset {
+          --dropdown-translate-y: 0;
+        }
       }
-    }
-    &.Dropdown_center {
-      --dropdown-translate-y: -50%;
-    }
-    &.Dropdown_bottom {
-      --dropdown-translate-y: 0%;
-    }
-
-    &.Dropdown_top,
-    &.Dropdown_bottom,
-    &.Dropdown_center {
-      &.Dropdown_start {
-        --dropdown-translate-x: 0;
-      }
-      &.Dropdown_middle {
-        --dropdown-translate-x: -50%;
-      }
-      &.Dropdown_end {
-        --dropdown-translate-x: -100%;
-      }
-    }
-
-    &.Dropdown_left,
-    &.Dropdown_right {
-      &.Dropdown_start {
-        --dropdown-translate-y: 0;
-      }
-      &.Dropdown_middle {
+      &.Dropdown_center {
         --dropdown-translate-y: -50%;
       }
-      &.Dropdown_end {
-        --dropdown-translate-y: -100%;
+      &.Dropdown_bottom {
+        --dropdown-translate-y: 0%;
       }
+
+      &.Dropdown_top,
+      &.Dropdown_bottom,
+      &.Dropdown_center {
+        &.Dropdown_start {
+          --dropdown-translate-x: 0;
+        }
+        &.Dropdown_middle {
+          --dropdown-translate-x: -50%;
+        }
+        &.Dropdown_end {
+          --dropdown-translate-x: -100%;
+        }
+      }
+
+      &.Dropdown_left,
+      &.Dropdown_right {
+        &.Dropdown_start {
+          --dropdown-translate-y: 0;
+        }
+        &.Dropdown_middle {
+          --dropdown-translate-y: -50%;
+        }
+        &.Dropdown_end {
+          --dropdown-translate-y: -100%;
+        }
+      }
+      &.Dropdown_left {
+        --dropdown-translate-x: -100%;
+      }
+      transform: translate3d(
+        var(--dropdown-translate-x),
+        var(--dropdown-translate-y),
+        0
+      );
     }
-    &.Dropdown_left {
-      --dropdown-translate-x: -100%;
-    }
-    transform: translate3d(
-      var(--dropdown-translate-x),
-      var(--dropdown-translate-y),
-      0
-    );
   }
 }
 </style>

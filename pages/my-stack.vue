@@ -8,20 +8,30 @@
         <div
           v-for="(tech, index) in stack"
           class="Tech"
-          :key="tech"
+          :key="tech.id"
           :style="`transform: rotate(${(360 / stack.length) * index}deg)`"
         >
           <div
             class="Point"
             :style="`transform: rotate(-${(360 / stack.length) * index}deg)`"
           >
-            <Icon
-              :name="tech"
-              :style="`--item-delay: ${
-                (10000 / stack.length) *
-                ((index + stack.length / 2) % stack.length)
-              }ms`"
-            />
+            <OverlayTooltip position="bottom" align="middle" :overlay="false">
+              <template v-slot:target="{ visible }">
+                <Icon
+                  :active="visible"
+                  :name="tech.name"
+                  :style="`--item-delay: ${
+                    (10000 / stack.length) *
+                    ((index + stack.length / 2) % stack.length)
+                  }ms`"
+                />
+              </template>
+              <template v-slot:content>
+                <div>
+                  {{ tech.description }}
+                </div>
+              </template>
+            </OverlayTooltip>
           </div>
         </div>
       </div>
@@ -39,18 +49,10 @@ definePageMeta({
   transition: { appear: true, name: 'Appear', duration: 200, mode: 'out-in' },
 })
 const classes = defineClasses('MyStackPage')
-const stack = ref([
-  'HTML',
-  'CSS',
-  'JavaScript',
-  'NodeJS',
-  'Vue',
-  'Nuxt',
-  'React',
-  'Redux',
-  'NextJS',
-  'GraphQL',
-])
+
+const stack = await fetch(`/api/stack`).then((r) => r.json())
+
+const visible = ref(true)
 </script>
 
 <style lang="scss">

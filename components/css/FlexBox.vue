@@ -40,6 +40,13 @@ const props = defineProps({
       ].includes(value)
     },
   },
+  gap: {
+    type: [String, Number],
+    default: 0,
+    class: {
+      useName: true,
+    },
+  },
 })
 const classes = defineClasses('FlexBox')
 </script>
@@ -77,6 +84,9 @@ const classes = defineClasses('FlexBox')
   }
   &_justify_space-between {
     justify-content: space-between;
+  }
+  &_gap_1 {
+    gap: 1rem;
   }
 }
 </style>

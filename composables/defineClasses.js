@@ -22,8 +22,9 @@ const getClassString = ({
       case Number:
         return buildClass(value)
       case Boolean:
-      default:
         return buildClass(name)
+      default:
+        return buildClass(value)
     }
   }
 }
