@@ -12,7 +12,13 @@
     <template v-slot:content="{ visible, open, close, toggle }">
       <CssFlexBox direction="column" align="stretch" gap="1">
         <slot name="content" v-bind="{ visible, open, close, toggle }" />
-        <Btn text="OK" level="primary" variant="fill" @click="close" />
+        <Btn
+          v-if="mobile"
+          text="OK"
+          level="primary"
+          variant="fill"
+          @click="close"
+        />
       </CssFlexBox>
     </template>
   </OverlayDropdown>
