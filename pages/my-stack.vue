@@ -27,9 +27,7 @@
                 />
               </template>
               <template v-slot:content>
-                <div>
-                  {{ tech.description }}
-                </div>
+                <div v-html="tech.description" />
               </template>
             </OverlayTooltip>
           </div>
