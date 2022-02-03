@@ -65,7 +65,7 @@ const { mobile, desktop } = provideMediaQueries()
   @media screen and (max-width: 769px) {
     .DropdownContent {
       padding: 1.5rem 1rem;
-      i {components/widget/index.vue
+      i {
         display: block;
         padding: 1.5rem 1rem;
       }
