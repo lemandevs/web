@@ -84,5 +84,8 @@ const socialNetworks = await fetch(`/api/social-networks`).then((r) => r.json())
       animation-delay: #{$i * 0.25}s;
     }
   }
+  @media screen and (max-width: 769px) {
+    padding: 0.5rem 1rem;
+  }
 }
 </style>
