@@ -1,12 +1,19 @@
 <template>
-  <div class="CrossIcon">
+  <div :class="classes">
     <div class="Shape"></div>
     <div class="Shape"></div>
   </div>
 </template>
 
-<script>
-export default {}
+
+<script setup>
+const props = defineProps({
+  active: {
+    type: Boolean,
+    default: false,
+  },
+})
+const classes = defineClasses('CrossIcon')
 </script>
 
 <style lang="scss">

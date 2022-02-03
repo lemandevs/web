@@ -9,20 +9,16 @@
 
 <script setup>
 const props = defineProps({
-  prop: {
-    type: String,
-    default: 'value',
-    validator(value) {
-      return true
-    },
-    class: true,
+  active: {
+    type: Boolean,
+    default: false,
   },
 })
-const classes = defineClasses('Instagram')
+const classes = defineClasses('InstagramIcon')
 </script>
 
 <style lang="scss">
-.Instagram {
+.InstagramIcon {
   width: 100%;
   height: 100%;
 }

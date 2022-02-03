@@ -29,27 +29,23 @@
     <path
       inkscape:connector-curvature="0"
       d="M 126.66667,62 V 49.33333 h 18 18 V 24.666666 0 H 175.33334 188 V 37.333333 74.66666 H 157.33334 126.66667 Z M 200,64.66667 v -10 h 16.66667 c 9.16667,0 16.66667,-0.33886 16.66667,-0.75302 0,-0.41416 -7.5,-8.881457 -16.66667,-18.816218 L 200,17.034229 V 8.517114 0 h 34.66667 34.66667 v 9.958961 9.958961 l -16.2745,0.374372 -16.27449,0.374372 16.94116,18.244279 16.94116,18.244275 v 8.75572 8.75572 H 235.33334 200 Z"
-      style="fill: currentColor; stroke-width: 1.33333337"
+      style="fill: #fff; stroke-width: 1.33333337"
     />
   </svg>
 </template>
 
 <script setup>
 const props = defineProps({
-  prop: {
-    type: String,
-    default: 'value',
-    validator(value) {
-      return true
-    },
-    class: true,
+  active: {
+    type: Boolean,
+    default: false,
   },
 })
-const classes = defineClasses('JavaScript')
+const classes = defineClasses('JavaScriptIcon')
 </script>
 
 <style lang="scss">
-.JavaScript {
+.JavaScriptIcon {
   width: 100%;
   height: 100%;
 }

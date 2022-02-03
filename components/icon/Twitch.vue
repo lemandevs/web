@@ -17,21 +17,19 @@
 
 <script setup>
 const props = defineProps({
-  prop: {
-    type: String,
-    default: 'value',
-    validator(value) {
-      return true
-    },
+  active: {
+    type: Boolean,
+    default: false,
     class: true,
   },
 })
-const classes = defineClasses('Twitch')
+const classes = defineClasses('TwitchIcon')
 </script>
 
 <style lang="scss">
-.Twitch {
+.TwitchIcon {
   width: 100%;
   height: 100%;
+  fill: currentColor;
 }
 </style>

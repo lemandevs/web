@@ -6,6 +6,7 @@
     xmlns:xlink="http://www.w3.org/1999/xlink"
     x="0px"
     y="0px"
+    class="classes"
     viewBox="0 0 330.242 330.242"
     style="enable-background: new 0 0 330.242 330.242"
     xml:space="preserve"
@@ -22,16 +23,9 @@
 
 <script setup>
 const props = defineProps({
-  alias: {
-    type: String,
-    default: 'Home',
-  },
   active: {
     type: Boolean,
     default: false,
-  },
-  loading: {
-    type: Boolean,
   },
 })
 const classes = defineClasses('HomeIcon')

@@ -12,17 +12,12 @@ const props = defineProps({
     default: false,
     class: true,
   },
-  rotate: {
-    type: Boolean,
-    default: false,
-    class: true,
-  },
 })
-const classes = defineClasses('Chevron')
+const classes = defineClasses('ChevronIcon')
 </script>
 
 <style lang="scss" scoped>
-.Chevron {
+.ChevronIcon {
   display: flex;
   position: relative;
   width: 100%;

@@ -18,11 +18,11 @@ const props = defineProps({
     class: true,
   },
 })
-const classes = defineClasses('NodeJS')
+const classes = defineClasses('NodeJSIcon')
 </script>
 
 <style lang="scss">
-.NodeJS {
+.NodeJSIcon {
   width: 100%;
   height: 100%;
   fill: #84ba64;

@@ -26,11 +26,11 @@ const props = defineProps({
     class: true,
   },
 })
-const classes = defineClasses('Redux')
+const classes = defineClasses('ReduxIcon')
 </script>
 
 <style lang="scss">
-.Redux {
+.ReduxIcon {
   fill: #764abc;
   width: 100%;
   height: 100%;

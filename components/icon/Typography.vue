@@ -18,12 +18,9 @@
 
 <script setup>
 const props = defineProps({
-  prop: {
-    type: String,
-    default: 'value',
-    validator(value) {
-      return true
-    },
+  active: {
+    type: Boolean,
+    default: false,
     class: true,
   },
 })

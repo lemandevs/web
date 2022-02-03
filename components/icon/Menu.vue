@@ -6,8 +6,14 @@
   </div>
 </template>
 
-<script>
-export default {}
+<script setup>
+const props = defineProps({
+  active: {
+    type: Boolean,
+    default: false,
+  },
+})
+const classes = defineClasses('LinkedInIcon')
 </script>
 
 <style lang="scss">

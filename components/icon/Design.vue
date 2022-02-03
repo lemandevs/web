@@ -21,20 +21,16 @@
 
 <script setup>
 const props = defineProps({
-  prop: {
-    type: String,
-    default: 'value',
-    validator(value) {
-      return true
-    },
-    class: true,
+  active: {
+    type: Boolean,
+    default: false,
   },
 })
-const classes = defineClasses('Design')
+const classes = defineClasses('DesignIcon')
 </script>
 
 <style lang="scss">
-.Design {
+.DesignIcon {
   width: 100%;
   height: 100%;
   fill: currentColor;

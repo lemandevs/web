@@ -15,13 +15,9 @@
 
 <script setup>
 const props = defineProps({
-  prop: {
-    type: String,
-    default: 'value',
-    validator(value) {
-      return true
-    },
-    class: true,
+  active: {
+    type: Boolean,
+    default: false,
   },
 })
 const classes = defineClasses('ComponentIcon')

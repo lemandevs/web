@@ -10,17 +10,14 @@ const props = defineProps({
   active: {
     type: Boolean,
     default: false,
-    validator(value) {
-      return true
-    },
     class: true,
   },
 })
-const classes = defineClasses('Settings')
+const classes = defineClasses('SettingsIcon')
 </script>
 
 <style lang="scss">
-.Settings {
+.SettingsIcon {
   width: 100%;
   height: 100%;
   display: flex;

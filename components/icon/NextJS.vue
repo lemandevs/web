@@ -9,7 +9,6 @@
       <g
         transform="translate(-247.000000, -138.000000)"
         class="NextJSText"
-        fill="currentColor"
         fill-rule="nonzero"
       >
         <g transform="translate(247.000000, 138.000000)">
@@ -38,11 +37,11 @@ const props = defineProps({
     class: true,
   },
 })
-const classes = defineClasses('NextJS')
+const classes = defineClasses('NextJSIcon')
 </script>
 
 <style lang="scss">
-.NextJS {
+.NextJSIcon {
   width: 100%;
   height: 100%;
   background: currentColor;

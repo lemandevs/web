@@ -25,20 +25,17 @@
 
 <script setup>
 const props = defineProps({
-  prop: {
-    type: String,
-    default: 'value',
-    validator(value) {
-      return true
-    },
+  active: {
+    type: Boolean,
+    default: false,
     class: true,
   },
 })
-const classes = defineClasses('Nuxt')
+const classes = defineClasses('NuxtJSIcon')
 </script>
 
 <style lang="scss">
-.Nuxt {
+.NuxtJSIcon {
   width: 100%;
   height: 100%;
 }

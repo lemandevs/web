@@ -23,20 +23,17 @@
 
 <script setup>
 const props = defineProps({
-  prop: {
-    type: String,
-    default: 'value',
-    validator(value) {
-      return true
-    },
+  active: {
+    type: Boolean,
+    default: false,
     class: true,
   },
 })
-const classes = defineClasses('Palette')
+const classes = defineClasses('PaletteIcon')
 </script>
 
 <style lang="scss">
-.Palette {
+.PaletteIcon {
   width: 100%;
   height: 100%;
   display: flex;

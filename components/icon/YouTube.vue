@@ -15,19 +15,19 @@
 
 <script setup>
 const props = defineProps({
-  prop: {
-    type: String,
-    default: 'value',
-    validator(value) {
-      return true
-    },
+  active: {
+    type: Boolean,
+    default: false,
     class: true,
   },
 })
-const classes = defineClasses('YouTube')
+const classes = defineClasses('YouTubeIcon')
 </script>
 
 <style lang="scss">
-.YouTube {
+.YouTubeIcon {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
 }
 </style>
