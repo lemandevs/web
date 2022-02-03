@@ -9,15 +9,20 @@
           v-for="(tech, index) in stack"
           class="Tech"
           :key="tech.id"
-          :style="`transform: rotate(${(360 / stack.length) * index}deg)`"
+          :style="`transform: rotate(${
+            (360 / stack.length) * (index - selected) + 45
+          }deg)`"
         >
           <div
             class="Point"
-            :style="`transform: rotate(-${(360 / stack.length) * index}deg)`"
+            :style="`transform: rotate(${
+              ((360 / stack.length) * (index - selected) + 45) * -1
+            }deg)`"
           >
             <OverlayTooltip position="bottom" align="middle" :overlay="false">
               <template v-slot:target="{ visible }">
                 <Icon
+                  @click="select(tech, index)"
                   :active="visible"
                   :name="tech.name"
                   :style="`--item-delay: ${
@@ -51,6 +56,11 @@ const classes = defineClasses('MyStackPage')
 const stack = await fetch(`/api/stack`).then((r) => r.json())
 
 const visible = ref(true)
+
+const selected = ref(0)
+const select = (value, index) => {
+  selected.value = index
+}
 </script>
 
 <style lang="scss">
@@ -167,7 +177,9 @@ const visible = ref(true)
     width: 100%;
     height: 100%;
     pointer-events: none;
+    transition: transform 2s ease;
     .Point {
+      transition: transform 2s ease;
       position: absolute;
       top: 0;
       left: 0;
