@@ -292,19 +292,23 @@ export default {
     },
   },
   mounted() {
-    if (this.visible) {
-      this.setBoundingClientRect()
+    if (process.client) {
+      if (this.visible) {
+        this.setBoundingClientRect()
+      }
+      window.addEventListener('resize', this.setBoundingClientRect)
+      window.addEventListener('scroll', this.setBoundingClientRect)
+      document.addEventListener('click', this.clickOutside, true)
+      document.addEventListener('touchstart', this.clickOutside, true)
     }
-    window.addEventListener('resize', this.setBoundingClientRect)
-    window.addEventListener('scroll', this.setBoundingClientRect)
-    document.addEventListener('click', this.clickOutside, true)
-    document.addEventListener('touchstart', this.clickOutside, true)
   },
   unmounted() {
-    window.removeEventListener('resize', this.setBoundingClientRect)
-    window.removeEventListener('scroll', this.setBoundingClientRect)
-    document.removeEventListener('click', this.clickOutside, true)
-    document.removeEventListener('touchstart', this.clickOutside, true)
+    if (process.client) {
+      window.removeEventListener('resize', this.setBoundingClientRect)
+      window.removeEventListener('scroll', this.setBoundingClientRect)
+      document.removeEventListener('click', this.clickOutside, true)
+      document.removeEventListener('touchstart', this.clickOutside, true)
+    }
   },
 
   methods: {
