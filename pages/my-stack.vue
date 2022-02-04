@@ -1,44 +1,6 @@
 <template>
   <div :class="classes">
-    <div class="Stack">
-      <div class="Avatar">
-        <img class="AvatarPhoto" src="/img/profile-photo.png" />
-      </div>
-      <div class="Techs">
-        <div
-          v-for="(tech, index) in stack"
-          class="Tech"
-          :key="tech.id"
-          :style="`transform: rotate(${
-            (360 / stack.length) * (index - selected) + 45
-          }deg)`"
-        >
-          <div
-            class="Point"
-            :style="`transform: rotate(${
-              ((360 / stack.length) * (index - selected) + 45) * -1
-            }deg)`"
-          >
-            <OverlayTooltip position="bottom" align="middle" :overlay="false">
-              <template v-slot:target="{ visible }">
-                <Icon
-                  @click="select(tech, index)"
-                  :active="visible"
-                  :name="tech.name"
-                  :style="`--item-delay: ${
-                    (10000 / stack.length) *
-                    ((index + stack.length / 2) % stack.length)
-                  }ms`"
-                />
-              </template>
-              <template v-slot:content>
-                <div v-html="tech.description" />
-              </template>
-            </OverlayTooltip>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Roullette :items="stack" />
   </div>
 </template>
 
@@ -53,57 +15,78 @@ definePageMeta({
 })
 const classes = defineClasses('MyStackPage')
 
-const stack = await fetch(`/api/stack`).then((r) => r.json())
-
-const visible = ref(true)
-
-const selected = ref(0)
-const select = (value, index) => {
-  selected.value = index
-}
+const stack = ref([
+  {
+    id: 'node',
+    name: 'NodeJS',
+    description: "I'm really familiar with NodeJS and all its ecosystem.",
+    url: 'https://nodejs.org/',
+  },
+  {
+    id: 'js',
+    name: 'JavaScript',
+    description:
+      'I am confident of my Javascript skills and am always learning more',
+    url: 'https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/What_is_JavaScript',
+  },
+  {
+    id: 'html',
+    name: 'HTML',
+    description:
+      'Obviously I have knowledge on the standard markup language for Web pages, what else?',
+    url: 'https://www.w3schools.com/html/',
+  },
+  {
+    id: 'css',
+    name: 'CSS',
+    description:
+      "<p>I like like CSS, i have SASS knowlege and usually use frameworks like tailwind, bulma, bootstrap (etc, etc...) but if I'm honest I prefer to code, if possible of course </p><p><i>CSS is Awesome, it can be as lovely as poetry or frightening like a scary movie.</i></p>",
+    url: 'https://css-tricks.com/',
+  },
+  {
+    id: 'vue',
+    name: 'Vue',
+    description:
+      'I confess, I am a Vue lover. I learned to program web applications with Vue in 2016 (Vue 1.x) and since then I have not stopped doing it.',
+    url: 'https://vuejs.org/',
+  },
+  {
+    id: 'nuxt',
+    name: 'NuxtJS',
+    description: 'This Web is been builded using NuxtJS.',
+    url: 'https://nuxtjs.org/',
+  },
+  {
+    id: 'react',
+    name: 'ReactJS',
+    description:
+      'The last 4 years I have been programming web applications using React.',
+    url: 'https://reactjs.org/',
+  },
+  {
+    id: 'nextjs',
+    name: 'NextJS',
+    description: 'Best framework to build React application easy and fast!',
+    url: 'https://redux.js.org/',
+  },
+  {
+    id: 'redux',
+    name: 'Redux',
+    description:
+      'I think there are currently alternatives to handle application states',
+    url: 'https://redux.js.org/',
+  },
+  {
+    id: 'graphql',
+    name: 'GraphQL',
+    description:
+      "I use GraphQL and I think is a good solution to implement API's but REST is still The King of API's",
+    url: 'https://reactjs.org/',
+  },
+])
 </script>
 
 <style lang="scss">
-@keyframes stop {
-  to {
-    transform: translate3d(0, 0, 0) rotate(0) scale(1);
-  }
-}
-@keyframes moving {
-  0% {
-    transform: translate3d(0%, 0%, 0) scale(1) rotate(3deg);
-  }
-  3% {
-    transform: translate3d(-3%, -3%, 0) scale(1.05) rotate(4deg);
-  }
-  6% {
-    transform: translate3d(0%, 0%, 0) scale(1) rotate(5deg);
-  }
-  30% {
-    transform: translate3d(3%, -3%, 0) scale(0.95) rotate(-1deg);
-  }
-  40% {
-    transform: translate3d(6%, -6%, 0) scale(1) rotate(-4deg);
-  }
-  50% {
-    transform: translate3d(3%, -3%, 0) scale(0.95) rotate(-1deg);
-  }
-  60% {
-    transform: translate3d(0%, -5%, 0) scale(0.98) rotate(2deg);
-  }
-  70% {
-    transform: translate3d(3%, -3%, 0) scale(1) rotate(4deg);
-  }
-  80% {
-    transform: translate3d(6%, -1%, 0) scale(1.05) rotate(1deg);
-  }
-  90% {
-    transform: translate3d(4%, 0%, 0) scale(1) rotate(-2deg);
-  }
-  100% {
-    transform: translate3d(6%, 2%, 0) scale(0.98) rotate(1deg);
-  }
-}
 .MyStackPage {
   flex: 1;
   display: flex;
@@ -111,97 +94,5 @@ const select = (value, index) => {
   align-items: center;
   justify-content: center;
   padding: 4rem 0;
-}
-.Avatar {
-  border-radius: 99999px;
-  width: 300px;
-  height: 300px;
-  border: 0.5rem solid transparent;
-  background-clip: padding-box;
-  background-color: var(--color-surface);
-  position: relative;
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-    margin: -0.5rem;
-    border-radius: inherit;
-    background: linear-gradient(
-      to right,
-      var(--color-primary),
-      var(--color-emphatic)
-    );
-  }
-}
-
-.AvatarPhoto {
-  width: 100%;
-  padding-top: 25%;
-  transform: translateY(-20%);
-  border-radius: 99999px;
-  overflow: hidden;
-}
-.Stack {
-  position: relative;
-  color: var(--color-primary);
-  padding: 2rem;
-  .Icon {
-    width: 4rem;
-    height: 4rem;
-    animation-name: moving;
-    animation-duration: 10s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    animation-direction: alternate;
-    animation-delay: var(--item-delay);
-    transition: all 2s ease;
-    &:hover {
-      animation-name: stop;
-    }
-  }
-  .Techs {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
-  .Tech {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    transition: transform 2s ease;
-    .Point {
-      transition: transform 2s ease;
-      position: absolute;
-      top: 0;
-      left: 0;
-      pointer-events: all;
-    }
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .MyStackPage {
-    .Avatar {
-      width: 50vw;
-      height: 50vw;
-    }
-    .AvatarPhoto {
-      width: 100%;
-    }
-
-    .Icon {
-      width: 3rem;
-      height: 3rem;
-    }
-  }
 }
 </style>
