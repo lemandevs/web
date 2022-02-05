@@ -1,7 +1,7 @@
 <template>
   <div
-    :class="['Roullette', dragging ? 'Roullette_dragging' : '']"
-    ref="wheel"
+    :class="['Roulette', dragging ? 'Roulette_dragging' : '']"
+    ref="roulletteElement"
     @mousedown="touchstart"
     @mousemove="touchmove"
     @mouseup="touchend"
@@ -12,21 +12,16 @@
     <div class="Avatar">
       <img class="AvatarPhoto" src="/img/profile-photo.png" />
     </div>
-    <div
-      class="Techs"
-      :style="`transform: rotate(${radToDeg(
-        globalOffsetAngle + offsetAngle
-      )}deg)`"
-    >
+    <div class="Items" :style="`transform: rotate(${totalOffsetDegrees}deg)`">
       <div
         v-for="(tech, index) in items"
-        class="Tech"
+        class="ItemWrapper"
         :key="tech.id"
         :style="`transform: rotate(${itemAngle(index)}deg)`"
       >
         <div
-          class="Point"
-          :style="`transform: rotate(${itemAngle2(index) * -1}deg)`"
+          class="Item"
+          :style="`transform: rotate(${itemRotation(index) * -1}deg)`"
         >
           <OverlayTooltip position="bottom" align="middle" :overlay="false">
             <template v-slot:target="{ visible }">
@@ -57,52 +52,35 @@ const props = defineProps({
     required: true,
   },
 })
-const classes = defineClasses('Roullette')
+const classes = defineClasses('Roulette')
+
+const { radians, normalizeRadians, radiansToDegrees, degreesToRadians } =
+  useTrigonometry()
 
 const visible = ref(true)
 
 const selected = ref(0)
-const offset = ref(0)
 
 const select = (value, index) => {
   selected.value = index
 }
 
-const dragging = ref(false)
-const startTouch = ref({ x: 0, y: 0 })
-const moveTouch = ref({ x: 0, y: 0 })
-
-const wheel = ref()
-const radio = ref(300)
-
+const roulletteElement = ref()
+const globalOffsetAngle = ref(degreesToRadians(45))
+const startAngle = ref(0)
 const offsetAngle = ref(0)
+const dragging = ref(false)
 
-const TAU = Math.PI * 2
+const totalOffsetDegrees = computed(() =>
+  radiansToDegrees(globalOffsetAngle.value + offsetAngle.value)
+)
+const itemBaseAngle = computed(() => 360 / props.items.length)
 
-function mod(n, m) {
-  return ((n % m) + m) % m
-}
+const itemAngle = (index) => itemBaseAngle.value * (index - selected.value)
 
-function normaliseAngle(angle) {
-  return mod(angle, TAU)
-}
-
-function radToDeg(rag) {
-  return (rag * 360) / TAU
-}
-
-function degToRad(deg) {
-  return (deg * TAU) / 360
-}
-
-const globalOffsetAngle = ref(degToRad(45))
-
-const itemAngle = (index) =>
-  (360 / props.items.length) * (index - selected.value)
-
-const itemAngle2 = (index) =>
-  (360 / props.items.length) * (index - selected.value) +
-  radToDeg(normaliseAngle(offsetAngle.value + globalOffsetAngle.value))
+const itemRotation = (index) =>
+  itemBaseAngle.value * (index - selected.value) +
+  radiansToDegrees(offsetAngle.value + globalOffsetAngle.value)
 
 const getMouseLocation = (event, target) => {
   const rect = target ? target.getBoundingClientRect() : { left: 0, top: 0 }
@@ -118,53 +96,29 @@ const getMouseLocation = (event, target) => {
   }
 }
 
-watch(wheel, (newRef) => {
-  radio.value = wheel.value.getBoundingClientRect().width / 2
-})
-const startAngle = ref(0)
 const touchstart = (event) => {
-  startTouch.value = getMouseLocation(event, wheel.value)
-  const dx = startTouch.value.x - radio.value
-  const dy = startTouch.value.y - radio.value
-  startAngle.value = normaliseAngle(Math.atan2(dy, dx))
+  const { x, y, width } = getMouseLocation(event, roulletteElement.value)
+  const radio = roulletteElement.value.getBoundingClientRect().width / 2
+  startAngle.value = radians(x, y, radio)
   dragging.value = true
 }
+
 function touchmove(event) {
   if (dragging.value) {
-    moveTouch.value = getMouseLocation(event, wheel.value)
-    const dx = moveTouch.value.x - radio.value
-    const dy = moveTouch.value.y - radio.value
-    offsetAngle.value = normaliseAngle(
-      normaliseAngle(Math.atan2(dy, dx)) - startAngle.value
+    const { x, y } = getMouseLocation(event, roulletteElement.value)
+    const radio = roulletteElement.value.getBoundingClientRect().width / 2
+    offsetAngle.value = normalizeRadians(
+      radians(x, y, radio) - startAngle.value
     )
   }
 }
 const touchend = () => {
   dragging.value = false
-  globalOffsetAngle.value = normaliseAngle(
+  globalOffsetAngle.value = normalizeRadians(
     globalOffsetAngle.value + offsetAngle.value
   )
   offsetAngle.value = 0
 }
-
-const dotStartStyle = computed(() => ({
-  top: `${startTouch.value.y}px`,
-  left: `${startTouch.value.x}px`,
-}))
-
-const dotMoveStyle = computed(() => {
-  return {
-    top: `${moveTouch.value.y}px`,
-    left: `${moveTouch.value.x}px`,
-  }
-})
-
-const dotCenterStyle = computed(() => {
-  return {
-    top: `${radio.value}px`,
-    left: `${radio.value}px`,
-  }
-})
 </script>
 
 <style lang="scss">
@@ -241,13 +195,13 @@ const dotCenterStyle = computed(() => {
   border-radius: 99999px;
   overflow: hidden;
 }
-.Roullette {
+.Roulette {
   position: relative;
   color: var(--color-primary);
   padding: 2rem;
   &_dragging {
-    .Tech,
-    .Point {
+    .ItemWrapper,
+    .Item {
       transition: none !important;
     }
   }
@@ -265,7 +219,7 @@ const dotCenterStyle = computed(() => {
       animation-name: stop;
     }
   }
-  .Techs {
+  .Items {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -273,7 +227,7 @@ const dotCenterStyle = computed(() => {
     top: 0;
     border-radius: 999px;
   }
-  .Tech {
+  .ItemWrapper {
     position: absolute;
     top: 0;
     left: 0;
@@ -281,7 +235,7 @@ const dotCenterStyle = computed(() => {
     height: 100%;
     pointer-events: none;
     transition: transform 2s ease;
-    .Point {
+    .Item {
       transition: transform 2s ease;
       position: absolute;
       top: 0;
@@ -292,7 +246,7 @@ const dotCenterStyle = computed(() => {
 }
 
 @media screen and (max-width: 768px) {
-  .Roullette {
+  .Roulette {
     .Avatar {
       width: 50vw;
       height: 50vw;
