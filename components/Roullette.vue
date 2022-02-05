@@ -14,7 +14,9 @@
     </div>
     <div
       class="Techs"
-      :style="`transform: rotate(${globalOffsetAngle + offsetAngle}rad)`"
+      :style="`transform: rotate(${radToDeg(
+        globalOffsetAngle + offsetAngle
+      )}deg)`"
     >
       <div
         v-for="(tech, index) in items"
@@ -24,7 +26,7 @@
       >
         <div
           class="Point"
-          :style="`transform: rotate(${itemAngle(index) * -1}deg)`"
+          :style="`transform: rotate(${itemAngle2(index) * -1}deg)`"
         >
           <OverlayTooltip position="bottom" align="middle" :overlay="false">
             <template v-slot:target="{ visible }">
@@ -73,7 +75,6 @@ const moveTouch = ref({ x: 0, y: 0 })
 const wheel = ref()
 const radio = ref(300)
 
-const globalOffsetAngle = ref(0)
 const offsetAngle = ref(0)
 
 const TAU = Math.PI * 2
@@ -90,11 +91,18 @@ function radToDeg(rag) {
   return (rag * 360) / TAU
 }
 
+function degToRad(deg) {
+  return (deg * TAU) / 360
+}
+
+const globalOffsetAngle = ref(degToRad(45))
+
 const itemAngle = (index) =>
+  (360 / props.items.length) * (index - selected.value)
+
+const itemAngle2 = (index) =>
   (360 / props.items.length) * (index - selected.value) +
-  45 +
-  offsetAngle.value +
-  globalOffsetAngle.value
+  radToDeg(normaliseAngle(offsetAngle.value + globalOffsetAngle.value))
 
 const getMouseLocation = (event, target) => {
   const rect = target ? target.getBoundingClientRect() : { left: 0, top: 0 }
@@ -133,7 +141,9 @@ function touchmove(event) {
 }
 const touchend = () => {
   dragging.value = false
-  globalOffsetAngle.value = globalOffsetAngle.value + offsetAngle.value
+  globalOffsetAngle.value = normaliseAngle(
+    globalOffsetAngle.value + offsetAngle.value
+  )
   offsetAngle.value = 0
 }
 
@@ -236,8 +246,9 @@ const dotCenterStyle = computed(() => {
   color: var(--color-primary);
   padding: 2rem;
   &_dragging {
-    .Tech {
-      transition: transform 0.1s ease;
+    .Tech,
+    .Point {
+      transition: none !important;
     }
   }
   .Icon {
