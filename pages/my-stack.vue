@@ -1,6 +1,6 @@
 <template>
   <div :class="classes">
-    <Roullette :items="stack" />
+    <Roulette :items="stack" />
   </div>
 </template>
 
