@@ -15,7 +15,10 @@
     <div class="Items" :style="`transform: rotate(${totalOffsetDegrees}deg)`">
       <div
         v-for="(tech, index) in items"
-        class="ItemWrapper"
+        :class="[
+          'ItemWrapper',
+          selectedIndex === index ? 'ItemWrapper_selected' : '',
+        ]"
         :key="tech.id"
         :style="`transform: rotate(${itemAngle(index)}deg)`"
       >
@@ -23,24 +26,17 @@
           class="Item"
           :style="`transform: rotate(${itemRotation(index)}deg)`"
         >
-          <OverlayTooltip position="bottom" align="middle" :overlay="false">
-            <template v-slot:target="{ visible }">
-              <CssFlexBox direction="column">
-                <Icon
-                  @click="select(tech, index)"
-                  :active="visible"
-                  :name="tech.name"
-                  :style="`--item-delay: ${
-                    (10000 / items.length) *
-                    ((index + items.length / 2) % items.length)
-                  }ms`"
-                />
-              </CssFlexBox>
-            </template>
-            <template v-slot:content>
-              <div v-html="tech.description" />
-            </template>
-          </OverlayTooltip>
+          <CssFlexBox direction="column" class="ItemContent">
+            <Icon
+              @click="select(tech, index)"
+              :active="visible"
+              :name="tech.name"
+              :style="`--item-delay: ${
+                (10000 / items.length) *
+                ((index + items.length / 2) % items.length)
+              }ms`"
+            />
+          </CssFlexBox>
         </div>
       </div>
     </div>
@@ -59,18 +55,18 @@ const classes = defineClasses('Roulette')
 const { radians, normalizeRadians, radiansToDegrees, degreesToRadians } =
   useTrigonometry()
 
-const selectedItemIndex = ref(0)
 const roulletteElement = ref()
 const globalOffsetAngle = ref(degreesToRadians(45))
 const startAngle = ref(0)
 const offsetAngle = ref(0)
 const dragging = ref(false)
 const touching = ref(false)
+const selectedIndex = ref(0)
 
 const itemBaseAngle = computed(() => 360 / props.items.length)
 
 const select = (value, index) => {
-  selectedItemIndex.value = index
+  selectedIndex.value = index
   globalOffsetAngle.value = degreesToRadians(
     itemBaseAngle.value * index * -1 + 45,
     false
@@ -115,25 +111,13 @@ function touchmove(event) {
     dragging.value = true
     const { x, y } = getMouseLocation(event, roulletteElement.value)
     const radio = roulletteElement.value.getBoundingClientRect().width / 2
-    offsetAngle.value = normalizeRadians(
-      radians(x, y, radio) - startAngle.value
-    )
+    offsetAngle.value =
+      offsetAngle.value + radians(x, y, radio) - startAngle.value
+    startAngle.value = radians(x, y, radio)
   }
 }
-const time = ref(0)
-const velocity = ref(0)
 
-watch(offsetAngle, (newValue, oldValue) => {
-  if (new Date().getTime() - time.value > 500) {
-    console.log(newValue)
-    velocity.value =
-      radiansToDegrees(Math.abs(newValue - oldValue)) /
-      360 /
-      (new Date().getTime() - time.value)
-    time.value = new Date().getTime()
-  }
-})
-const touchend = () => {
+const touchend = (event) => {
   if (dragging.value) {
     select(
       null,
@@ -157,6 +141,14 @@ const touchend = () => {
 @keyframes stop {
   to {
     transform: translate3d(0, 0, 0) rotate(0) scale(1);
+  }
+}
+@keyframes pointing {
+  from {
+    transform: translate3d(-50%, -200%, 0);
+  }
+  from {
+    transform: translate3d(-50%, -220%, 0);
   }
 }
 @keyframes moving {
@@ -231,8 +223,23 @@ const touchend = () => {
   position: relative;
   color: var(--color-primary);
   padding: 2rem;
+  &::after {
+    content: '';
+    position: absolute;
+    top: -4rem;
+    left: 50%;
+    transform: translate3d(-50%, -200%, 0);
+    border-width: 24px 8px 0 8px;
+    border-style: solid;
+    border-color: transparent;
+    border-top-color: var(--color-emphatic);
+    animation-name: pointing;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-direction: alternate;
+  }
   &_dragging {
-    background: tomato;
     .Items,
     .ItemWrapper,
     .Item {
@@ -278,10 +285,16 @@ const touchend = () => {
       pointer-events: all;
     }
   }
+  .ItemWrapper_selected .ItemContent {
+    transform: scale(1.15);
+  }
 }
 
 @media screen and (max-width: 768px) {
   .Roulette {
+    &::after {
+      top: -3rem;
+    }
     .Avatar {
       width: 50vw;
       height: 50vw;
@@ -295,14 +308,5 @@ const touchend = () => {
       height: 3rem;
     }
   }
-}
-.Dot {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border-radius: 999px;
-  background: aquamarine;
-  z-index: 1111;
-  transform: translate3d(-50%, -50%, 0);
 }
 </style>
