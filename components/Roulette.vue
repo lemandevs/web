@@ -21,19 +21,21 @@
       >
         <div
           class="Item"
-          :style="`transform: rotate(${itemRotation(index) * -1}deg)`"
+          :style="`transform: rotate(${itemRotation(index)}deg)`"
         >
           <OverlayTooltip position="bottom" align="middle" :overlay="false">
             <template v-slot:target="{ visible }">
-              <Icon
-                @click="select(tech, index)"
-                :active="visible"
-                :name="tech.name"
-                :style="`--item-delay: ${
-                  (10000 / items.length) *
-                  ((index + items.length / 2) % items.length)
-                }ms`"
-              />
+              <CssFlexBox direction="column">
+                <Icon
+                  @click="select(tech, index)"
+                  :active="visible"
+                  :name="tech.name"
+                  :style="`--item-delay: ${
+                    (10000 / items.length) *
+                    ((index + items.length / 2) % items.length)
+                  }ms`"
+                />
+              </CssFlexBox>
             </template>
             <template v-slot:content>
               <div v-html="tech.description" />
@@ -57,30 +59,35 @@ const classes = defineClasses('Roulette')
 const { radians, normalizeRadians, radiansToDegrees, degreesToRadians } =
   useTrigonometry()
 
-const visible = ref(true)
-
-const selected = ref(0)
-
-const select = (value, index) => {
-  selected.value = index
-}
-
+const selectedItemIndex = ref(0)
 const roulletteElement = ref()
 const globalOffsetAngle = ref(degreesToRadians(45))
 const startAngle = ref(0)
 const offsetAngle = ref(0)
 const dragging = ref(false)
+const touching = ref(false)
+
+const itemBaseAngle = computed(() => 360 / props.items.length)
+
+const select = (value, index) => {
+  selectedItemIndex.value = index
+  globalOffsetAngle.value = degreesToRadians(
+    itemBaseAngle.value * index * -1 + 45,
+    false
+  )
+  offsetAngle.value = 0
+}
 
 const totalOffsetDegrees = computed(() =>
   radiansToDegrees(globalOffsetAngle.value + offsetAngle.value)
 )
-const itemBaseAngle = computed(() => 360 / props.items.length)
 
-const itemAngle = (index) => itemBaseAngle.value * (index - selected.value)
+const itemAngle = (index) => itemBaseAngle.value * index
 
 const itemRotation = (index) =>
-  itemBaseAngle.value * (index - selected.value) +
-  radiansToDegrees(offsetAngle.value + globalOffsetAngle.value)
+  (itemAngle(index) +
+    radiansToDegrees(offsetAngle.value + globalOffsetAngle.value)) *
+  -1
 
 const getMouseLocation = (event, target) => {
   const rect = target ? target.getBoundingClientRect() : { left: 0, top: 0 }
@@ -97,14 +104,15 @@ const getMouseLocation = (event, target) => {
 }
 
 const touchstart = (event) => {
-  const { x, y, width } = getMouseLocation(event, roulletteElement.value)
+  const { x, y } = getMouseLocation(event, roulletteElement.value)
   const radio = roulletteElement.value.getBoundingClientRect().width / 2
   startAngle.value = radians(x, y, radio)
-  dragging.value = true
+  touching.value = true
 }
 
 function touchmove(event) {
-  if (dragging.value) {
+  if (touching.value) {
+    dragging.value = true
     const { x, y } = getMouseLocation(event, roulletteElement.value)
     const radio = roulletteElement.value.getBoundingClientRect().width / 2
     offsetAngle.value = normalizeRadians(
@@ -112,12 +120,36 @@ function touchmove(event) {
     )
   }
 }
+const time = ref(0)
+const velocity = ref(0)
+
+watch(offsetAngle, (newValue, oldValue) => {
+  if (new Date().getTime() - time.value > 500) {
+    console.log(newValue)
+    velocity.value =
+      radiansToDegrees(Math.abs(newValue - oldValue)) /
+      360 /
+      (new Date().getTime() - time.value)
+    time.value = new Date().getTime()
+  }
+})
 const touchend = () => {
-  dragging.value = false
-  globalOffsetAngle.value = normalizeRadians(
-    globalOffsetAngle.value + offsetAngle.value
-  )
-  offsetAngle.value = 0
+  if (dragging.value) {
+    select(
+      null,
+      (10 -
+        Math.round(
+          (radiansToDegrees(
+            normalizeRadians(globalOffsetAngle.value + offsetAngle.value)
+          ) -
+            45) /
+            itemBaseAngle.value
+        )) %
+        10
+    )
+    dragging.value = false
+  }
+  touching.value = false
 }
 </script>
 
@@ -200,6 +232,8 @@ const touchend = () => {
   color: var(--color-primary);
   padding: 2rem;
   &_dragging {
+    background: tomato;
+    .Items,
     .ItemWrapper,
     .Item {
       transition: none !important;
@@ -226,6 +260,7 @@ const touchend = () => {
     left: 0;
     top: 0;
     border-radius: 999px;
+    transition: transform 2s ease;
   }
   .ItemWrapper {
     position: absolute;

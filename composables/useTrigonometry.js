@@ -10,12 +10,20 @@ export default function () {
   function normalizeDegrees(angle) {
     return mod(angle, 360)
   }
-  function degreesToRadians(deg) {
-    return normalizeRadians((deg * TAU) / 360)
+  function degreesToRadians(deg, normalize = true) {
+    const radians = (deg * TAU) / 360
+    if (normalize) {
+      return normalizeRadians(radians)
+    }
+    return radians
   }
 
-  function radiansToDegrees(rag) {
-    return normalizeDegrees((rag * 360) / TAU)
+  function radiansToDegrees(rag, normalize = true) {
+    const degrees = (rag * 360) / TAU
+    if (normalize) {
+      return normalizeDegrees(degrees)
+    }
+    return degrees
   }
   function radians(x, y, radio) {
     const dx = x - radio
