@@ -3,7 +3,7 @@
     <Roulette v-if="stack" :items="stack" v-model:selected="selected" />
     <div class="DescriptionWrapper" v-if="stack">
       <TransitionAppearFrom>
-        <p
+        <div
           class="Description"
           :key="selected"
           v-html="stack[selected].description"
