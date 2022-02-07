@@ -1,42 +1,44 @@
 <template>
-  <div
-    :class="['Roulette', dragging ? 'Roulette_dragging' : '']"
-    ref="roulletteElement"
-    @mousedown="touchstart"
-    @mousemove="touchmove"
-    @mouseup="touchend"
-    @touchstart="touchstart"
-    @touchmove="touchmove"
-    @touchend="touchend"
-  >
-    <div class="Avatar">
-      <img class="AvatarPhoto" src="/img/profile-photo.png" />
-    </div>
-    <div class="Items" :style="`transform: rotate(${totalOffsetDegrees}deg)`">
-      <div
-        v-for="(tech, index) in items"
-        :class="[
-          'ItemWrapper',
-          selectedIndex === index ? 'ItemWrapper_selected' : '',
-        ]"
-        :key="tech.id"
-        :style="`transform: rotate(${itemAngle(index)}deg)`"
-      >
+  <div class="RouletteWrapper">
+    <div
+      :class="['Roulette', dragging ? 'Roulette_dragging' : '']"
+      ref="roulletteElement"
+      @mousedown="touchstart"
+      @mousemove="touchmove"
+      @mouseup="touchend"
+      @touchstart="touchstart"
+      @touchmove="touchmove"
+      @touchend="touchend"
+    >
+      <div class="Avatar">
+        <img class="AvatarPhoto" src="/img/profile-photo.png" />
+      </div>
+      <div class="Items" :style="`transform: rotate(${totalOffsetDegrees}deg)`">
         <div
-          class="Item"
-          :style="`transform: rotate(${itemRotation(index)}deg)`"
+          v-for="(tech, index) in items"
+          :class="[
+            'ItemWrapper',
+            selectedIndex === index ? 'ItemWrapper_selected' : '',
+          ]"
+          :key="tech.id"
+          :style="`transform: rotate(${itemAngle(index)}deg)`"
         >
-          <CssFlexBox direction="column" class="ItemContent">
-            <Icon
-              @click="select(tech, index)"
-              :active="visible"
-              :name="tech.name"
-              :style="`--item-delay: ${
-                (10000 / items.length) *
-                ((index + items.length / 2) % items.length)
-              }ms`"
-            />
-          </CssFlexBox>
+          <div
+            class="Item"
+            :style="`transform: rotate(${itemRotation(index)}deg)`"
+          >
+            <CssFlexBox direction="column" class="ItemContent">
+              <Icon
+                @click="select(tech, index)"
+                :active="visible"
+                :name="tech.name"
+                :style="`--item-delay: ${
+                  (10000 / items.length) *
+                  ((index + items.length / 2) % items.length)
+                }ms`"
+              />
+            </CssFlexBox>
+          </div>
         </div>
       </div>
     </div>
@@ -49,21 +51,39 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  selected: {
+    type: Number,
+    required: true,
+  },
 })
+
+const emit = defineEmits(['selected'])
+
 const classes = defineClasses('Roulette')
 
 const { radians, normalizeRadians, radiansToDegrees, degreesToRadians } =
   useTrigonometry()
 
 const roulletteElement = ref()
-const globalOffsetAngle = ref(degreesToRadians(45))
 const startAngle = ref(0)
 const offsetAngle = ref(0)
 const dragging = ref(false)
 const touching = ref(false)
-const selectedIndex = ref(0)
+
+const selectedIndex = computed({
+  get() {
+    return props.selected
+  },
+  set(value) {
+    emit('update:selected', value)
+  },
+})
 
 const itemBaseAngle = computed(() => 360 / props.items.length)
+
+const globalOffsetAngle = ref(
+  degreesToRadians(45 + selectedIndex.value * itemBaseAngle.value * -1)
+)
 
 const select = (value, index) => {
   selectedIndex.value = index
@@ -219,6 +239,9 @@ const touchend = (event) => {
   border-radius: 99999px;
   overflow: hidden;
 }
+.RouletteWrapper {
+  padding: 8rem;
+}
 .Roulette {
   position: relative;
   color: var(--color-primary);
@@ -291,6 +314,9 @@ const touchend = (event) => {
 }
 
 @media screen and (max-width: 768px) {
+  .RouletteWrapper {
+    padding: 6rem;
+  }
   .Roulette {
     &::after {
       top: -3rem;
