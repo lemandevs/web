@@ -1,9 +1,13 @@
 <template>
   <div :class="classes">
     <Roulette v-if="stack" :items="stack" v-model:selected="selected" />
-    <div class="Description" v-if="stack">
+    <div class="DescriptionWrapper" v-if="stack">
       <TransitionAppearFrom>
-        <p :key="selected" v-html="stack[selected].description" />
+        <p
+          class="Description"
+          :key="selected"
+          v-html="stack[selected].description"
+        />
       </TransitionAppearFrom>
     </div>
   </div>
@@ -51,11 +55,11 @@ const selected = computed({
   align-items: center;
   justify-content: flex-start;
   padding: 4rem 1rem;
-  .Description {
+  .DescriptionWrapper {
     position: relative;
     width: 100%;
   }
-  .Description p {
+  .Description {
     text-align: center;
     position: absolute;
     top: 0;
